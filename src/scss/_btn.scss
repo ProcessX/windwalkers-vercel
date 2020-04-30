@@ -1,0 +1,67 @@
+$oldSchoolBorderThickness: 7px;
+
+.btn{
+  cursor: pointer;
+  font-family: "Press Start 2P", cursive;
+
+  &:hover{
+    cursor: pointer;
+  }
+}
+
+.btn--oldSchool{
+  font-size: 18.9px;
+  line-height: 1em;
+  padding: 0.8em;
+
+  background-color: black;
+  color: white;
+
+  border: none;
+  border-top: solid $oldSchoolBorderThickness white;
+  border-bottom: solid $oldSchoolBorderThickness white;
+  position: relative;
+
+
+  &:hover{
+    background-color: #7F7F7F;
+  }
+
+  &:before{
+    background-color: inherit;
+
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -$oldSchoolBorderThickness;
+    box-sizing: border-box;
+    width: calc(100% + (2 * #{$oldSchoolBorderThickness}));
+    height: 100%;
+
+    border: none;
+    border-top: solid $oldSchoolBorderThickness white;
+    border-bottom: solid $oldSchoolBorderThickness white;
+
+    z-index: -1;
+  }
+
+
+  &:after{
+    background-color: inherit;
+
+    content: '';
+    position: absolute;
+    top: $oldSchoolBorderThickness;
+    left: -(2 * $oldSchoolBorderThickness);
+    width: calc(100% + (2 * #{$oldSchoolBorderThickness}));
+
+    height: calc(100% - (2 * #{$oldSchoolBorderThickness}));
+
+    border: none;
+    border-left: solid $oldSchoolBorderThickness white;
+    border-right: solid $oldSchoolBorderThickness white;
+
+    z-index: -2;
+  }
+
+}

@@ -1,0 +1,16 @@
+.menu__btn__li{
+  list-style: none;
+  padding: 0 1rem;
+  margin: 0;
+  max-width: 100%;
+
+  .menu__btn__el{
+    max-width: 16rem;
+    margin: 2rem auto;
+
+
+    .btn{
+      width: 100%;
+    }
+  }
+}

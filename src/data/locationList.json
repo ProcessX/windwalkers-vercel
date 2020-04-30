@@ -1,0 +1,16 @@
+{
+  "locations": [
+    {
+      "name": "Le village des abrités",
+      "distanceFromPrevious": 0
+    },
+    {
+      "name": "Le pharéole",
+      "distanceFromPrevious": 116
+    },
+    {
+      "name": "Village en ruine",
+      "distanceFromPrevious": 150
+    }
+  ]
+}

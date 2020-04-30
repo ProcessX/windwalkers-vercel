@@ -1,0 +1,55 @@
+.page--managementSection{
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "content" "navbar";
+}
+
+.managementSection__navbar{
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+
+  grid-area: navbar;
+}
+
+.managementSection__content{
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+
+  grid-area: content;
+}
+
+.managementSection__title{
+
+}
+
+.managementSection__illu{
+
+}
+
+.managementSection__menu{
+}
+
+
+
+@media (min-width: 480px){
+  .page--managementSection{
+  }
+}
+
+
+
+@media (min-width: 998px){
+  .managementSection__navbar{
+    padding: 0 1rem;
+  }
+
+  .managementSection__title{
+    display: none;
+  }
+}

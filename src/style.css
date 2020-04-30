@@ -1,0 +1,215 @@
+.btn {
+  cursor: pointer;
+  font-family: "Press Start 2P", cursive;
+}
+.btn:hover {
+  cursor: pointer;
+}
+
+.btn--oldSchool {
+  font-size: 18.9px;
+  line-height: 1em;
+  padding: 0.8em;
+  background-color: black;
+  color: white;
+  border: none;
+  border-top: solid 7px white;
+  border-bottom: solid 7px white;
+  position: relative;
+}
+.btn--oldSchool:hover {
+  background-color: #7F7F7F;
+}
+.btn--oldSchool:before {
+  background-color: inherit;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -7px;
+  box-sizing: border-box;
+  width: calc(100% + (2 * 7px));
+  height: 100%;
+  border: none;
+  border-top: solid 7px white;
+  border-bottom: solid 7px white;
+  z-index: -1;
+}
+.btn--oldSchool:after {
+  background-color: inherit;
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: -14px;
+  width: calc(100% + (2 * 7px));
+  height: calc(100% - (2 * 7px));
+  border: none;
+  border-left: solid 7px white;
+  border-right: solid 7px white;
+  z-index: -2;
+}
+
+.page--managementSection {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  grid-template-areas: "content" "navbar";
+}
+
+.managementSection__navbar {
+  box-sizing: border-box;
+  position: relative;
+  width: 100%;
+  padding: 1rem;
+  grid-area: navbar;
+}
+
+.managementSection__content {
+  box-sizing: border-box;
+  padding: 1rem;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow-y: auto;
+  grid-area: content;
+}
+
+@media (min-width: 998px) {
+  .managementSection__navbar {
+    padding: 0 1rem;
+  }
+
+  .managementSection__title {
+    display: none;
+  }
+}
+.page {
+  box-sizing: border-box;
+  height: 100vh;
+  width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
+}
+
+.navbar__link__li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  max-width: 100%;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+}
+.navbar__link__li .navbar__link__el {
+  width: 4rem;
+  height: 4rem;
+}
+.navbar__link__li .navbar__link__el .navbar__link {
+  text-decoration: none;
+  color: #7F7F7F;
+}
+@media (min-width: 480px) {
+  .navbar__link__li .navbar__link__el {
+    width: 5rem;
+    height: 5rem;
+  }
+}
+@media (max-width: 997px) {
+  .navbar__link__li .navbar__link__el {
+    overflow-x: hidden;
+    max-width: calc(20% - 0.25rem);
+  }
+  .navbar__link__li .navbar__link__el .navbar__link {
+    background-color: green;
+    display: block;
+    font-size: 1rem;
+    text-decoration: none;
+    line-height: 1em;
+    height: 100%;
+    width: 100%;
+    text-indent: 100%;
+  }
+}
+@media (min-width: 998px) {
+  .navbar__link__li {
+    justify-content: center;
+    position: relative;
+  }
+  .navbar__link__li .navbar__link__el {
+    width: auto;
+    height: auto;
+  }
+  .navbar__link__li .navbar__link__el--toOptions {
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 100%;
+    width: 64px;
+    overflow: hidden;
+    padding: 0;
+  }
+  .navbar__link__li .navbar__link__el--toOptions .navbar__link {
+    text-indent: 200%;
+  }
+  .navbar__link__li .navbar__link__el .navbar__link {
+    padding: 1em 2em;
+    box-sizing: content-box;
+    display: block;
+  }
+  .navbar__link__li .navbar__link__el .navbar__link--active {
+    background-color: white;
+    color: black;
+  }
+  .navbar__link__li .navbar__link__el .navbar__link:not(.navbar__link--active):hover {
+    background-color: #7F7F7F;
+    color: black;
+  }
+}
+.menu__btn__li {
+  list-style: none;
+  padding: 0 1rem;
+  margin: 0;
+  max-width: 100%;
+}
+.menu__btn__li .menu__btn__el {
+  max-width: 16rem;
+  margin: 2rem auto;
+}
+.menu__btn__li .menu__btn__el .btn {
+  width: 100%;
+}
+
+.title {
+  margin: 2em 0;
+}
+
+.title--size1 {
+  font-size: 2.197rem;
+}
+
+.title--center {
+  text-align: center;
+}
+
+html {
+  font-size: 14px;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: "Press Start 2P", cursive;
+  background-color: black;
+  color: white;
+}
+
+@media (min-width: 480px) {
+  html {
+    font-size: 16px;
+  }
+}
+@media (min-width: 998px) {
+  html {
+    font-size: 20px;
+  }
+}
+
+/*# sourceMappingURL=style.css.map */

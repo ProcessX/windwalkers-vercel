@@ -1,8 +1,8 @@
 .navbar__link__li{
   list-style: none;
   padding: 0;
-  margin: 0;
-  max-width: 100%;
+  margin: 0 auto;
+  max-width: 1680px;
   box-sizing: border-box;
   display: flex;
   justify-content: space-between;
@@ -14,6 +14,7 @@
     .navbar__link{
       text-decoration: none;
       color: #7F7F7F;
+      font-size: 1rem;
 
       &--active{
 
@@ -29,8 +30,7 @@
 
 
     .navbar__link__el{
-      width: 5rem;
-      height: 5rem;
+
 
       .navbar__link{
 
@@ -45,7 +45,7 @@
 
 
 
-@media (max-width: 997px){
+@media (orientation: portrait), (max-width: 997px){
   .navbar__link__li{
 
 
@@ -74,7 +74,7 @@
 
 
 
-@media (min-width: 998px){
+@media (min-width: 998px) and (orientation: landscape){
   .navbar__link__li{
     justify-content: center;
     position: relative;
@@ -87,8 +87,8 @@
         position: absolute;
         right: 0;
         top: 0;
-        height: 100%;
-        width: 64px;
+        height: 3rem;
+        width: 3rem;
         overflow: hidden;
         padding: 0;
 
@@ -101,6 +101,17 @@
         padding: 1em 2em;
         box-sizing: content-box;
         display: block;
+        position: relative;
+
+        &:before{
+          content: '';
+          position: absolute;
+          height: 0.3rem;
+          width: calc(100% - 0.6rem);
+          top: -0.3rem;
+          left: 0.3rem;
+          background-color: inherit;
+        }
 
         &--active{
           background-color: white;
@@ -109,7 +120,7 @@
 
         &:not(.navbar__link--active):hover{
           background-color: #7F7F7F;
-          color: black;
+          color: white;
         }
       }
     }

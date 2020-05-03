@@ -3,14 +3,50 @@
   padding: 0 1rem;
   margin: 0;
   max-width: 100%;
+  list-style: none;
+
 
   .menu__btn__el{
     max-width: 16rem;
-    margin: 2rem auto;
+    margin: 1.3rem auto;
+
+    &--portraitOnly{
+      display: none;
+    }
+
+    &:first-child{
+      margin-top: 0;
+    }
+
+    &:last-child{
+      margin-bottom: 0;
+    }
 
 
     .btn{
       width: 100%;
+    }
+  }
+}
+
+
+@media (orientation: portrait), (max-width: 997px){
+  .menu__btn__li{
+    .menu__btn__el{
+
+      &--portraitOnly{
+        display: block;
+      }
+
+      &:first-child{
+      }
+
+      &:last-child{
+      }
+
+
+      .btn{
+      }
     }
   }
 }

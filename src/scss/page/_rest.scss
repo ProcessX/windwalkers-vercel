@@ -1,0 +1,35 @@
+.page--rest{
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 1rem 3rem 1rem;
+
+  .rest__hordeMember__li{
+    padding: 0;
+    margin: 0 auto;
+    list-style: none;
+    width: 100%;
+
+    .rest__hordeMember__el{
+      display: flex;
+      margin: 1rem 0;
+
+      .rest__hordeMember__name{
+        margin: 0;
+        width: calc(33% - 0.5rem);
+        margin-right: 1rem;
+        text-align: right;
+        font-size: 1.3rem;
+      }
+    }
+  }
+
+
+  .rest__settings{
+    grid-row-start: 2;
+  }
+
+  .rest__btn{
+    grid-row-start: 2;
+  }
+}
+

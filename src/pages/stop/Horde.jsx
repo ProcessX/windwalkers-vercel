@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Btn from "../../components/Btn";
 import {Link} from 'react-router-dom';
+import Campfire from "../../components/Campfire";
 
 class Horde extends Component {
 
@@ -9,19 +10,19 @@ class Horde extends Component {
     const {redirectTo} = this.props;
 
     return (
-      <div className={'page page--managementSection'}>
+      <div className={'page page--managementSection page--horde'}>
 
         <div className={'managementSection__content'}>
-          <div className={''}>Section's illu</div>
+          <div className={'managementSection__illu'}>Section's illu</div>
 
           <h2 className={'title title--size1 title--center managementSection__title'}>Horde</h2>
 
           <nav className={'managementSection__menu'}>
             <ul className={'menu__btn__li'}>
-              <li className={'menu__btn__el'}>
+              <li className={'menu__btn__el menu__btn__el--portraitOnly'}>
                 <Btn
                   title={'Santé'}
-                  action={() => redirectTo('stop/horde/health')}
+                  action={() => redirectTo('/horde/health')}
                 />
               </li>
 
@@ -47,6 +48,11 @@ class Horde extends Component {
               </li>
             </ul>
           </nav>
+
+          <div className={'managementSection__rightPanel'}>
+            <Campfire className={'Test'}/>
+          </div>
+
         </div>
 
         <nav className={'managementSection__navbar'}>

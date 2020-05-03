@@ -17,6 +17,7 @@ import Landmark from "./pages/stop/Landmark";
 import Resources from "./pages/stop/Resources";
 import Camp from "./pages/stop/Camp";
 import Credits from "./pages/Credits";
+import Rest from "./pages/horde/Rest";
 
 
 
@@ -73,6 +74,7 @@ class App extends Component {
     return (
       <div className="App">
         <Router>
+
           <Switch>
             <Route path={'/'} exact>
               <Home
@@ -132,8 +134,19 @@ class App extends Component {
 
 
           <Switch>
+            <Route path={'/stop/horde/rest'} exact>
+              <Rest
+                redirectTo={(url) => this.redirectTo(url)}
+              />
+            </Route>
+          </Switch>
+
+
+          <Switch>
             <Route path={'/stop/landmark'} exact>
-              <Landmark/>
+              <Landmark
+                redirectTo={(url) => this.redirectTo(url)}
+              />
             </Route>
 
             <Route path={'/stop/horde'} exact>
@@ -143,11 +156,15 @@ class App extends Component {
             </Route>
 
             <Route path={'/stop/resources'} exact>
-              <Resources/>
+              <Resources
+                redirectTo={(url) => this.redirectTo(url)}
+              />
             </Route>
 
             <Route path={'/stop/camp'} exact>
-              <Camp/>
+              <Camp
+                redirectTo={(url) => this.redirectTo(url)}
+              />
             </Route>
           </Switch>
 

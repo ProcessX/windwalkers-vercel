@@ -1,4 +1,4 @@
-$oldSchoolBorderThickness: 7px;
+$oldSchoolBorderThickness: 0.3rem;
 
 .btn{
   cursor: pointer;
@@ -10,7 +10,7 @@ $oldSchoolBorderThickness: 7px;
 }
 
 .btn--oldSchool{
-  font-size: 18.9px;
+  font-size: 1rem;
   line-height: 1em;
   padding: 0.8em;
 
@@ -64,4 +64,14 @@ $oldSchoolBorderThickness: 7px;
     z-index: -2;
   }
 
+
+  &--back{
+    //margin-left: 4rem;
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    font-size: 1.4rem;
+    padding: (2 * $oldSchoolBorderThickness) $oldSchoolBorderThickness;
+
+  }
 }

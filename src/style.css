@@ -150,6 +150,14 @@
   grid-row-start: 2;
 }
 
+.page--travel {
+  display: flex;
+  flex-direction: column;
+}
+.page--travel .travel__scene {
+  flex: 1;
+}
+
 .page {
   box-sizing: border-box;
   height: 100vh;
@@ -417,9 +425,256 @@
 
 .healthbar {
   width: 100%;
+  height: 1rem;
   background-color: black;
-  border: 0.3rem solid white;
+  border: 0.2rem solid white;
   position: relative;
+}
+
+.travel__scene {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.travel__scene__render {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 0;
+  background-color: orange;
+}
+
+.travel__scene__message {
+  border: solid 0.3rem white;
+  z-index: 100;
+  background-color: black;
+  box-sizing: border-box;
+  padding: 1rem;
+  position: relative;
+  width: 100%;
+  margin: 0 1rem;
+}
+.travel__scene__message .message__speaker {
+  display: none;
+  position: absolute;
+  background-color: #AAA2FF;
+  border: solid 0.3rem white;
+}
+.travel__scene__message .message__speaker__mugshot {
+  width: 8rem;
+  height: 8rem;
+}
+.travel__scene__message .message__speaker__name {
+  margin: 0;
+  padding: 0.5rem;
+  text-align: center;
+  background-color: #7F7F7F;
+  border-top: solid 0.3rem white;
+}
+.travel__scene__message .message__content {
+  box-sizing: border-box;
+  text-align: center;
+  width: 100%;
+  margin-bottom: 2rem;
+  margin-top: 0;
+}
+.travel__scene__message .btn {
+  display: block;
+  margin: auto;
+}
+
+.travel__scene__message[data-messagetype=dialog] .message__speaker {
+  display: block;
+}
+
+@media (max-width: 997px) {
+  .travel__scene__message[data-messagetype=dialog] .message__speaker {
+    left: 4.3rem;
+    bottom: 100%;
+  }
+}
+@media (min-width: 998px) {
+  .travel__scene {
+    font-size: 0.7692rem;
+  }
+  .travel__scene .travel__scene__message {
+    min-width: calc(100% - (100% / 3));
+    max-width: calc(100% - (100% / 6));
+  }
+  .travel__scene .travel__scene__message .message__speaker {
+    top: -1.3rem;
+    left: -1.3rem;
+  }
+  .travel__scene .travel__scene__message .message__speaker__mugshot {
+    width: 8rem;
+    height: 8rem;
+  }
+  .travel__scene .travel__scene__message .btn {
+    font-size: 0.7692rem;
+  }
+
+  .travel__scene__message[data-messagetype=dialog] .message__content {
+    padding-left: 7.7rem;
+    text-align: left;
+  }
+}
+.travel__interface {
+  position: relative;
+  z-index: 10;
+}
+.travel__interface__content {
+  background-color: white;
+  color: black;
+  height: 100vh;
+  max-height: calc(100vh - 6rem);
+  width: 100vw;
+  position: absolute;
+  bottom: 100%;
+  left: 0;
+  z-index: 500;
+}
+.travel__interface__content__sub {
+  padding: 1rem;
+  box-sizing: border-box;
+}
+.travel__interface__content__sub--stats {
+  visibility: hidden;
+}
+.travel__interface__tab__li {
+  list-style: none;
+  padding: 1rem;
+  margin: 0;
+  background-color: black;
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+}
+.travel__interface__tab__li .travel__interface__tab__el {
+  background-color: green;
+  cursor: pointer;
+  width: 4rem;
+  height: 4rem;
+  overflow: hidden;
+}
+.travel__interface__tab__li .btn {
+  position: absolute;
+  bottom: calc(100% + 2rem);
+  left: 0;
+  right: 0;
+}
+
+.travel__interface[data-showContent=stats] .travel__interface__content__sub--stats {
+  visibility: visible;
+}
+
+@media (max-width: 997px), (orientation: portrait) {
+  .travel__interface[data-showContent=hide] .travel__interface__content {
+    visibility: hidden;
+    pointer-events: none;
+  }
+}
+@media (orientation: landscape) and (min-width: 998px) {
+  .travel__interface {
+    display: flex;
+  }
+  .travel__interface__content {
+    position: relative;
+    bottom: 0;
+    height: auto;
+    max-height: none;
+  }
+  .travel__interface__tab__li {
+    flex-direction: column;
+    padding: 0 0 1rem 0;
+    align-items: center;
+    justify-content: start;
+    background-color: #7F7F7F;
+  }
+  .travel__interface__tab__li .travel__interface__tab__el {
+    overflow: auto;
+    padding: 1rem 2rem;
+    height: auto;
+    width: auto;
+    min-width: calc(100vw / 12);
+    text-align: center;
+  }
+  .travel__interface__tab__li .travel__interface__tab__el--mobileOnly {
+    display: none;
+  }
+  .travel__interface__tab__li .btn {
+    position: relative;
+    bottom: 0;
+    margin-top: auto;
+    max-width: calc(100% - 3.4rem);
+    width: 100%;
+  }
+}
+.travel__horde__member {
+  position: relative;
+  margin-bottom: 2rem;
+}
+.travel__horde__member .healthbar {
+  max-width: calc(100% - 0.6rem);
+  border-color: black;
+  background-color: #7F7F7F;
+}
+.travel__horde__member__name {
+  margin-bottom: 0.5rem;
+}
+.travel__horde__member__state {
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.travel__horde__member:first-child {
+  margin-top: 0;
+}
+.travel__horde__member:last-child {
+  margin-bottom: 0;
+}
+
+@media (orientation: landscape) and (min-width: 998px) {
+  .travel__horde {
+    font-size: 0.7692rem;
+  }
+  .travel__horde__member {
+    display: flex;
+    margin: 0.5rem 0;
+  }
+  .travel__horde__member .healthbar {
+    height: 0.7692rem;
+  }
+  .travel__horde__member__name {
+    margin: 0.3rem 0 0 0;
+    padding-right: 1rem;
+    min-width: 50%;
+    text-align: right;
+  }
+  .travel__horde__member__state {
+    position: relative;
+    margin-left: 1rem;
+  }
+}
+.travel__stats {
+  color: blue;
+  min-height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background-color: white;
+}
+
+.parallaxe__container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
 }
 
 html {

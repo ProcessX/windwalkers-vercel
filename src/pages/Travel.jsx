@@ -95,12 +95,13 @@ class Travel extends Component {
   render() {
 
     return (
-      <div>
-        <h1>Travel</h1>
+      <div className={'page page--travel'}>
         <TravelScene/>
         <TravelInterface/>
+        {/*}
         <button onClick={() => this.startWalking()}>Walk</button>
         <button onClick={() => this.requestStop()}>Quit travelling</button>
+        {*/}
       </div>
     );
   }

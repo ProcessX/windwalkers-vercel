@@ -1,0 +1,8 @@
+.page--travel{
+  display: flex;
+  flex-direction: column;
+
+  .travel__scene{
+    flex: 1;
+  }
+}

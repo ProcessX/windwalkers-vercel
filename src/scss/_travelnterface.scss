@@ -1,0 +1,117 @@
+.travel__interface{
+  position: relative;
+  z-index: 10;
+
+  &__content{
+    background-color: white;
+    color: black;
+    height: 100vh;
+    max-height: calc(100vh - 6rem);
+    width: 100vw;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    z-index: 500;
+
+    &__sub{
+      padding: 1rem;
+      box-sizing: border-box;
+      &--stats{
+        visibility: hidden;
+      }
+    }
+  }
+
+  &__tab__li{
+    list-style: none;
+    padding: 1rem;
+    margin: 0;
+    background-color: black;
+    display: flex;
+    justify-content: space-between;
+    position: relative;
+    z-index: 10;
+
+    .travel__interface__tab__el{
+      background-color: green;
+      cursor: pointer;
+      width: 4rem;
+      height: 4rem;
+      overflow: hidden;
+    }
+
+    .btn{
+      position: absolute;
+      bottom: calc(100% + 2rem);
+      left: 0;
+      right: 0;
+      //margin: auto;
+    }
+  }
+}
+
+
+
+.travel__interface[data-showContent='stats']{
+  .travel__interface__content{
+    &__sub--stats{
+      visibility: visible;
+    }
+  }
+}
+
+
+
+@media (max-width: 997px), (orientation: portrait){
+  .travel__interface[data-showContent='hide']{
+    .travel__interface__content{
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+}
+
+
+@media (orientation: landscape) and (min-width: 998px){
+  .travel__interface{
+    display: flex;
+
+    &__content{
+      position: relative;
+      bottom: 0;
+      height: auto;
+      max-height: none;
+    }
+
+    &__tab__li{
+
+      flex-direction: column;
+      padding: 0 0 1rem 0;
+      align-items: center;
+      justify-content: start;
+      background-color: #7F7F7F;
+
+      .travel__interface__tab__el{
+        overflow: auto;
+        padding: 1rem 2rem;
+        height: auto;
+        width: auto;
+        min-width: calc(100vw / 12);
+        text-align: center;
+
+        &--mobileOnly{
+          display: none;
+        }
+      }
+
+      .btn{
+        position: relative;
+        bottom: 0;
+        margin-top: auto;
+        max-width: calc(100% - 3.4rem);
+        width: 100%;
+      }
+    }
+  }
+}
+

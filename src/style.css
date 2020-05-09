@@ -54,6 +54,17 @@
   font-size: 1.4rem;
   padding: 0.6rem 0.3rem;
 }
+.btn--oldSchool--unavailable {
+  color: #7F7F7F;
+  border-color: #7F7F7F;
+  pointer-events: none;
+}
+.btn--oldSchool--unavailable:after {
+  border-color: #7F7F7F;
+}
+.btn--oldSchool--unavailable:before {
+  border-color: #7F7F7F;
+}
 
 .page--managementSection {
   display: grid;
@@ -124,32 +135,69 @@
 .page--rest {
   display: flex;
   flex-direction: column;
-  padding: 1rem 1rem 3rem 1rem;
+  padding: 1rem 1rem 0rem 1rem;
 }
-.page--rest .rest__hordeMember__li {
+.page--rest .rest__indicator__li {
   padding: 0;
   margin: 0 auto;
   list-style: none;
   width: 100%;
+  font-size: 1.3rem;
+  max-width: 742px;
 }
-.page--rest .rest__hordeMember__li .rest__hordeMember__el {
+.page--rest .rest__indicator__li .rest__indicator__el {
   display: flex;
   margin: 1rem 0;
+  justify-content: end;
 }
-.page--rest .rest__hordeMember__li .rest__hordeMember__el .rest__hordeMember__name {
+.page--rest .rest__indicator__li .rest__indicator__el--food {
+  text-align: center;
+  display: block;
+}
+.page--rest .rest__indicator__li .rest__indicator__el .rest__hordeMember__tag {
   margin: 0;
-  width: calc(33% - 0.5rem);
   margin-right: 1rem;
   text-align: right;
-  font-size: 1.3rem;
+  display: none;
 }
-.page--rest .rest__settings {
-  grid-row-start: 2;
+.page--rest .rest__indicator__li .rest__indicator__el .rest__hordeMember__tag--symbol {
+  display: block;
+}
+.page--rest .rest__indicator__li .rest__indicator__el .rest__hordeMember__tag--symbol--caracole {
+  transform: rotate(180deg);
+  text-align: left;
+  letter-spacing: -0.5rem;
+}
+.page--rest .rest__indicator__li .rest__indicator__el .rest__hordeMember__tag--symbol--coriolis {
+  box-sizing: border-box;
+  width: 20%;
+  margin-left: auto;
+}
+.page--rest .rest__indicator__li .rest__indicator__el .healthbar {
+  max-width: 60%;
+  flex: 1;
 }
 .page--rest .rest__btn {
-  grid-row-start: 2;
+  padding-bottom: 2rem;
 }
 
+@media (orientation: landscape) {
+  .page--rest .rest__indicator__li {
+    font-size: 0.7692rem;
+  }
+  .page--rest .rest__indicator__li .rest__indicator__el {
+    margin: 0.7692rem 0;
+  }
+  .page--rest .rest__indicator__li .rest__indicator__el .rest__hordeMember__tag--name {
+    display: block;
+  }
+  .page--rest .rest__indicator__li .rest__indicator__el .rest__hordeMember__tag--symbol {
+    display: none;
+  }
+  .page--rest .rest__indicator__li .rest__indicator__el .healthbar {
+    height: 0.7692rem;
+  }
+}
 .page--travel {
   display: flex;
   flex-direction: column;
@@ -158,6 +206,74 @@
   flex: 1;
 }
 
+.page--stop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1rem 1rem 2rem 1rem;
+}
+.page--stop .stop__illu {
+  margin-bottom: auto;
+  flex: 1;
+  width: 100%;
+  max-width: 1260px;
+  background-color: #AAA2FF;
+}
+.page--stop .stop__landmarkName {
+  background-color: white;
+  text-align: center;
+  color: black;
+  padding: 1rem;
+  margin-bottom: 2rem;
+  margin-top: 0;
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 1260px;
+}
+.page--stop .btn {
+  flex-basis: auto;
+  flex: 0;
+}
+.page--stop .btn--mobile {
+  display: none;
+}
+
+.page--home {
+  display: flex;
+  flex-direction: column;
+}
+.page--home .home__illu {
+  background-color: #AAA2FF;
+  margin: 1rem 1rem 0 1rem;
+  flex: 1;
+}
+.page--home .menu--home {
+  margin: 2rem 0 3rem 0;
+}
+.page--home .home__info__li {
+  list-style: none;
+  padding: 1rem;
+  margin: auto 0 0 0;
+  text-align: center;
+  color: #7F7F7F;
+}
+
+@media (min-width: 998px) {
+  .page--home .menu--home .menu__btn__li {
+    display: flex;
+    justify-content: center;
+  }
+  .page--home .menu--home .menu__btn__li .menu__btn__el {
+    margin: 0 2rem 0 0;
+    width: 100%;
+    max-width: 12rem;
+  }
+  .page--home .home__info__li {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+}
 .page {
   box-sizing: border-box;
   height: 100vh;
@@ -291,10 +407,11 @@
   grid-template-columns: repeat(6, 84px);
   grid-template-rows: repeat(3, 182px);
   grid-gap: 1rem;
-  justify-content: end;
+  justify-content: center;
   list-style: none;
   padding: 0;
   margin: 0;
+  font-size: 0.7692rem;
 }
 .campfire .campfire__el {
   width: 100%;
@@ -309,8 +426,9 @@
   grid-row-start: 2;
 }
 .campfire .campfire__character {
-  border: solid 3px white;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  position: relative;
 }
 .campfire .campfire__character--atenuated .campfire__character__mugshot {
   background-color: gray;
@@ -318,27 +436,65 @@
 .campfire .campfire__character--atenuated .campfire__character__healthbar:after {
   background-color: gray;
 }
+.campfire .campfire__character--atenuated .healthbar__indicator {
+  background-color: #7F7F7F;
+}
+.campfire .campfire__character--highlight .campfire__character__info {
+  visibility: visible;
+}
+.campfire .campfire__character__info {
+  visibility: hidden;
+  pointer-events: none;
+  position: absolute;
+  left: calc(100% - 1rem);
+  bottom: -1.5rem;
+  background-color: black;
+  padding: 1rem;
+  z-index: 200;
+  border: 0.1rem solid white;
+  width: 16rem;
+}
+.campfire .campfire__character__info .campfire__character__name {
+  margin: 0;
+  display: inline-block;
+  width: 90%;
+}
+.campfire .campfire__character__info .campfire__character__symbol {
+  font-size: 1.3rem;
+  position: absolute;
+  top: 0.8rem;
+  right: 1rem;
+  line-height: 1em;
+  margin: 0;
+  display: inline-block;
+  text-align: right;
+  width: 10%;
+  text-shadow: 0.15rem 0.15rem #7F7F7F;
+}
+.campfire .campfire__character__info .campfire__character__symbol--caracole {
+  transform: rotate(180deg);
+  text-align: left;
+  letter-spacing: -0.5rem;
+  text-shadow: -0.15rem -0.15rem #7F7F7F;
+}
+.campfire .campfire__character__info .campfire__character__symbol--coriolis {
+  line-height: 0.6rem;
+}
+.campfire .campfire__character__info .campfire__character__purpose {
+  color: #7F7F7F;
+  margin: 1rem 0 0 0;
+}
 .campfire .campfire__character__mugshot {
-  height: calc(100% - 1.3rem);
+  border-color: white;
+  border: 0.1rem solid;
+  border-bottom: none;
   background-color: aquamarine;
   pointer-events: none;
+  flex: 1;
 }
-.campfire .campfire__character__healthbar {
-  height: calc(1.3rem - 3px);
-  width: 100%;
-  background-color: gray;
-  border-top: solid 3px white;
-  position: relative;
-  pointer-events: none;
-}
-.campfire .campfire__character__healthbar:after {
-  content: "";
-  height: 100%;
-  width: 100%;
-  background-color: green;
-  position: absolute;
-  top: 0;
-  left: 0;
+.campfire .campfire__character:nth-child(2n) .campfire__character__info {
+  left: unset;
+  right: calc(100% - 1rem);
 }
 .campfire .campfire__character:nth-child(1) {
   grid-column-start: 2;
@@ -374,7 +530,7 @@
 .rest__settings {
   margin: auto auto 3rem auto;
   width: 100%;
-  max-width: 840px;
+  max-width: 742px;
   text-align: center;
 }
 .rest__settings .rest__indicator {
@@ -409,7 +565,7 @@
   background-color: #7F7F7F;
 }
 .rest__settings .input-range__track--active {
-  background-color: blue;
+  background-color: #AAA2FF;
 }
 .rest__settings .input-range__slider-container {
   top: 0;
@@ -419,16 +575,32 @@
   margin-top: 0;
   border-radius: 0;
   transition: none;
-  background-color: red;
+  background-color: white;
   box-shadow: -0.3rem 0px 0px 0px black, 0.3rem 0px 0px 0px black;
 }
 
+@media (orientation: landscape) {
+  .rest__settings .rest__indicator {
+    font-size: 1rem;
+  }
+}
 .healthbar {
   width: 100%;
   height: 1rem;
   background-color: black;
   border: 0.2rem solid white;
   position: relative;
+  box-sizing: border-box;
+  pointer-events: none;
+}
+.healthbar__indicator {
+  background-color: #12CA07;
+}
+.healthbar__indicator--midLife {
+  background-color: #F0C500;
+}
+.healthbar__indicator--endLife {
+  background-color: red;
 }
 
 .travel__scene {
@@ -449,7 +621,7 @@
 
 .travel__scene__message {
   border: solid 0.3rem white;
-  z-index: 100;
+  z-index: 10;
   background-color: black;
   box-sizing: border-box;
   padding: 1rem;
@@ -457,15 +629,20 @@
   width: 100%;
   margin: 0 1rem;
 }
+.travel__scene__message--hidden {
+  visibility: hidden;
+}
 .travel__scene__message .message__speaker {
   display: none;
-  position: absolute;
   background-color: #AAA2FF;
   border: solid 0.3rem white;
+  width: 10rem;
+  margin-top: -12.7rem;
+  margin-bottom: 2rem;
 }
 .travel__scene__message .message__speaker__mugshot {
-  width: 8rem;
-  height: 8rem;
+  width: 10rem;
+  height: 10rem;
 }
 .travel__scene__message .message__speaker__name {
   margin: 0;
@@ -505,8 +682,11 @@
     max-width: calc(100% - (100% / 6));
   }
   .travel__scene .travel__scene__message .message__speaker {
+    position: absolute;
     top: -1.3rem;
     left: -1.3rem;
+    margin: 0;
+    width: 8rem;
   }
   .travel__scene .travel__scene__message .message__speaker__mugshot {
     width: 8rem;
@@ -537,6 +717,8 @@
   z-index: 500;
 }
 .travel__interface__content__sub {
+  height: 100%;
+  width: 100%;
   padding: 1rem;
   box-sizing: border-box;
 }
@@ -565,6 +747,7 @@
   bottom: calc(100% + 2rem);
   left: 0;
   right: 0;
+  margin: auto;
 }
 
 .travel__interface[data-showContent=stats] .travel__interface__content__sub--stats {
@@ -580,6 +763,9 @@
 @media (orientation: landscape) and (min-width: 998px) {
   .travel__interface {
     display: flex;
+  }
+  .travel__interface[data-showContent=stats] .travel__interface__tab__li .travel__interface__tab__el--stats {
+    background-color: white;
   }
   .travel__interface__content {
     position: relative;
@@ -601,9 +787,16 @@
     width: auto;
     min-width: calc(100vw / 12);
     text-align: center;
+    background-color: transparent;
+  }
+  .travel__interface__tab__li .travel__interface__tab__el:nth-child(3) {
+    margin-bottom: 1rem;
   }
   .travel__interface__tab__li .travel__interface__tab__el--mobileOnly {
     display: none;
+  }
+  .travel__interface__tab__li .travel__interface__tab__el--active {
+    background-color: white;
   }
   .travel__interface__tab__li .btn {
     position: relative;
@@ -618,6 +811,7 @@
   margin-bottom: 2rem;
 }
 .travel__horde__member .healthbar {
+  height: 1.3rem;
   max-width: calc(100% - 0.6rem);
   border-color: black;
   background-color: #7F7F7F;
@@ -638,18 +832,12 @@
 }
 
 @media (orientation: landscape) and (min-width: 998px) {
-  .travel__horde {
-    font-size: 0.7692rem;
-  }
   .travel__horde__member {
     display: flex;
     margin: 0.5rem 0;
   }
-  .travel__horde__member .healthbar {
-    height: 0.7692rem;
-  }
   .travel__horde__member__name {
-    margin: 0.3rem 0 0 0;
+    margin: 0;
     padding-right: 1rem;
     min-width: 50%;
     text-align: right;
@@ -689,7 +877,7 @@ body {
   color: white;
 }
 
-@media (min-width: 480px) {
+@media (min-width: 480px) and (orientation: portrait) {
   html {
     font-size: 20px;
   }
@@ -706,12 +894,12 @@ body {
 }
 @media (min-width: 1260px) and (orientation: landscape) {
   html {
-    font-size: 28px;
+    font-size: 24px;
   }
 }
 @media (min-width: 1400px) and (orientation: landscape) {
   html {
-    font-size: 32px;
+    font-size: 28px;
   }
 }
 

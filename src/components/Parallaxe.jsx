@@ -1,80 +1,128 @@
 import React, {Component} from 'react';
 import * as PIXI from 'pixi.js'
 
-import duneSprite from  '../assets/Dune-01.png';
-import mountainSprite from '../assets/Mountain-01.png';
-import characterSpritesheet from '../assets/characters/test/Figure-ThreeThird-Walking.json';
-
-let parallaxeView;
-let parallaxeContainer;
-const simulatedCanvasHeight = 140;
-
-const groundHeight = 40;
-
-let canvasScale = 1;
-let groundColor = 0xf05c00;
-let parallaxeSpeed = 1.45;
-
-let parallaxe;
-
-//Init ground.
-let ground = new PIXI.Graphics();
-
-//Init landscape -- groupe d'éléments positionné depuis le coin inférieur gauche du canvas
-let landscape = new PIXI.Container();
-
-//Init sky -- groupe d'éléments positionné depuis le coin supérieur gauche du canvas
-let sky = new PIXI.Container();
-
-//Character sprite
-//let character;
-//Group of characters
-let horde = new PIXI.Container();
-
-//Character animated texture (4 frames)
-let characterAnimatedTexture;
-
-let loader;
-
 
 
 class Parallaxe extends Component {
 
-  componentDidMount() {
-    parallaxeView = document.body.getElementsByClassName('parallaxe__view')[0];
-    parallaxeContainer = document.body.getElementsByClassName('parallaxe__container')[0];
 
-    parallaxe = new PIXI.Application({
-      view: parallaxeView,
-      height: parallaxeView.height,
-      width: parallaxeView.width,
+  parallaxeView;
+  parallaxeContainer;
+  simulatedCanvasHeight = 140;
+
+  groundHeightDesktop = 56;
+  groundHeightMobile = 80;
+
+  groundHeight = 60;
+
+   hordeMembersPosition = [
+    {
+      x: 70,
+      y: 6,
+    },
+    {
+      x: 54,
+      y: 0,
+    },
+    {
+      x: 50,
+      y: 20,
+    },
+    {
+      x: 36,
+      y: 2,
+    },
+    {
+      x: 32,
+      y: 19,
+    },
+    {
+      x: 16,
+      y: 8,
+    },
+  ]
+
+  canvasScale = 1;
+  groundColor = 0xf05c00;
+  parallaxeSpeed = 18;
+  parallaxeRunning = 0;
+
+  parallaxe;
+
+//Init ground.
+  ground = new PIXI.Graphics();
+
+//Init landscape -- groupe d'éléments positionné depuis le coin inférieur gauche du canvas
+  landscape = new PIXI.Container();
+
+//Init sky -- groupe d'éléments positionné depuis le coin supérieur gauche du canvas
+  sky = new PIXI.Container();
+
+  nextLandmark;
+
+//Character sprite
+//let character;
+//Group of characters
+  horde = new PIXI.Container();
+
+//Character animated texture (4 frames)
+  characterAnimatedTexture;
+
+  loader;
+
+
+
+
+
+  componentDidMount() {
+    this.parallaxeView = document.body.getElementsByClassName('parallaxe__view')[0];
+    this.parallaxeContainer = document.body.getElementsByClassName('parallaxe__container')[0];
+
+    this.parallaxe = new PIXI.Application({
+      view: this.parallaxeView,
+      height: this.parallaxeView.height,
+      width: this.parallaxeView.width,
     });
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
-    window.onresize = this.resizeCanvas();
-    this.resizeCanvas();
+    window.onresize = this.resizeCanvas;
 
-    parallaxe.stage.addChild(ground);
+    this.parallaxe.stage.addChild(this.ground);
 
-    loader = PIXI.Loader.shared;
-    loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
-    loader
+    this.loader = new PIXI.Loader();
+
+    this.loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
+    this.loader
       .add('landscape_01', 'Dune-01.png')
       .add('landscape_02', 'Mountain-01.png')
       .add('characterWalking', 'characters/test/Figure-ThreeThird-Walking.json');
 
-    loader.onComplete.add(() => {
+    this.loader.onComplete.add(() => {
       this.initLandscape();
       this.loadCharacter();
+      this.initNextLandmark();
+      this.resizeCanvas();
+      this.setupLoop();
     });
 
-    loader.load();
+    this.loader.load();
+  }
 
-    parallaxe.ticker.add(() => {
-      landscape.children.forEach((elem) => {
-        elem.tilePosition.x -= elem.translationSpeed * parallaxeSpeed;
+
+  componentWillUnmount() {
+    this.loader.destroy();
+  }
+
+
+  setupLoop = () => {
+    this.parallaxe.ticker.add(() => {
+      this.landscape.children.forEach((elem) => {
+        elem.tilePosition.x -= elem.translationSpeed * (this.parallaxeSpeed / this.parallaxe.ticker.FPS) * this.parallaxeRunning;
       });
+
+      this.nextLandmark.simulateX -= (this.parallaxeSpeed / this.parallaxe.ticker.FPS) * this.parallaxeRunning;
+      this.nextLandmark.x = this.nextLandmark.simulateX * this.canvasScale;
 
     });
   }
@@ -82,26 +130,40 @@ class Parallaxe extends Component {
 
 
   resizeCanvas = () => {
-    parallaxeView.height = parallaxeContainer.offsetHeight;
-    parallaxeView.width = parallaxeContainer.offsetWidth;
+    this.parallaxeView.height = this.parallaxeContainer.offsetHeight;
+    this.parallaxeView.width = this.parallaxeContainer.offsetWidth;
 
-    canvasScale = parallaxeView.height / simulatedCanvasHeight;
+    this.canvasScale = Math.min(this.parallaxeView.height, this.parallaxeView.width) / this.simulatedCanvasHeight;
 
-    this.setGround(groundColor);
+    if(this.parallaxeView.height > this.parallaxeView.width){
+      this.groundHeight = this.groundHeightMobile;
+    }
+    else{
+      this.groundHeight = this.groundHeightDesktop;
+    }
+
+    this.landscape.scale.set(this.canvasScale);
+
+    this.setHorde();
+
+    this.resizeNextLandmark();
+
+    this.setGround(this.groundColor);
 
     this.setLandscapeHeight();
+
   }
 
 
 
   //Ajoute un rectangle de couleur en bas du canvas (le sol)
   setGround = (color) => {
-    let groundTopLeftCorner = parallaxeView.height - (groundHeight * canvasScale);
+    let groundTopLeftCorner = this.parallaxeView.height - (this.groundHeight * this.canvasScale);
 
-    ground.clear();
-    ground.beginFill(color);
-    ground.drawRect(0, groundTopLeftCorner, parallaxeView.width, groundHeight * canvasScale);
-    ground.endFill();
+    this.ground.clear();
+    this.ground.beginFill(color);
+    this.ground.drawRect(0, groundTopLeftCorner, this.parallaxeView.width, this.groundHeight * this.canvasScale);
+    this.ground.endFill();
   }
 
 
@@ -109,60 +171,104 @@ class Parallaxe extends Component {
   //Ajoute les différentes couches du parallaxe - landscape (bas de l'écran)
   initLandscape = () => {
     let landscape_02 = new PIXI.TilingSprite(
-      loader.resources.landscape_02.texture,
+      this.loader.resources.landscape_02.texture,
     );
 
-    landscape_02.width = parallaxeView.width;
+    landscape_02.width = this.parallaxeView.width;
     landscape_02.height = landscape_02.texture.height;
-    landscape_02.tileScale.x = 1 * canvasScale;
+    landscape_02.tileScale.x = 1 * this.canvasScale;
     landscape_02.anchor.y = 1;
     //Custom var : vitesse relative de l'élément à l'intérieur du parallaxe.
     landscape_02.translationSpeed = 0.6;
 
-    landscape.addChild(landscape_02);
+    this.landscape.addChild(landscape_02);
 
     let landscape_01 = new PIXI.TilingSprite(
-      loader.resources.landscape_01.texture,
+      this.loader.resources.landscape_01.texture,
     );
 
-    landscape_01.width = parallaxeView.width;
+    landscape_01.width = this.parallaxeView.width;
     landscape_01.height = landscape_01.texture.height;
-    landscape_01.tileScale.x = 1 * canvasScale;
+    landscape_01.tileScale.x = 1 * this.canvasScale;
     landscape_01.anchor.y = 1;
 
     //Custom var : vitesse relative de l'élément à l'intérieur du parallaxe.
     landscape_01.translationSpeed = 1;
 
-    landscape.addChild(landscape_01);
+    this.landscape.addChild(landscape_01);
 
-    landscape.scale.set(1, canvasScale);
+    this.landscape.scale.set(1, this.canvasScale);
 
-    parallaxe.stage.addChild(landscape);
+    this.parallaxe.stage.addChild(this.landscape);
+
+  }
+
+
+
+  initNextLandmark = () => {
+    const {horde, nextLocation, distanceTraveled, walkingTime} = this.props;
+
+    let remainingDistance = nextLocation.distanceFromStart - distanceTraveled;
+    let remainingSteps = remainingDistance / horde.pacing;
+
+    this.nextLandmark = new PIXI.Sprite(
+      this.loader.resources.landscape_02.texture,
+    );
+
+    this.nextLandmark.anchor.set(0, 0.2);
+    this.nextLandmark.simulateX = 120 + (remainingSteps * this.parallaxeSpeed * walkingTime);
+    console.log(this.nextLandmark.simulateX);
+
+
+    this.resizeNextLandmark();
+
+    this.parallaxe.stage.addChild(this.nextLandmark);
+  }
+
+
+
+  resizeNextLandmark = () => {
+    this.nextLandmark.height = this.nextLandmark.texture.height * this.canvasScale;
+    this.nextLandmark.width = this.nextLandmark.texture.width * this.canvasScale;
+
+    this.nextLandmark.y = (this.parallaxeView.height - (this.groundHeight * this.canvasScale));
+    this.nextLandmark.x = this.nextLandmark.simulateX * this.canvasScale;
 
   }
 
 
 
   setLandscapeHeight = () => {
-    let landscapeTopLeftCorner = (parallaxeView.height - (groundHeight * canvasScale));
-    landscape.y = landscapeTopLeftCorner;
+    let landscapeTopLeftCorner = (this.parallaxeView.height - (this.groundHeight * this.canvasScale));
+    this.landscape.y = landscapeTopLeftCorner;
+
+    this.landscape.children.forEach((elem, i) => {
+      elem.width = this.parallaxeView.width;
+      elem.tileScale.x = 1;
+    })
   }
 
 
 
   loadCharacter = () => {
-    characterAnimatedTexture = loader.resources["characterWalking"].spritesheet;
-    console.log(characterAnimatedTexture);
 
-    let character = new PIXI.AnimatedSprite(characterAnimatedTexture.animations["walking"]);
+    this.characterAnimatedTexture = this.loader.resources["characterWalking"].spritesheet;
 
-    horde.addChild(character);
-    horde.children.forEach((member) => {
-      member.animationSpeed = 0.1;
-      member.play();
+    this.props.horde.members.forEach((member, i) => {
+      if(member.health > 0){
+        let character = new PIXI.AnimatedSprite(this.characterAnimatedTexture.animations["walking"]);
+        character.x = this.hordeMembersPosition[i].x;
+        character.y = this.hordeMembersPosition[i].y;
+
+        this.horde.addChild(character);
+        this.horde.children.forEach((member) => {
+          member.animationSpeed = 0.1;
+          member.play();
+        });
+      }
     });
 
-    parallaxe.stage.addChild(horde);
+    this.parallaxe.stage.addChild(this.horde);
     this.setHorde();
 
   }
@@ -170,14 +276,18 @@ class Parallaxe extends Component {
 
 
   setHorde = () => {
-    let hordeTopLeftCorner = parallaxeView.height - (groundHeight * canvasScale);
-    horde.scale.set(canvasScale);
-    horde.y = hordeTopLeftCorner;
+    this.horde.scale.set(this.canvasScale);
+    let hordeTopLeftCorner = this.parallaxeView.height - (this.groundHeight * this.canvasScale);
+    this.horde.y = hordeTopLeftCorner;
+    this.horde.x = 30 * this.canvasScale;
   }
 
 
 
   render() {
+    const {walking} = this.props;
+    this.parallaxeRunning = walking ? 1 : 0;
+
     return (
       <div className={'parallaxe__container'}>
         <canvas className="parallaxe__view"></canvas>

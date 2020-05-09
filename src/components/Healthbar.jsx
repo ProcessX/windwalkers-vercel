@@ -3,23 +3,27 @@ import React, {Component} from 'react';
 class Healthbar extends Component {
 
 
-  getIndicatorColor = (maxHealth, health) => {
+  getIndicatorClass = () => {
+    const {maxHealth, health} = this.props;
+    let indicatorClass = '';
+
     if((health / maxHealth) < 0.25){
-      return 'red';
+      indicatorClass = 'healthbar__indicator--endLife';
+    }
+    else{
+      if((health / maxHealth) < 0.5){
+        indicatorClass = 'healthbar__indicator--midLife';
+      }
     }
 
-    if((health / maxHealth) < 0.5){
-      return '#F0C500';
-    }
-
-    return '#12CA07';
+    return indicatorClass;
   }
 
 
   render() {
     const {maxHealth, health} = this.props;
 
-    const indicatorColor = this.getIndicatorColor(maxHealth, health);
+    const indicatorClass = this.getIndicatorClass();
 
     const indicatorStyle = {
       position: 'absolute',
@@ -27,12 +31,11 @@ class Healthbar extends Component {
       left: 0,
       height: '100%',
       width: `${(health / maxHealth) * 100}%`,
-      backgroundColor: indicatorColor,
     };
 
     return (
       <div className={'healthbar'}>
-        <div className={'healthbar__indicator'} style={indicatorStyle}></div>
+        <div className={`healthbar__indicator ${indicatorClass}`} style={indicatorStyle}></div>
       </div>
     );
   }

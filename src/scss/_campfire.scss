@@ -5,11 +5,12 @@ $campfireElementSize-01: 168px;
   grid-template-columns: repeat(6, $campfireElementSize-01 / 2);
   grid-template-rows: repeat(3, $campfireElementSize-01 + 14px);
   grid-gap: 1rem;
-  justify-content: end;
+  justify-content: center;
 
   list-style: none;
   padding: 0;
   margin: 0;
+  font-size: 0.7692rem;
 
   .campfire__el{
     width: 100%;
@@ -27,8 +28,11 @@ $campfireElementSize-01: 168px;
 
   .campfire__character{
 
-    border: solid 3px white;
-    box-sizing: border-box;
+    //border: solid 3px white;
+    //box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    position: relative;
 
     &--atenuated{
       .campfire__character__mugshot{
@@ -40,30 +44,83 @@ $campfireElementSize-01: 168px;
           background-color: gray;
         }
       }
+
+      .healthbar{
+        &__indicator{
+          background-color: #7F7F7F;
+        }
+      }
+    }
+
+    &--highlight{
+      .campfire__character__info{
+        visibility: visible;
+      }
+    }
+
+    &__info{
+      visibility: hidden;
+      pointer-events: none;
+      position: absolute;
+      left: calc(100% - 1rem);
+      bottom: -1.5rem;
+      background-color: black;
+      padding: 1rem;
+      z-index: 200;
+      border: 0.1rem solid white;
+      width: 16rem;
+
+      .campfire__character__name{
+        margin: 0;
+        display: inline-block;
+        width: 90%;
+      }
+
+      .campfire__character__symbol{
+        font-size: 1.3rem;
+        position: absolute;
+        top: 0.8rem;
+        right: 1rem;
+        line-height: 1em;
+        margin: 0;
+        display: inline-block;
+        text-align: right;
+        width: 10%;
+        text-shadow: 0.15rem 0.15rem #7F7F7F;
+
+        &--caracole{
+          transform: rotate(180deg);
+          text-align: left;
+          letter-spacing: -0.5rem;
+          text-shadow: -0.15rem -0.15rem #7F7F7F;
+        }
+
+        &--coriolis{
+          line-height: 0.6rem;
+        }
+      }
+
+      .campfire__character__purpose{
+        color: #7F7F7F;
+        margin: 1rem 0 0 0;
+      }
     }
 
     &__mugshot{
-      height: calc(100% - 1.3rem);
+      //height: calc(100% - 1.3rem);
+      border-color: white;
+      border: 0.1rem solid;
+      border-bottom: none;
       background-color: aquamarine;
       pointer-events: none;
+      flex: 1;
+
     }
 
-    &__healthbar{
-      height: calc(1.3rem - 3px);
-      width: 100%;
-      background-color: gray;
-      border-top: solid 3px white;
-      position: relative;
-      pointer-events: none;
-
-      &:after{
-        content: "";
-        height: 100%;
-        width: 100%;
-        background-color: green;
-        position: absolute;
-        top: 0;
-        left: 0;
+    &:nth-child(2n){
+      .campfire__character__info{
+        left: unset;
+        right: calc(100% - 1rem);
       }
     }
 

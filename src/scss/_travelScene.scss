@@ -18,7 +18,7 @@
 
 .travel__scene__message{
   border: solid 0.3rem white;
-  z-index: 100;
+  z-index: 10;
   background-color: black;
   box-sizing: border-box;
   padding: 1rem;
@@ -26,15 +26,21 @@
   width: 100%;
   margin: 0 1rem;
 
+  &--hidden{
+    visibility: hidden;
+  }
+
   .message__speaker{
     display: none;
-    position: absolute;
     background-color: #AAA2FF;
     border: solid 0.3rem white;
+    width: 10rem;
+    margin-top: -12.7rem;
+    margin-bottom: 2rem;
 
     &__mugshot{
-      width: 8rem;
-      height: 8rem;
+      width: 10rem;
+      height: 10rem;
     }
 
     &__name{
@@ -99,8 +105,11 @@
       min-width: calc(100% - (100% / 3));
       max-width: calc(100% - (100% / 6));;
       .message__speaker{
+        position: absolute;
         top: -1.3rem;
         left: -1.3rem;
+        margin: 0;
+        width: 8rem;
 
         &__mugshot{
           width: 8rem;

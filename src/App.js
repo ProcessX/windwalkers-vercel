@@ -3,7 +3,7 @@ import {BrowserRouter as Router, Switch, Route, Redirect} from 'react-router-dom
 import Home from "./pages/Home";
 import Options from "./pages/Options";
 import Travel from "./pages/Travel";
-import Minigame from "./pages/Minigame";
+import Minigame from "./pages/resources/Minigame";
 import Guide from "./pages/Guide";
 import Packing from "./pages/Packing";
 import Narration from "./pages/Narration";
@@ -12,12 +12,52 @@ import Victory from "./pages/Victory";
 import Defeat from "./pages/Defeat";
 
 import {locations} from "./data/locationList.json";
+
 import Horde from "./pages/stop/Horde";
 import Landmark from "./pages/stop/Landmark";
 import Resources from "./pages/stop/Resources";
 import Camp from "./pages/stop/Camp";
 import Credits from "./pages/Credits";
 import Rest from "./pages/horde/Rest";
+import Harvest from "./pages/minigame/Harvest";
+
+
+const maxHealth = 100;
+const hordeMembers = [
+  {
+    firstname: 'Golgoth',
+    symbol: 'Ω',
+    purpose: 'Traceur',
+  },
+  {
+    firstname: 'Erg',
+    lastname: 'Machaon',
+    symbol: 'Д',
+    purpose: 'Combattant protecteur',
+  },
+  {
+    firstname: 'Sov',
+    lastname: 'Strochnis',
+    symbol: ')',
+    purpose: 'Scribe',
+  },
+  {
+    firstname: 'Oroshi',
+    lastname: 'Melicerte',
+    symbol: 'х',
+    purpose: 'Aéromaître',
+  },
+  {
+    firstname: 'Caracole',
+    symbol: ',?',
+    purpose: 'Troubadour',
+  },
+  {
+    firstname: 'Coriolis',
+    symbol: '~ ~',
+    purpose: 'Croc',
+  }
+];
 
 
 
@@ -49,6 +89,26 @@ class App extends Component {
   }
 
 
+  componentDidMount() {
+    this.setupHorde();
+  }
+
+
+  setupHorde = () => {
+    let {horde} = this.state;
+
+    horde.members = hordeMembers;
+
+    horde.members.forEach((member) => {
+      //member.health = maxHealth;
+      member.health = maxHealth;
+      member.crippled = false;
+    });
+
+    this.setState({horde: horde});
+  }
+
+
   //Ajoute la distance parcourue au total
   addDistanceTraveled = (distance, callback) => {
     let {distanceTraveled} = this.state;
@@ -61,15 +121,62 @@ class App extends Component {
   redirectTo = (url) => {
     let {redirectURL} = this.state;
     redirectURL = url;
+    console.log(redirectURL);
 
     this.setState({redirectURL: redirectURL});
+  }
+
+
+  reachLandmark = () => {
+    let {progressIndex} = this.state;
+    progressIndex += 1;
+    if(progressIndex < locations.length) {
+      this.setState({progressIndex: progressIndex}, () => this.redirectTo('/stop/'));
+    }
+    else{
+      this.redirectTo('/victory/');
+    }
+  }
+
+
+  accessLandmark = () => {
+    let {progressIndex} = this.state;
+    if(progressIndex > 1){
+      this.redirectTo('/stop/horde/');
+    }
+    else{
+      this.redirectTo('/narration/');
+    }
+  }
+
+
+  removeScriptedEvent = () => {
+    console.log('remove scripted event');
+  }
+
+
+  hurtMember = (i, damage) => {
+    let {horde} = this.state;
+    horde.members[i].health -= damage;
+    horde.members[i].health = Math.max(horde.members[i].health, 0);
+
+    this.setState({horde: horde});
+  }
+
+
+  healMember = (i, heal) => {
+    let {horde} = this.state;
+    horde.members[i].health += heal;
+    horde.members[i].health = Math.min(horde.members[i].health, maxHealth);
+
+    this.setState({horde: horde});
   }
 
 
 
   render() {
     const {horde, inventory, distanceTraveled, redirectURL, progressIndex, locations} = this.state;
-    const nextLocation = locations[progressIndex + 1];
+    const nextLocation = locations[progressIndex];
 
     return (
       <div className="App">
@@ -98,6 +205,10 @@ class App extends Component {
                 nextLocation={nextLocation}
                 addDistanceTraveled={(distance) => this.addDistanceTraveled(distance)}
                 redirectTo={(url) => this.redirectTo(url)}
+                reachLandmark={() => this.reachLandmark()}
+                removeScriptedEvent={() => this.removeScriptedEvent()}
+                hurtMember={(i, damage) => this.hurtMember(i, damage)}
+                healMember={(i, heal) => this.healMember(i, heal)}
               />
             </Route>
 
@@ -119,6 +230,8 @@ class App extends Component {
 
             <Route path={'/stop'} exact>
               <Stop
+                nextLocation={nextLocation}
+                accessLandmark={() => this.accessLandmark()}
                 redirectTo={(url) => this.redirectTo(url)}
               />
             </Route>
@@ -136,8 +249,17 @@ class App extends Component {
           <Switch>
             <Route path={'/stop/horde/rest'} exact>
               <Rest
+                horde={horde}
+                inventory={inventory}
                 redirectTo={(url) => this.redirectTo(url)}
               />
+            </Route>
+          </Switch>
+
+
+          <Switch>
+            <Route path={'/minigame/harvest/'} exact>
+              <Harvest/>
             </Route>
           </Switch>
 
@@ -151,6 +273,7 @@ class App extends Component {
 
             <Route path={'/stop/horde'} exact>
               <Horde
+                horde={horde}
                 redirectTo={(url) => this.redirectTo(url)}
               />
             </Route>
@@ -168,11 +291,9 @@ class App extends Component {
             </Route>
           </Switch>
 
+          {redirectURL ? <Redirect to={redirectURL}/> : null}
 
-
-          {redirectURL ? <Redirect push to={redirectURL}/> : null}
         </Router>
-
       </div>
     );
   }

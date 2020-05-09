@@ -14,6 +14,8 @@
     z-index: 500;
 
     &__sub{
+      height: 100%;
+      width: 100%;
       padding: 1rem;
       box-sizing: border-box;
       &--stats{
@@ -45,7 +47,7 @@
       bottom: calc(100% + 2rem);
       left: 0;
       right: 0;
-      //margin: auto;
+      margin: auto;
     }
   }
 }
@@ -61,7 +63,6 @@
 }
 
 
-
 @media (max-width: 997px), (orientation: portrait){
   .travel__interface[data-showContent='hide']{
     .travel__interface__content{
@@ -75,6 +76,16 @@
 @media (orientation: landscape) and (min-width: 998px){
   .travel__interface{
     display: flex;
+
+    &[data-showContent='stats']{
+      .travel__interface__tab__li{
+        .travel__interface__tab__el--stats{
+          background-color: white;
+        }
+
+      }
+    }
+
 
     &__content{
       position: relative;
@@ -98,9 +109,18 @@
         width: auto;
         min-width: calc(100vw / 12);
         text-align: center;
+        background-color: transparent;
+
+        &:nth-child(3){
+          margin-bottom: 1rem;
+        }
 
         &--mobileOnly{
           display: none;
+        }
+
+        &--active{
+          background-color: white;
         }
       }
 

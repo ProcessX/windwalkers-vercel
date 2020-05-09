@@ -4,4 +4,18 @@
   background-color: black;
   border: 0.2rem solid white;
   position: relative;
+  box-sizing: border-box;
+  pointer-events: none;
+
+  &__indicator{
+    background-color: #12CA07;
+
+    &--midLife{
+      background-color: #F0C500;
+    }
+
+    &--endLife{
+      background-color: red;
+    }
+  }
 }

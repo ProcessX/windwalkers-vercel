@@ -7,7 +7,7 @@ class Btn extends Component {
     const {title, action} = this.props;
 
     return (
-      <button className={'btn btn--oldSchool'} onClick={() => action()}>
+      <button className={`btn btn--oldSchool ${!action ?'btn--oldSchool--unavailable' : ''}`} onClick={() => action()}>
         {title}
       </button>
 

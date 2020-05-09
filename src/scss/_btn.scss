@@ -72,6 +72,18 @@ $oldSchoolBorderThickness: 0.3rem;
     width: 1em;
     font-size: 1.4rem;
     padding: (2 * $oldSchoolBorderThickness) $oldSchoolBorderThickness;
+  }
 
+
+  &--unavailable{
+    color: #7F7F7F;
+    border-color: #7F7F7F;
+    pointer-events: none;
+    &:after{
+      border-color: #7F7F7F;
+    }
+    &:before{
+      border-color: #7F7F7F;
+    }
   }
 }

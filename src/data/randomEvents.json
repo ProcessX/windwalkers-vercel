@@ -1,0 +1,11 @@
+{
+  "randomEvents": [
+    {
+      "message": "Un random event",
+      "speaker": "Coriolis"
+    },
+    {
+      "message": "Un autre random event"
+    }
+  ]
+}

@@ -10,22 +10,22 @@ class Home extends Component {
         <h1 className={'home__illu'}>Windwalkers</h1>
 
         <nav className={'menu menu--fullScreen menu--home'}>
-          <ul className={'menu__link__li'}>
-            <li className={'menu__link__el'}>
+          <ul className={'menu__btn__li'}>
+            <li className={'menu__btn__el'}>
               <Btn
                 title={'Jouer'}
                 action={() => redirectTo('travel')}
               />
             </li>
 
-            <li className={'menu__link__el'}>
+            <li className={'menu__btn__el'}>
               <Btn
                 title={'Options'}
                 action={() => redirectTo('options')}
               />
             </li>
 
-            <li className={'menu__link__el'}>
+            <li className={'menu__btn__el'}>
               <Btn
                 className={'test'}
                 title={'Crédits'}

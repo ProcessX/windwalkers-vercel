@@ -1,22 +1,21 @@
 import React, {Component} from 'react';
+import Btn from "../components/Btn";
 
 
 class Stop extends Component {
 
-  goToHorde = () => {
-    document.body.setAttribute('data-stop-subsection', 'landmark');
-    this.props.redirectTo('/stop/horde');
-  }
-
   render() {
-    const {redirectTo} = this.props;
+    const {nextLocation, accessLandmark} = this.props;
 
     return (
-      <div className={'page page--stop'} onClick={() => this.goToHorde()}>
+      <div className={'page page--stop'}>
         <div className={'stop__illu'}>Landmark's Illu</div>
-        <h1 className={'stop__landmarkName'}>Landmark's Name</h1>
+        <h1 className={'stop__landmarkName'}>{nextLocation.name}</h1>
+        {/*}
         <p className={'stop__instructions stop__instructions--mobile'}>APPUYER pour continuer</p>
-        <p className={'stop__instructions stop__instructions--desktop'}>CLIQUER pour continuer</p>
+        <p className={'stop__instructions stop__instructions'}>CLIQUER pour continuer</p>
+        {*/}
+        <Btn title={'Continuer'} action={() => accessLandmark()}/>
       </div>
     );
   }

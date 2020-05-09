@@ -7,7 +7,7 @@ class Horde extends Component {
 
 
   render() {
-    const {redirectTo} = this.props;
+    const {horde, redirectTo} = this.props;
 
     return (
       <div className={'page page--managementSection page--horde'}>
@@ -29,28 +29,27 @@ class Horde extends Component {
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Repos'}
-                  action={() => redirectTo('stop/horde/rest')}
+                  action={() => redirectTo('/stop/horde/rest')}
                 />
               </li>
 
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Soigner'}
-                  action={() => redirectTo('stop/horde/heal')}
                 />
               </li>
 
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Cadence'}
-                  action={() => redirectTo('stop/horde/pacing')}
+                  action={() => redirectTo('/stop/horde/pacing')}
                 />
               </li>
             </ul>
           </nav>
 
           <div className={'managementSection__rightPanel'}>
-            <Campfire className={'Test'}/>
+            <Campfire className={'Test'} horde={horde}/>
           </div>
 
         </div>

@@ -2,6 +2,15 @@ import React, {Component} from 'react';
 import TravelInterface from "../components/TravelInterface";
 import TravelScene from "../components/TravelScene";
 
+import {randomEvents} from "../data/randomEvents.json";
+
+const randomEventChance = 0.2;
+
+const walkingTime = 3;
+let walkingTimer;
+
+
+
 class Travel extends Component {
   constructor() {
     super();
@@ -10,17 +19,58 @@ class Travel extends Component {
       walkingDistance: 0,
       requestingStop: false,
       eventSequence: [],
-
     }
+  }
+
+
+  componentDidMount() {
+    this.setupEventSequence();
+  }
+
+  componentWillUnmount() {
+    clearTimeout(walkingTimer);
+  }
+
+
+  setupEventSequence = () => {
+    const {nextLocation, distanceTraveled} = this.props;
+    let {eventSequence} = this.state;
+
+    if((nextLocation.distanceFromStart - nextLocation.distanceFromPrevious) === distanceTraveled){
+      if(nextLocation.eventOnLeaving)
+        eventSequence = nextLocation.eventOnLeaving;
+    }
+
+    this.setState({eventSequence: eventSequence}, this.checkNextEvent);
   }
 
 
   //Lance la marche de la Horde.
   startWalking = () => {
-    let {walking, walkingDistance} = this.state;
+    const {nextLocation} = this.props;
+    let {walking, walkingDistance, eventSequence} = this.state;
     walking = true;
     walkingDistance = this.getWalkingDistance();
-    this.setState({walking: walking, walkingDistance: walkingDistance}, this.stopWalking);
+
+    if(walkingDistance < this.getRemainingDistance()){
+
+      for(let i = 0; i < nextLocation.eventOnWalking.length; i++){
+        if(nextLocation.eventOnWalking[i][0]){
+          eventSequence = nextLocation.eventOnWalking[i];
+          break;
+        }
+      }
+
+      if(!eventSequence[0])
+        eventSequence = [this.getRandomEvent()];
+    }
+    else{
+      eventSequence = nextLocation.eventOnArriving;
+    }
+
+    this.setState(
+      {walking: walking, walkingDistance: walkingDistance, eventSequence: eventSequence},
+      () => walkingTimer = window.setTimeout(this.stopWalking, walkingTime * 1000));
   }
 
 
@@ -29,6 +79,8 @@ class Travel extends Component {
     let {walking} = this.state;
     walking = false;
     this.setState({walking: walking}, this.addDistanceTraveled());
+
+    this.checkNextEvent();
   }
 
 
@@ -45,15 +97,45 @@ class Travel extends Component {
 
     if(!eventSequence[0]){
       if(this.getWalkingDistance() <= 0){
-        console.log('Destination atteinte');
-        this.quitWalking('/stop/location');
+        this.props.reachLandmark();
+        //this.quitWalking('/stop/');
       }
       else{
         if(requestingStop){
-          this.quitWalking('/stop/camp');
+          this.quitWalking('/stop/horde');
+        }
+        else{
+          this.startWalking();
         }
       }
     }
+    else{
+      this.applyEvent();
+    }
+  }
+
+
+  applyEvent = () => {
+    let {eventSequence} = this.state;
+    const {horde, hurtMember} = this.props;
+
+
+    if(eventSequence[0].damage){
+      let victimIndex = this.getRandomInt(horde.members.length);
+      hurtMember(victimIndex, eventSequence[0].damage);
+      let victim = horde.members[victimIndex];
+      eventSequence[0].message = eventSequence[0].message.replace(/%victim%/, victim.firstname);
+    }
+
+    this.setState({eventSequence: eventSequence});
+  }
+
+
+  removeEvent = () => {
+    let {eventSequence} = this.state;
+    eventSequence.shift();
+    this.setState({eventSequence: eventSequence}, this.checkNextEvent);
+
   }
 
 
@@ -70,7 +152,7 @@ class Travel extends Component {
   requestStop = () => {
     let {walking, requestingStop, eventSequence} = this.state;
     if(!walking && !eventSequence[0]){
-      this.quitWalking('/stop/camp');
+      this.quitWalking('/stop/horde');
     }
     else{
       requestingStop = true;
@@ -92,16 +174,43 @@ class Travel extends Component {
   }
 
 
+  getRandomEvent = () => {
+    console.log('Get Random Event');
+    if(Math.random() >= randomEventChance)
+      return randomEvents[this.getRandomInt(randomEvents.length)];
+
+    console.log('No random event');
+
+    return null;
+  }
+
+
+  getRandomInt = (max) => {
+    return Math.floor(
+      Math.random() * max
+    );
+  }
+
+
   render() {
+    const {eventSequence, walking} = this.state;
+    const {horde, inventary, nextLocation, distanceTraveled} = this.props;
 
     return (
       <div className={'page page--travel'}>
-        <TravelScene/>
-        <TravelInterface/>
-        {/*}
-        <button onClick={() => this.startWalking()}>Walk</button>
-        <button onClick={() => this.requestStop()}>Quit travelling</button>
-        {*/}
+        <TravelScene
+          walkingTime={walkingTime}
+          horde={horde}
+          event={eventSequence[0]}
+          nextLocation={nextLocation}
+          distanceTraveled={distanceTraveled}
+          walking={walking}
+          removeEvent={() => this.removeEvent()}
+        />
+        <TravelInterface
+          horde={horde}
+          requestStop={() => this.requestStop()}
+        />
       </div>
     );
   }

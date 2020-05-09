@@ -18,7 +18,7 @@ class Resources extends Component {
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Récolter'}
-                  action={() => redirectTo('minigame/harvest')}
+                  action={() => redirectTo('/minigame/')}
                 />
               </li>
 

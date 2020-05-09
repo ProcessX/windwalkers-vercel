@@ -2,15 +2,87 @@
   "locations": [
     {
       "name": "Le village des abrités",
-      "distanceFromPrevious": 0
+      "distanceFromPrevious": 50,
+      "eventOnLeaving": [
+        {
+          "message": "Vers le village des abrités. %victim%",
+          "damage": 5,
+          "victime": 1
+        }
+      ],
+      "eventOnWalking": [
+        [
+          {
+            "message" : "En marchant 01"
+          }
+        ],
+        [
+          {
+            "message" : "En marchant 02"
+          }
+        ]
+      ],
+      "eventOnArriving": [
+        {
+          "message": "Arrivé !"
+        }
+      ]
     },
     {
       "name": "Le pharéole",
-      "distanceFromPrevious": 116
+      "distanceFromPrevious": 50,
+      "eventOnLeaving": [
+        {
+          "message": "Bon départ %victim%",
+          "damage": 5,
+          "victime": 1
+        }
+      ],
+      "eventOnWalking": [
+        [
+          {
+            "message" : "En marchant 01"
+          }
+        ],
+        [
+          {
+            "message" : "En marchant 02"
+          }
+        ]
+      ],
+      "eventOnArriving": [
+        {
+          "message": "Arrivé !"
+        }
+      ]
     },
     {
       "name": "Village en ruine",
-      "distanceFromPrevious": 150
+      "distanceFromPrevious": 50,
+      "eventOnLeaving": [
+        {
+          "message": "Bon départ %victim%",
+          "damage": 5,
+          "victime": 1
+        }
+      ],
+      "eventOnWalking": [
+        [
+          {
+            "message" : "En marchant 01"
+          }
+        ],
+        [
+          {
+            "message" : "En marchant 02"
+          }
+        ]
+      ],
+      "eventOnArriving": [
+        {
+          "message": "Arrivé !"
+        }
+      ]
     }
   ]
 }

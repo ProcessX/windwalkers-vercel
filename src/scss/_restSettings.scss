@@ -1,7 +1,7 @@
 .rest__settings{
   margin: auto auto 3rem auto;
   width: 100%;
-  max-width: 840px;
+  max-width: 742px;
   text-align: center;
 
   .rest__indicator{
@@ -40,7 +40,7 @@
       background-color: #7F7F7F;
 
       &--active{
-        background-color: blue;
+        background-color: #AAA2FF;
       }
     }
 
@@ -52,10 +52,45 @@
         margin-top: 0;
         border-radius: 0;
         transition: none;
-        background-color: red;
+        background-color: white;
         box-shadow:
                 -0.3rem 0px 0px 0px rgba(0,0,0,1),
                 0.3rem 0px 0px 0px rgba(0,0,0,1);
+      }
+    }
+  }
+}
+
+
+@media (orientation: landscape){
+  .rest__settings{
+
+
+    .rest__indicator{
+      font-size: 1rem;
+
+      &__dots{
+      }
+    }
+
+    .rest__timeIndicator{
+    }
+
+    .input-range{
+
+      &__label{
+      }
+
+      &__track{
+
+        &--active{
+        }
+      }
+
+      &__slider-container{
+
+        .input-range__slider{
+        }
       }
     }
   }

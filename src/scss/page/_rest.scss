@@ -1,35 +1,94 @@
 .page--rest{
   display: flex;
   flex-direction: column;
-  padding: 1rem 1rem 3rem 1rem;
+  padding: 1rem 1rem 0rem 1rem;
 
-  .rest__hordeMember__li{
+  .rest__indicator__li{
     padding: 0;
     margin: 0 auto;
     list-style: none;
     width: 100%;
+    font-size: 1.3rem;
+    max-width: 742px;
 
-    .rest__hordeMember__el{
+    .rest__indicator__el{
       display: flex;
       margin: 1rem 0;
+      justify-content: end;
 
-      .rest__hordeMember__name{
+      &--food{
+        text-align: center;
+        display: block;
+      }
+
+      .rest__hordeMember__tag{
         margin: 0;
-        width: calc(33% - 0.5rem);
+        //width: 10rem;
+        //max-width: calc(33% - 0.5rem);
         margin-right: 1rem;
         text-align: right;
-        font-size: 1.3rem;
+        display: none;
+
+        &--symbol{
+          display: block;
+
+          &--caracole{
+            transform: rotate(180deg);
+            text-align: left;
+            letter-spacing: -0.5rem;
+          }
+
+          &--coriolis{
+            box-sizing: border-box;
+            width: 20%;
+            margin-left: auto;
+          }
+        }
+
+      }
+
+      .healthbar{
+        max-width: 60%;
+        flex: 1;
       }
     }
   }
 
 
   .rest__settings{
-    grid-row-start: 2;
   }
 
   .rest__btn{
-    grid-row-start: 2;
+    padding-bottom: 2rem;
+  }
+}
+
+
+
+@media (orientation: landscape){
+  .page--rest {
+
+    .rest__indicator__li {
+      font-size: 0.7692rem;
+
+      .rest__indicator__el {
+        margin: 0.7692rem 0;
+
+        .rest__hordeMember__tag {
+          &--name{
+            display: block;
+          }
+
+          &--symbol{
+            display: none;
+          }
+        }
+
+        .healthbar{
+          height: 0.7692rem;
+        }
+      }
+    }
   }
 }
 

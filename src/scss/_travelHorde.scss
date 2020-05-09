@@ -1,11 +1,11 @@
 .travel__horde{
 
-
   &__member{
     position: relative;
     margin-bottom: 2rem;
 
     .healthbar{
+      height: 1.3rem;
       max-width: calc(100% - 0.6rem);
       border-color: black;
       background-color: #7F7F7F;
@@ -35,7 +35,7 @@
 @media (orientation: landscape) and (min-width: 998px){
   .travel__horde{
 
-    font-size: 0.7692rem;
+    //font-size: 0.7692rem;
 
     &__member{
 
@@ -43,11 +43,11 @@
       margin: 0.5rem 0;
 
       .healthbar{
-        height: 0.7692rem;
+        //height: 0.7692rem;
       }
 
       &__name{
-        margin: 0.3rem 0 0 0;
+        margin: 0;
         padding-right: 1rem;
         min-width: 50%;
         text-align: right;

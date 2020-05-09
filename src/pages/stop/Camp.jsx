@@ -20,7 +20,7 @@ class Camp extends Component {
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Carte'}
-                  action={() => redirectTo('stop/camp/map')}
+                  action={() => redirectTo('/stop/camp/map')}
                 />
               </li>
 
@@ -36,7 +36,7 @@ class Camp extends Component {
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Repartir'}
-                  action={() => console.log('Leaving')}
+                  action={() => redirectTo('/travel')}
                 />
               </li>
             </ul>

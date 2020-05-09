@@ -68,8 +68,34 @@ class Rest extends Component {
   }
 
 
+  displayHorde = () => {
+    const {horde} = this.props;
+
+    let hordeIndicators = [];
+
+    hordeIndicators.push(horde.members.map((member, i) => {
+      let specialTagClass = '';
+      if(i === 4){
+        specialTagClass = 'rest__hordeMember__tag--symbol--caracole';
+      }
+      if(i === 5){
+        specialTagClass = 'rest__hordeMember__tag--symbol--coriolis';
+      }
+
+      return <li className={'rest__indicator__el'} key={i}>
+        <p className={'rest__hordeMember__tag rest__hordeMember__tag--name'}>{member.firstname}</p>
+        <p className={`rest__hordeMember__tag rest__hordeMember__tag--symbol ${specialTagClass}`}>{member.symbol}</p>
+        <Healthbar maxHealth={100} health={member.health}/>
+      </li>;
+    }));
+
+    return hordeIndicators;
+  }
+
+
   render() {
     const {resting, restingTime, currentRestingTik} = this.state;
+    const {horde, inventory} = this.props;
 
     const btnTitle = resting ? 'Fin du repos' : 'Se reposer';
     const btnAction = resting ? this.stopRest : this.rest;
@@ -78,25 +104,17 @@ class Rest extends Component {
       visibility: resting ? 'visible' : 'hidden',
     };
 
+    const hordeIndicators = this.displayHorde();
+
 
     return (
       <div className={'page page--rest'}>
         <BtnBack/>
-        <ul className={'rest__hordeMember__li'}>
-          <li className={'rest__hordeMember__el'}>
-            <p className={'rest__hordeMember__name'}>G</p>
-            <Healthbar maxHealth={20} health={4}/>
-          </li>
 
-          <li className={'rest__hordeMember__el'}>
-            <p className={'rest__hordeMember__name'}>E</p>
-            <Healthbar maxHealth={20} health={19}/>
-          </li>
+        <ul className={'rest__indicator__li'}>
+          <p className={'rest__indicator__el rest__indicator__el--food'}>Vivres : {inventory.food} kg</p>
 
-          <li className={'rest__hordeMember__el'}>
-            <p className={'rest__hordeMember__name'}>S</p>
-            <Healthbar maxHealth={20} health={14}/>
-          </li>
+          {hordeIndicators}
         </ul>
 
         <div className={'rest__settings'}>

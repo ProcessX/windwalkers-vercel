@@ -1,0 +1,30 @@
+.page--narration{
+  padding: 1rem 1rem 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .narration__illu{
+    width: 100%;
+    max-width: 1260px;
+    height: 10rem;
+    background-color: #AAA2FF;
+    margin-bottom: 3rem;
+  }
+
+  .narration__text{
+    width: 100%;
+    max-width: 1260px;
+    text-align: left;
+    margin-top: 0;
+    margin-bottom: 1em;
+
+    &:last-of-type{
+      margin-bottom: auto;
+    }
+  }
+
+  .btn{
+    margin-top: 3rem;
+  }
+}

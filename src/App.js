@@ -20,6 +20,7 @@ import Camp from "./pages/stop/Camp";
 import Credits from "./pages/Credits";
 import Rest from "./pages/horde/Rest";
 import Harvest from "./pages/minigame/Harvest";
+import Loot from "./pages/Loot";
 
 
 const maxHealth = 100;
@@ -85,6 +86,10 @@ class App extends Component {
       progressIndex: 0,
       locations: locations,
       redirectURL: null,
+      minigame: {
+        success: true,
+        payout: null,
+      }
     };
   }
 
@@ -173,9 +178,26 @@ class App extends Component {
   }
 
 
+  addToInventory = (loot) => {
+    let {inventory} = this.state;
+    inventory.food += loot.food;
+    this.setState({inventory: inventory});
+  }
+
+
+  endHarvesting = (playerStatus, payout) => {
+    let {minigame} = this.state;
+    minigame.success = playerStatus;
+    minigame.payout = payout;
+
+    this.addToInventory(payout);
+
+    this.setState({minigame: minigame}, () => this.redirectTo('/minigame/loot/'));
+  }
+
 
   render() {
-    const {horde, inventory, distanceTraveled, redirectURL, progressIndex, locations} = this.state;
+    const {horde, inventory, distanceTraveled, redirectURL, progressIndex, locations, minigame} = this.state;
     const nextLocation = locations[progressIndex];
 
     return (
@@ -221,7 +243,9 @@ class App extends Component {
             </Route>
 
             <Route path={'/narration'} exact>
-              <Narration/>
+              <Narration
+                progressIndex={progressIndex}
+              />
             </Route>
 
             <Route path={'/guide'} exact>
@@ -243,6 +267,12 @@ class App extends Component {
             <Route path={'/defeat'} exact>
               <Defeat/>
             </Route>
+
+            <Route path={'/minigame/loot'} exact>
+              <Loot
+                minigame={minigame}
+              />
+            </Route>
           </Switch>
 
 
@@ -259,7 +289,9 @@ class App extends Component {
 
           <Switch>
             <Route path={'/minigame/harvest/'} exact>
-              <Harvest/>
+              <Harvest
+                endHarvesting={(playerStatus, payout) => this.endHarvesting(playerStatus, payout)}
+              />
             </Route>
           </Switch>
 

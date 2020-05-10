@@ -121,6 +121,7 @@ class Travel extends Component {
 
 
     if(eventSequence[0].damage){
+      
       let victimIndex = this.getRandomInt(horde.members.length);
       hurtMember(victimIndex, eventSequence[0].damage);
       let victim = horde.members[victimIndex];

@@ -13,11 +13,10 @@
 @use 'parallaxe';
 
 
+
 html{
   font-size: 14px;
 }
-
-
 
 body{
   margin: 0;
@@ -29,22 +28,17 @@ body{
   color: white;
 }
 
-
-
 @media (min-width: 480px) and (orientation: portrait){
   html{
     font-size: 20px;
 
   }
 }
-
-
 @media (min-width: 998px) and (orientation: portrait){
   html{
     font-size: 28px;
   }
 }
-
 
 @media (min-width: 998px) and (orientation: landscape){
   html{

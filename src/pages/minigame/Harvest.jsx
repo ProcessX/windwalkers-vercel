@@ -1,6 +1,10 @@
 import React, {Component} from 'react';
 import * as PIXI from 'pixi.js'
+import {Redirect} from "react-router-dom";
 
+//Le timer ici se calcule en minutes.
+const harvestingTime = 1;
+let harvestingTimer;
 
 
 let harvestView;
@@ -194,7 +198,20 @@ function keyboard(values) {
 
 
 
+
+
+
+
+
 class Harvest extends Component {
+
+  constructor() {
+    super();
+    this.state = {
+      redirectURL: null,
+    };
+  }
+
 
   componentDidMount() {
     harvestView = document.getElementsByClassName("harvest__view")[0];
@@ -230,11 +247,18 @@ class Harvest extends Component {
       this.resizeCanvas();
       this.resizeSprite();
     };
+
+    harvestingTimer = window.setTimeout(() => this.exitMinigame(), harvestingTime * 60000);
   }
 
 
   componentWillUnmount() {
     loader.destroy();
+  }
+
+
+  exitMinigame = () => {
+    this.props.endHarvesting(player.dead, payout);
   }
 
 
@@ -702,21 +726,23 @@ class Harvest extends Component {
   killPlayer = () => {
     player.dead = true;
     //QUESTION : comment boucler dans un objet ?
-    payout.food /= 2;
+    if(payout.food > 0){
+      payout.food /= 2;
 
-    let lostLoot = {...payout};
-    lostLoot.food /= 2;
+      let lostLoot = {...payout};
+      lostLoot.food /= 2;
+      payout.food -= lostLoot.food;
+      lostLoot.food = -lostLoot.food;
 
-    payout.food -= lostLoot.food;
+      let messageCoord = {
+        x: player.x,
+        y: player.y - player.texture.frame.height,
+      };
 
-    lostLoot.food = -lostLoot.food;
+      this.displayLootMessage(lostLoot, messageCoord);
+    }
 
-    let messageCoord = {
-      x: player.x,
-      y: player.y - player.texture.frame.height,
-    };
-
-    this.displayLootMessage(lostLoot, messageCoord);
+    harvestingTimer = window.setTimeout(this.exitMinigame, 5000);
   }
 
 
@@ -837,6 +863,8 @@ class Harvest extends Component {
 
 
   render() {
+    const {redirectURL} = this.state;
+
     return (
       <div className={'page page--harvest'}>
         <div className={'harvest__container'}>

@@ -1,0 +1,47 @@
+{"frames": {
+
+"FruitTree_0.png":
+{
+	"frame": {"x":1,"y":29,"w":28,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":28,"h":25},
+	"sourceSize": {"w":28,"h":28}
+},
+"FruitTree_1.png":
+{
+	"frame": {"x":1,"y":56,"w":28,"h":25},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":28,"h":25},
+	"sourceSize": {"w":28,"h":28}
+},
+"FruitTree_2.png":
+{
+	"frame": {"x":1,"y":1,"w":28,"h":26},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":0,"y":1,"w":28,"h":26},
+	"sourceSize": {"w":28,"h":28}
+},
+"FruitTree_empty.png":
+{
+	"frame": {"x":1,"y":83,"w":25,"h":23},
+	"rotated": false,
+	"trimmed": true,
+	"spriteSourceSize": {"x":1,"y":2,"w":25,"h":23},
+	"sourceSize": {"w":28,"h":28}
+}},
+"animations": {
+	"FruitTree": ["FruitTree_0.png","FruitTree_1.png","FruitTree_2.png"]
+},
+"meta": {
+	"app": "https://www.codeandweb.com/texturepacker",
+	"version": "1.0",
+	"image": "fruitTreeSpritesheet.png",
+	"format": "RGBA8888",
+	"size": {"w":30,"h":107},
+	"scale": "1",
+	"smartupdate": "$TexturePacker:SmartUpdate:721f9f4a14829c303ea97e6cec69ee9c:d472809a9f8dd095bec29db30ca80d5c:9c1911c4723ba201a569367a1298d310$"
+}
+}

@@ -39,10 +39,13 @@ class Rest extends Component {
 
   restForATik = () => {
     let {resting, restingTime, restingTikInterval, restingTikTotal, currentRestingTik} = this.state;
+    const {takeTurn} = this.props;
 
     currentRestingTik -= 1;
     if(currentRestingTik <= 0) {
       restingTime -= 1;
+      takeTurn();
+
       if(restingTime <= 0){
         restingTime = 1;
         this.stopRest();

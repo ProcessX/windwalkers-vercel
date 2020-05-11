@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import Btn from "../../components/Btn";
-import Campfire from "../../components/Campfire";
 import {Link} from "react-router-dom";
 
 class Camp extends Component {
@@ -20,15 +19,12 @@ class Camp extends Component {
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Carte'}
-                  action={() => redirectTo('/stop/camp/map')}
                 />
               </li>
 
               <li className={'menu__btn__el'}>
                 <Btn
-                  title={'Guide'}
-                  action={() => redirectTo('guide')}
-                />
+                  title={'Guide'}/>
               </li>
 
               <p>Prochaine étape : 300 km</p>

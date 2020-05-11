@@ -24,6 +24,11 @@ import Loot from "./pages/Loot";
 
 
 const maxHealth = 100;
+const basicPacing = 10;
+const basicFoodConsumption = 10;
+const walkingDamage = 1;
+const eatingHeal = 0.5;
+
 const hordeMembers = [
   {
     firstname: 'Golgoth',
@@ -76,10 +81,11 @@ class App extends Component {
     this.state = {
       horde: {
         members: [],
-        pacing: 10,
+        pacing: basicPacing,
+        foodConsumption: basicFoodConsumption,
       },
       inventory: {
-        food: 0,
+        food: 100,
         medkit: 0,
       },
       distanceTraveled: 0,
@@ -89,7 +95,8 @@ class App extends Component {
       minigame: {
         success: true,
         payout: null,
-      }
+      },
+      turnNbr: 0,
     };
   }
 
@@ -112,15 +119,6 @@ class App extends Component {
 
     this.setState({horde: horde});
   }
-
-
-  //Ajoute la distance parcourue au total
-  addDistanceTraveled = (distance, callback) => {
-    let {distanceTraveled} = this.state;
-    distanceTraveled += distance;
-
-    this.setState({distanceTraveled: distanceTraveled}, callback ? callback() : null);
-  };
 
 
   redirectTo = (url) => {
@@ -178,6 +176,40 @@ class App extends Component {
   }
 
 
+  takeTurn = (distance, callback) => {
+    let {horde, inventory, turnNbr, distanceTraveled} = this.state;
+
+    let damage = (distance * walkingDamage) * (horde.pacing / basicPacing);
+
+    let foodConsumed = Math.min(horde.foodConsumption, inventory.food);
+    if(distance > 0)
+      foodConsumed *= distance / horde.pacing;
+
+    inventory.food -= foodConsumed;
+    turnNbr += 1;
+    distanceTraveled += distance;
+
+    console.log("Walk damage : " + damage);
+    console.log("Food consumed : " + foodConsumed);
+
+    let heal = foodConsumed * eatingHeal;
+    console.log("Eating heal : " + heal);
+
+    if(heal > damage){
+      for(let i = 0; i < horde.members.length; i++){
+        this.healMember(i, heal - damage);
+      }
+    }
+    else{
+      for(let i = 0; i < horde.members.length; i++){
+        this.hurtMember(i, damage - heal);
+      }
+    }
+
+    this.setState({inventory: inventory, turnNbr: turnNbr, distanceTraveled: distanceTraveled},callback ? callback() : null);
+  }
+
+
   addToInventory = (loot) => {
     let {inventory} = this.state;
     inventory.food += loot.food;
@@ -225,7 +257,7 @@ class App extends Component {
                 inventory={inventory}
                 distanceTraveled={distanceTraveled}
                 nextLocation={nextLocation}
-                addDistanceTraveled={(distance) => this.addDistanceTraveled(distance)}
+                takeTurn={(distance, callback) => this.takeTurn(distance, callback)}
                 redirectTo={(url) => this.redirectTo(url)}
                 reachLandmark={() => this.reachLandmark()}
                 removeScriptedEvent={() => this.removeScriptedEvent()}
@@ -281,6 +313,7 @@ class App extends Component {
               <Rest
                 horde={horde}
                 inventory={inventory}
+                takeTurn={() => this.takeTurn(0)}
                 redirectTo={(url) => this.redirectTo(url)}
               />
             </Route>

@@ -14,14 +14,13 @@ class Home extends Component {
             <li className={'menu__btn__el'}>
               <Btn
                 title={'Jouer'}
-                action={() => redirectTo('travel')}
+                action={() => redirectTo('/narration')}
               />
             </li>
 
             <li className={'menu__btn__el'}>
               <Btn
                 title={'Options'}
-                action={() => redirectTo('options')}
               />
             </li>
 
@@ -29,7 +28,6 @@ class Home extends Component {
               <Btn
                 className={'test'}
                 title={'Crédits'}
-                action={() => redirectTo('credits')}
               />
             </li>
           </ul>

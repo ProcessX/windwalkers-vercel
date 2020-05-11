@@ -45,7 +45,7 @@ let canvasScaleHeight = 1;
 let canvasScaleWidth = 1;
 let tileHeight;
 let tileWidth;
-let groundColor = 0xf05c00;
+let groundColor = 0xf1d1a8;
 let limitsColor = 0x8f3700;
 
 let playerMovement = {
@@ -66,10 +66,12 @@ let inputUp = keyboard(controls.up);
 
 inputUp.press = () => {
   playerMovement.y = Math.min(playerMovement.y + 1, 1);
+  switchPlayerAnimation();
 }
 
 inputUp.release = () => {
   playerMovement.y -= 1;
+  switchPlayerAnimation();
 }
 
 
@@ -77,11 +79,12 @@ let inputDown = keyboard(controls.down);
 
 inputDown.press = () => {
   playerMovement.y = Math.max(playerMovement.y - 1, -1);
-
+  switchPlayerAnimation();
 }
 
 inputDown.release = () => {
   playerMovement.y += 1;
+  switchPlayerAnimation();
 }
 
 
@@ -89,10 +92,12 @@ let inputLeft = keyboard(controls.left);
 
 inputLeft.press = () => {
   playerMovement.x = Math.max(playerMovement.x - 1, -1);
+  switchPlayerAnimation();
 }
 
 inputLeft.release = () => {
   playerMovement.x += 1;
+  switchPlayerAnimation();
 }
 
 
@@ -100,11 +105,13 @@ let inputRight = keyboard(controls.right);
 
 inputRight.press = () => {
   playerMovement.x = Math.min(playerMovement.x + 1, 1);
+  switchPlayerAnimation();
 
 }
 
 inputRight.release = () => {
   playerMovement.x -= 1;
+  switchPlayerAnimation();
 }
 
 
@@ -119,10 +126,44 @@ inputAction.release = () => {
 }
 
 
+function switchPlayerAnimation(){
+  if(playerMovement.x === 0 && playerMovement.y === 0){
+    player.texture = playerTexture.textures['Face-Still_0.png'];
+    player.stop();
+  }
+  else{
+    if(playerMovement.y > 0){
+      if(Math.abs(playerMovement.x) > 0){
+        player.textures = playerTexture.animations['ThreeThirdBack-Walking'];
+      }
+      else{
+        player.textures = playerTexture.animations['Back-Walking'];
+      }
+    }
+    else{
+      if(Math.abs(playerMovement.x) > 0){
+        player.textures = playerTexture.animations['ThreeThird-Walking'];
+      }
+      else{
+        player.textures = playerTexture.animations['Face-Walking'];
+      }
+    }
+
+    player.scale.x = 1;
+    if(playerMovement.x < 0){
+      player.scale.x = -1;
+    }
+
+    player.play();
+  }
+}
+
+
 /*PIXI elements*/
 let harvest;
 
 let player;
+let playerTexture;
 
 //On n'utilise pas un Pixi Container car il serait alors impossible de jouer avec le z-index par rapport au joueur.
 let obstacles = [];
@@ -131,6 +172,7 @@ let safezones = [];
 
 //On n'utilise pas un Pixi Container car il serait alors impossible de jouer avec le z-index par rapport au joueur.
 let harvestables = [];
+let fruitTreeTexture;
 
 let harvestableLimit = new PIXI.Graphics();
 harvestableLimit.x = 0;
@@ -228,14 +270,14 @@ class Harvest extends Component {
 
     loader = new PIXI.Loader();
     loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
-
     loader
-      .add('player', 'player.png')
+      .add('fruitTreeAnim', 'fruitTreeSpritesheet.json')
       .add('rock01', 'rock01.png')
       .add('grass01', 'grass01.png')
       .add('limits', 'limits.png')
       .add('harvestable', 'fruitTree01.png')
-      .add('blaast', 'blaast.png');
+      .add('blaast', 'blaast.png')
+      .add('playerAnim', 'characters/characterSpritesheet.json');
 
     loader.onComplete.add(() => {
       this.setup();
@@ -248,7 +290,7 @@ class Harvest extends Component {
       this.resizeSprite();
     };
 
-    harvestingTimer = window.setTimeout(() => this.exitMinigame(), harvestingTime * 60000);
+    //harvestingTimer = window.setTimeout(() => this.exitMinigame(), harvestingTime * 60000);
   }
 
 
@@ -357,9 +399,25 @@ class Harvest extends Component {
 
 
   setupPlayer = () => {
+
+    playerTexture = loader.resources["playerAnim"].spritesheet;
+    console.log(loader.resources["playerAnim"]);
+
+    player = new PIXI.AnimatedSprite(
+      playerTexture.animations['ThreeThird-Walking'],
+    );
+
+    player.texture = playerTexture.textures['Face-Still_0.png'];
+
+    player.animationSpeed = 0.1;
+
+    /*
     player = new PIXI.Sprite(
       loader.resources.player.texture,
     );
+
+     */
+
 
     player.anchor.set(0.5,1);
     player.hitbox = {width: 1, height: 0.5};
@@ -419,12 +477,25 @@ class Harvest extends Component {
 
 
   setupHarvestables = () => {
+
+    fruitTreeTexture = loader.resources["fruitTreeAnim"].spritesheet;
+    console.log(loader.resources["fruitTreeAnim"]);
+
     let harvestable;
 
     levelDesign.harvestables.forEach((position) => {
+      /*
       harvestable = new PIXI.Sprite(
         loader.resources.harvestable.texture,
       );
+
+       */
+
+      harvestable = new PIXI.AnimatedSprite(
+        fruitTreeTexture.animations['FruitTree'],
+      );
+      harvestable.animationSpeed = 0.08;
+
       harvestable.coord = position;
       harvestable.anchor.set(0.5, 1);
       harvestable.hitbox = {width: 1, height: 1};
@@ -464,6 +535,7 @@ class Harvest extends Component {
     harvest.ticker.add((deltaMS) => {
       this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
     });
+
   }
 
 
@@ -641,6 +713,7 @@ class Harvest extends Component {
           harvestable.giving = true;
           harvestable.timer = harvestable.timeBetweenTik;
           this.displayHarvestableLimit(harvestableHitbox);
+          harvestable.play();
           console.log('Collision detected');
         }
       }
@@ -648,6 +721,7 @@ class Harvest extends Component {
         if(harvestable.giving){
           harvestable.giving = false;
           this.removeHarvestableLimit();
+          harvestable.gotoAndStop(0);
           console.log('Collision lost');
         }
       }
@@ -666,6 +740,8 @@ class Harvest extends Component {
           else{
             harvestable.giving = false;
             this.removeHarvestableLimit();
+            harvestable.texture = fruitTreeTexture.textures['FruitTree_empty.png'];
+            harvestable.stop();
             console.log('Harvestable Empty');
           }
         }
@@ -725,6 +801,8 @@ class Harvest extends Component {
 
   killPlayer = () => {
     player.dead = true;
+    player.texture = playerTexture.textures['Hit_0.png'];
+
     //QUESTION : comment boucler dans un objet ?
     if(payout.food > 0){
       payout.food /= 2;
@@ -742,8 +820,15 @@ class Harvest extends Component {
       this.displayLootMessage(lostLoot, messageCoord);
     }
 
+    harvestingTimer = window.setTimeout(this.backToStillTexture, 200);
+  }
+
+
+  backToStillTexture = () => {
+    player.texture = playerTexture.textures['Face-Still_0.png'];
     harvestingTimer = window.setTimeout(this.exitMinigame, 5000);
   }
+
 
 
   //Collision check

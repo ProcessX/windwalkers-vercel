@@ -87,7 +87,8 @@ class Travel extends Component {
   //Ajoute la distance parcourue lors du tour, puis appelle la fonction chargée de gérer les événements aléatoires.
   addDistanceTraveled = () => {
     let {walkingDistance} = this.state;
-    this.props.addDistanceTraveled(walkingDistance, this.checkNextEvent());
+    //this.props.addDistanceTraveled(walkingDistance, this.checkNextEvent());
+    this.props.takeTurn(walkingDistance, this.checkNextEvent());
   }
 
 
@@ -191,6 +192,9 @@ class Travel extends Component {
       Math.random() * max
     );
   }
+
+
+
 
 
   render() {

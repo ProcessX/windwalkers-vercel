@@ -25,7 +25,6 @@ class Resources extends Component {
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Rations'}
-                  action={() => redirectTo('stop/resources/rationing')}
                 />
               </li>
             </ul>

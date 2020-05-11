@@ -18,21 +18,18 @@ class Landmark extends Component {
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Marché'}
-                  action={() => redirectTo('stop/landmark/shop')}
                 />
               </li>
 
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Explorer'}
-                  action={() => redirectTo('stop/landmark/explore')}
                 />
               </li>
 
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Rencontres'}
-                  action={() => redirectTo('stop/landmark/meeting')}
                 />
               </li>
             </ul>

@@ -11,12 +11,18 @@
 @use 'travelHorde';
 @use 'travelStats';
 @use 'parallaxe';
+@use 'tutorial';
+@use 'illu';
+@use 'inventory';
+
 
 
 
 html{
   font-size: 14px;
 }
+
+
 
 body{
   margin: 0;

@@ -5,19 +5,63 @@
   max-width: 1680px;
   box-sizing: border-box;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 
   .navbar__link__el{
     width: 4rem;
     height: 4rem;
+    position: relative;
+    cursor: pointer;
+
+    .navbar__link__illu{
+      content: '';
+      background-color: black;
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position-x: center;
+      image-rendering: crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: -moz-crisp-edges;
+
+      opacity: 0.5;
+    }
+
+    &--active{
+      .navbar__link__illu{
+        opacity: 1;
+      }
+    }
 
     .navbar__link{
       text-decoration: none;
       color: #7F7F7F;
       font-size: 1rem;
+      position: relative;
 
       &--active{
 
+      }
+
+      &--tuto{
+        &:after{
+          content: '!';
+          position: absolute;
+          top: 0.5rem;
+          right: 0.5rem;
+          line-height: 1rem;
+          //height: 1rem;
+          //width: 1rem;
+          padding: 0.1rem;
+          color: red;
+          //background-color: white;
+          font-size: 1.3rem;
+        }
       }
     }
   }
@@ -54,8 +98,11 @@
       overflow-x: hidden;
       max-width: calc(20% - 0.25rem);
 
+      .navbar__link__illu{
+        pointer-events: none;
+      }
+
       .navbar__link{
-        background-color: green;
 
         display: block;
         font-size: 1rem;
@@ -83,6 +130,10 @@
       width: auto;
       height: auto;
 
+      .navbar__link__illu{
+        display: none;
+      }
+
       &--toOptions{
         position: absolute;
         right: 0;
@@ -94,6 +145,13 @@
 
         .navbar__link{
           text-indent: 200%;
+        }
+      }
+
+      &--active{
+        .navbar__link{
+          background-color: white;
+          color: black;
         }
       }
 
@@ -111,11 +169,6 @@
           top: -0.3rem;
           left: 0.3rem;
           background-color: inherit;
-        }
-
-        &--active{
-          background-color: white;
-          color: black;
         }
 
         &:not(.navbar__link--active):hover{

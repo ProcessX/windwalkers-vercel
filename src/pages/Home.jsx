@@ -1,13 +1,21 @@
 import React, {Component} from 'react';
 import Btn from "../components/Btn";
 
+const illuURL = '../assets/Home-Illu.png';
+
 class Home extends Component {
   render() {
     const {redirectTo} = this.props;
+    const illu = {
+      backgroundImage: `url(${illuURL})`,
+      backgroundRepeat: 'no-repeat',
+      backgroundSize: 'contain',
+      backgroundPosition: 'center',
+    };
 
     return (
       <div className={'page page--home'}>
-        <h1 className={'home__illu'}>Windwalkers</h1>
+        <h1 className={'illu home__illu'} style={illu}>Windwalkers</h1>
 
         <nav className={'menu menu--fullScreen menu--home'}>
           <ul className={'menu__btn__li'}>

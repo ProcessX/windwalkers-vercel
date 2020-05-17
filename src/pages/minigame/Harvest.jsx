@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
 import * as PIXI from 'pixi.js'
 import {Redirect} from "react-router-dom";
+import TutorialPanel from "../../components/tutorialPanel";
 
 //Le timer ici se calcule en minutes.
 const harvestingTime = 1;
 let harvestingTimer;
+
+const damageIfDead = 15;
 
 
 let harvestView;
@@ -58,72 +61,11 @@ let payout = {
 }
 
 
-
-/*
-Inputs
- */
-let inputUp = keyboard(controls.up);
-
-inputUp.press = () => {
-  playerMovement.y = Math.min(playerMovement.y + 1, 1);
-  switchPlayerAnimation();
-}
-
-inputUp.release = () => {
-  playerMovement.y -= 1;
-  switchPlayerAnimation();
-}
-
-
-let inputDown = keyboard(controls.down);
-
-inputDown.press = () => {
-  playerMovement.y = Math.max(playerMovement.y - 1, -1);
-  switchPlayerAnimation();
-}
-
-inputDown.release = () => {
-  playerMovement.y += 1;
-  switchPlayerAnimation();
-}
-
-
-let inputLeft = keyboard(controls.left);
-
-inputLeft.press = () => {
-  playerMovement.x = Math.max(playerMovement.x - 1, -1);
-  switchPlayerAnimation();
-}
-
-inputLeft.release = () => {
-  playerMovement.x += 1;
-  switchPlayerAnimation();
-}
-
-
-let inputRight = keyboard(controls.right);
-
-inputRight.press = () => {
-  playerMovement.x = Math.min(playerMovement.x + 1, 1);
-  switchPlayerAnimation();
-
-}
-
-inputRight.release = () => {
-  playerMovement.x -= 1;
-  switchPlayerAnimation();
-}
-
-
-let inputAction = keyboard(controls.action);
-
-inputAction.press = () => {
-  console.log('go action');
-}
-
-inputAction.release = () => {
-  console.log('stop action');
-}
+let inputUp;
+let inputDown;
+let inputLeft;
+let inputRight;
+let inputAction;
 
 
 function switchPlayerAnimation(){
@@ -132,29 +74,30 @@ function switchPlayerAnimation(){
     player.stop();
   }
   else{
-    if(playerMovement.y > 0){
-      if(Math.abs(playerMovement.x) > 0){
-        player.textures = playerTexture.animations['ThreeThirdBack-Walking'];
+    if(!player.dead){
+      if(playerMovement.y > 0){
+        if(Math.abs(playerMovement.x) > 0){
+          player.textures = playerTexture.animations['ThreeThirdBack-Walking'];
+        }
+        else{
+          player.textures = playerTexture.animations['Back-Walking'];
+        }
       }
       else{
-        player.textures = playerTexture.animations['Back-Walking'];
+        if(Math.abs(playerMovement.x) > 0){
+          player.textures = playerTexture.animations['ThreeThird-Walking'];
+        }
+        else{
+          player.textures = playerTexture.animations['Face-Walking'];
+        }
       }
-    }
-    else{
-      if(Math.abs(playerMovement.x) > 0){
-        player.textures = playerTexture.animations['ThreeThird-Walking'];
+      player.scale.x = 1;
+      if(playerMovement.x < 0){
+        player.scale.x = -1;
       }
-      else{
-        player.textures = playerTexture.animations['Face-Walking'];
-      }
-    }
 
-    player.scale.x = 1;
-    if(playerMovement.x < 0){
-      player.scale.x = -1;
+      player.play();
     }
-
-    player.play();
   }
 }
 
@@ -251,11 +194,24 @@ class Harvest extends Component {
     super();
     this.state = {
       redirectURL: null,
+      tutorialBlaast: [],
+      characterIndex: 3,
     };
   }
 
 
   componentDidMount() {
+    let {characterIndex} = this.state;
+    const {horde} = this.props;
+
+    for (let i = 1; i < (horde.members.length - 1); i++){
+      if(horde.members[characterIndex].health < horde.members[i].health){
+        characterIndex = i;
+      }
+    }
+
+    this.setState({characterIndex});
+
     harvestView = document.getElementsByClassName("harvest__view")[0];
     harvestContainer = document.getElementsByClassName("harvest__container")[0];
 
@@ -272,12 +228,18 @@ class Harvest extends Component {
     loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
     loader
       .add('fruitTreeAnim', 'fruitTreeSpritesheet.json')
-      .add('rock01', 'rock01.png')
-      .add('grass01', 'grass01.png')
+      .add('rock01', 'rock.png')
+      .add('grass01', 'grass.png')
       .add('limits', 'limits.png')
       .add('harvestable', 'fruitTree01.png')
       .add('blaast', 'blaast.png')
-      .add('playerAnim', 'characters/characterSpritesheet.json');
+      .add('playerAnim', 'characters/characterSpritesheet.json')
+      .add('oroshiAnim', 'characters/Spritesheet-Oroshi.json')
+      .add('sovAnim', 'characters/Spritesheet-Sov.json')
+      .add('caracoleAnim', 'characters/Spritesheet-Caracole.json')
+      .add('ergAnim', 'characters/Spritesheet-Erg.json')
+      .add('coriolisAnim', 'characters/Spritesheet-Coriolis.json')
+      .add('golgothAnim', 'characters/Spritesheet-Golgoth.json');
 
     loader.onComplete.add(() => {
       this.setup();
@@ -290,7 +252,9 @@ class Harvest extends Component {
       this.resizeSprite();
     };
 
-    //harvestingTimer = window.setTimeout(() => this.exitMinigame(), harvestingTime * 60000);
+    this.setupControls();
+
+    harvestingTimer = window.setTimeout(() => this.exitMinigame(), harvestingTime * 60000);
   }
 
 
@@ -341,7 +305,6 @@ class Harvest extends Component {
 
   repositionSprites = (previousView, previousScaleHeight, previousScaleWidth) => {
     let offsetX = canvasScaleWidth / previousScaleWidth;
-    console.log(offsetX);
     let offsetY = player.y / previousView.height;
 
     player.x *= offsetX;
@@ -352,7 +315,7 @@ class Harvest extends Component {
     blaast.width = tileWidth * canvasGridSize;
     blaast.height = blaast.texture.height;
 
-    alertMessage.x = (harvestView.width / 2) / canvasScaleWidth;
+    alertMessage.x = (harvestView.width / 2) / canvasScale;
     alertMessage.y = 16;
 
     obstacles.forEach((obstacle) => {
@@ -398,10 +361,73 @@ class Harvest extends Component {
   }
 
 
-  setupPlayer = () => {
+  setupControls = () => {
+    inputUp = keyboard(controls.up);
 
-    playerTexture = loader.resources["playerAnim"].spritesheet;
-    console.log(loader.resources["playerAnim"]);
+    inputUp.press = () => {
+      playerMovement.y = Math.min(playerMovement.y + 1, 1);
+      switchPlayerAnimation();
+    }
+
+    inputUp.release = () => {
+      playerMovement.y -= 1;
+      switchPlayerAnimation();
+    }
+
+
+    inputDown = keyboard(controls.down);
+
+    inputDown.press = () => {
+      playerMovement.y = Math.max(playerMovement.y - 1, -1);
+      switchPlayerAnimation();
+    }
+
+    inputDown.release = () => {
+      playerMovement.y += 1;
+      switchPlayerAnimation();
+    }
+
+
+    inputLeft = keyboard(controls.left);
+
+    inputLeft.press = () => {
+      playerMovement.x = Math.max(playerMovement.x - 1, -1);
+      switchPlayerAnimation();
+    }
+
+    inputLeft.release = () => {
+      playerMovement.x += 1;
+      switchPlayerAnimation();
+    }
+
+
+    inputRight = keyboard(controls.right);
+
+    inputRight.press = () => {
+      playerMovement.x = Math.min(playerMovement.x + 1, 1);
+      switchPlayerAnimation();
+
+    }
+
+    inputRight.release = () => {
+      playerMovement.x -= 1;
+      switchPlayerAnimation();
+    }
+  }
+
+
+  setupPlayer = () => {
+    const {characterIndex} = this.state;
+
+    let playerTextureMap = [];
+    playerTextureMap.push(loader.resources["golgothAnim"].spritesheet);
+    playerTextureMap.push(loader.resources["ergAnim"].spritesheet);
+    playerTextureMap.push(loader.resources["sovAnim"].spritesheet);
+    playerTextureMap.push(loader.resources["oroshiAnim"].spritesheet);
+    playerTextureMap.push(loader.resources["caracoleAnim"].spritesheet);
+    playerTextureMap.push(loader.resources["coriolisAnim"].spritesheet);
+
+    playerTexture = playerTextureMap[characterIndex];
 
     player = new PIXI.AnimatedSprite(
       playerTexture.animations['ThreeThird-Walking'],
@@ -479,17 +505,10 @@ class Harvest extends Component {
   setupHarvestables = () => {
 
     fruitTreeTexture = loader.resources["fruitTreeAnim"].spritesheet;
-    console.log(loader.resources["fruitTreeAnim"]);
 
     let harvestable;
 
     levelDesign.harvestables.forEach((position) => {
-      /*
-      harvestable = new PIXI.Sprite(
-        loader.resources.harvestable.texture,
-      );
-
-       */
 
       harvestable = new PIXI.AnimatedSprite(
         fruitTreeTexture.animations['FruitTree'],
@@ -499,7 +518,7 @@ class Harvest extends Component {
       harvestable.coord = position;
       harvestable.anchor.set(0.5, 1);
       harvestable.hitbox = {width: 1, height: 1};
-      harvestable.content = {food: 10};
+      harvestable.content = {food: 40};
       harvestable.giving = false;
       harvestable.timer = 0;
       harvestable.timeBetweenTik = 5;
@@ -714,7 +733,6 @@ class Harvest extends Component {
           harvestable.timer = harvestable.timeBetweenTik;
           this.displayHarvestableLimit(harvestableHitbox);
           harvestable.play();
-          console.log('Collision detected');
         }
       }
       else{
@@ -722,7 +740,6 @@ class Harvest extends Component {
           harvestable.giving = false;
           this.removeHarvestableLimit();
           harvestable.gotoAndStop(0);
-          console.log('Collision lost');
         }
       }
 
@@ -735,14 +752,12 @@ class Harvest extends Component {
           harvestable.tikNbr -= 1;
           if(harvestable.tikNbr > 0){
             harvestable.timer = harvestable.timeBetweenTik;
-            console.log('Tik');
           }
           else{
             harvestable.giving = false;
             this.removeHarvestableLimit();
             harvestable.texture = fruitTreeTexture.textures['FruitTree_empty.png'];
             harvestable.stop();
-            console.log('Harvestable Empty');
           }
         }
       }
@@ -751,6 +766,7 @@ class Harvest extends Component {
 
 
   blaastLoop = (delta) => {
+    const {tutorial} = this.props;
 
     if(blaast.y >= (harvestView.height + blaast.height)){
       blaast.y = 0;
@@ -763,14 +779,12 @@ class Harvest extends Component {
         let playerY = walkingArea.toGlobal(player.position).y;
         if(playerY < blaast.y && playerY >= blaast.y - 30){
           if(!player.blownAway && !player.dead){
-            console.log('player hit');
             player.blownAway = true;
           }
         }
         else{
           if(player.blownAway){
             player.blownAway = false;
-            console.log('player dead');
             this.killPlayer();
           }
         }
@@ -778,8 +792,10 @@ class Harvest extends Component {
     }
     else{
       blaast.timer -= delta;
-      if(blaast.timer <= 5){
+      if(blaast.timer <= 5) {
         alertMessage.visible = true;
+        if(tutorial.harvest[0])
+          this.displayTutorial();
       }
       if(blaast.timer <= 0){
         blaast.blowing = true;
@@ -821,12 +837,14 @@ class Harvest extends Component {
     }
 
     harvestingTimer = window.setTimeout(this.backToStillTexture, 200);
+
+    this.props.hurtPlayer(this.state.characterIndex, damageIfDead);
   }
 
 
   backToStillTexture = () => {
     player.texture = playerTexture.textures['Face-Still_0.png'];
-    harvestingTimer = window.setTimeout(this.exitMinigame, 5000);
+    harvestingTimer = window.setTimeout(this.exitMinigame, 2500);
   }
 
 
@@ -885,7 +903,6 @@ class Harvest extends Component {
 
 
   addToPayout = (harvestable) => {
-    console.log(harvestable.content.food);
     let loot = {
       food: harvestable.content.food / harvestable.tikNbr,
     };
@@ -902,7 +919,6 @@ class Harvest extends Component {
 
 
   displayHarvestableLimit = (hitbox) => {
-    console.log('Display limit');
     harvestableLimit.x = hitbox.x - hitbox.width/2;
     harvestableLimit.y = hitbox.y - hitbox.height;
     harvestableLimit.lineStyle(1, limitsColor, 1, 1);
@@ -913,18 +929,15 @@ class Harvest extends Component {
 
 
   removeHarvestableLimit = () => {
-    console.log('Remove limit');
     harvestableLimit.clear();
   }
 
 
   displayLootMessage = (loot, coord) => {
     let message = lootMessages[0];
-    console.log(loot.food / 2);
     message.position.set(coord.x, coord.y);
     message.visible = true;
     if(loot.food){
-      console.log('Brat');
       if(loot.food > 0){
         message.text = `+ ${loot.food} food`;
       }
@@ -943,15 +956,32 @@ class Harvest extends Component {
   }
 
 
+  displayTutorial = () => {
+    const {tutorial} = this.props;
+    harvest.ticker.stop();
+    this.setState({tutorialBlaast: tutorial.harvest});
+  }
+
+  validateTutorial = () => {
+    const {tutorialBlaast} = this.state;
+    if(tutorialBlaast.length === 1)
+      harvest.ticker.start();
+
+    this.props.validateTutorial();
+  }
+
 
 
 
 
   render() {
-    const {redirectURL} = this.state;
+    const {redirectURL, tutorialBlaast} = this.state;
+    const {tutorial, validateTutorial} = this.props;
 
     return (
       <div className={'page page--harvest'}>
+        {tutorialBlaast[0] ? <TutorialPanel content={tutorialBlaast[0]} validateTutorial={() => this.validateTutorial()}/> : null}
+
         <div className={'harvest__container'}>
           <canvas className={'harvest__view'}></canvas>
         </div>

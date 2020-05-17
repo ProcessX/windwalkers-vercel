@@ -5,6 +5,11 @@
   max-width: 100%;
   list-style: none;
 
+  .menu__distanceIndicator{
+    margin: 2rem auto 0 auto;
+    max-width: 16rem;
+  }
+
 
   .menu__btn__el{
     max-width: 16rem;
@@ -26,6 +31,7 @@
     .btn{
       width: 100%;
     }
+
   }
 }
 
@@ -38,9 +44,6 @@
         display: block;
       }
 
-      &:first-child{
-      }
-
       &:last-child{
       }
 
@@ -50,3 +53,27 @@
     }
   }
 }
+
+
+@media (min-width: 998px) and (orientation: landscape) {
+  .menu__btn__li{
+    .menu__distanceIndicator{
+      margin: 4rem auto 0 auto;
+    }
+
+    .menu__btn__el{
+
+      &--portraitOnly{
+      }
+
+      &:nth-child(2){
+        margin-top: 0;
+      }
+
+      .btn{
+      }
+    }
+  }
+  
+}
+

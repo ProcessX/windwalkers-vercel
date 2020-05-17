@@ -1,0 +1,41 @@
+{
+  "tutorialSequence": [
+    {
+      "progressIndex": 1,
+      "horde": [
+        {
+          "text": "Bienvenu sur l'écran de gestion de la Horde. \nÀ chaque arrêt, vous avez accès à une série d'options pour gérer votre inventaire, ou pour visiter des lieux importants. \nFaites le tour des options pour plus de détail."
+        },
+        {
+          "text": "Pour le moment, votre groupe a survécu au Furvent, mais vos provisions sont à sec. \nD'après les cartes de Sov, votre scribe, le prochain lieu adéquat pour établir un campement est trop loin pour l'atteindre d'une seule traite sans nourriture"
+        },
+        {
+          "text": "Afin de refaire votre stock, rendez-vous sur la page RESOURCES pour plus d'information. \nEnsuite, quand vous aurez gagné assez de nourriture à votre goût, revenez sur cet écran et visitez la page REPOS pour permettre à vos Hordiers de regagner des forces."
+        },
+        {
+          "text": "Vous pouvez également aller à l'onglet CAMP et partir sans chercher de nourriture. Il sera toujours possible de vous arrêter en cours de route, mais ce serait prendre un gros risque..."
+        }
+      ],
+      "landmark": [
+        {
+          "text": "Work In Progress. \n Dans une version future, cet écran vous permettra d'effectuer des achats et d'explorer les alentours, ainsi que de discuter avec les locaux."
+        }
+      ],
+      "camp": [
+        {
+          "text": "Sur cet écran, vous pouvez voir la distance vous séparant de votre prochain objectif. \nDe plus, le bouton en bas vous permet de repartir si vous pensez avoir assez de nourriture pour affronter la route."
+        }
+      ],
+      "resources": [
+        {
+          "text": "Voyez ici le contenu de votre inventaire. \n Aussi, en appuyant sur le bouton RÉCOLTER, découvrez les règles du minijeu vous permettant d'augmenter votre stock de vivres."
+        }
+      ],
+      "harvest": [
+        {
+          "text": "En haut de votre écran une alerte vient d'apparaître. \n'BLAAST' signifie qu'une vague de vent approche. Si elle vous touche, elle vous balayera et votre personnage devra abandonner sa récolte. \nIl vaudrait mieux vous cacher derrière une rocher... "
+        }
+      ]
+    }
+  ]
+}

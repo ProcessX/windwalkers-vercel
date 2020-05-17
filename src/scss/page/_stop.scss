@@ -9,7 +9,7 @@
     flex: 1;
     width: 100%;
     max-width: 1260px;
-    background-color: #AAA2FF;
+    background-size: contain;
   }
 
   .stop__landmarkName{
@@ -17,13 +17,28 @@
     text-align: center;
     color: black;
     padding: 1rem;
-    margin-bottom: 2rem;
-    margin-top: 0;
+    margin-top: calc(-2em - 0.5rem);
     box-sizing: border-box;
-    width: 100%;
-    max-width: 1260px;
+    line-height: 1em;
   }
 
   .btn{
+  }
+}
+
+
+
+@media (min-width: 998px) {
+  .page--stop{
+
+    .stop__illu{
+      background-size: cover;
+    }
+
+    .stop__landmarkName{
+    }
+
+    .btn{
+    }
   }
 }

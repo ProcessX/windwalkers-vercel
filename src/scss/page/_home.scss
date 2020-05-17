@@ -3,9 +3,11 @@
   flex-direction: column;
 
   .home__illu{
-    background-color: #AAA2FF;
+    //background-color: #AAA2FF;
     margin: 1rem 1rem 0 1rem;
     flex: 1;
+    overflow: hidden;
+    text-indent: 100%;
   }
 
   .menu--home{
@@ -38,6 +40,10 @@
           margin: 0 2rem 0 0;
           width: 100%;
           max-width: 12rem;
+
+          &:last-child{
+            margin-right: 0;
+          }
         }
       }
     }

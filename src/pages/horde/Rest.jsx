@@ -112,17 +112,17 @@ class Rest extends Component {
 
     return (
       <div className={'page page--rest'}>
-        <BtnBack/>
+        <BtnBack redirectURL={'/stop/horde'}/>
 
         <ul className={'rest__indicator__li'}>
-          <p className={'rest__indicator__el rest__indicator__el--food'}>Vivres : {inventory.food} kg</p>
+          <p className={'rest__indicator__el rest__indicator__el--food'}>Vivres : {inventory.food} rations</p>
 
           {hordeIndicators}
         </ul>
 
         <div className={'rest__settings'}>
           <p className={'rest__indicator'} style={indicatorStyle}>Resting<span className={'rest__indicator__dots'}>{Array(currentRestingTik + 1).join('.')}</span></p>
-          <p className={'rest__timeIndicator'}>{restingTime} jour{restingTime > 1 ? 's' : ''}</p>
+          <p className={'rest__timeIndicator'}>{restingTime} tour{restingTime > 1 ? 's' : ''}</p>
           <InputRange
             onChange={(value) => this.setState({restingTime: value})}
             value={restingTime}

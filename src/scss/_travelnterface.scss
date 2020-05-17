@@ -1,3 +1,11 @@
+.page--travel--noStopAllowed{
+  .travel__interface{
+    .btn{
+      display: none;
+    }
+  }
+}
+
 .travel__interface{
   position: relative;
   z-index: 10;
@@ -30,16 +38,35 @@
     margin: 0;
     background-color: black;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
     position: relative;
     z-index: 10;
 
     .travel__interface__tab__el{
-      background-color: green;
       cursor: pointer;
       width: 4rem;
       height: 4rem;
       overflow: hidden;
+      position: relative;
+      text-indent: 100%;
+
+      .travel__interface__tab__icon{
+        content: '';
+        background-color: black;
+        height: 100%;
+        width: 100%;
+        position: absolute;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        image-rendering: crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: -moz-crisp-edges;
+        top: 0;
+        left: 0;
+        opacity: 0.5;
+      }
     }
 
     .btn{
@@ -55,6 +82,11 @@
 
 
 .travel__interface[data-showContent='stats']{
+  .travel__interface__tab__el--stats{
+    .travel__interface__tab__icon{
+      opacity: 1;
+    }
+  }
   .travel__interface__content{
     &__sub--stats{
       visibility: visible;
@@ -63,8 +95,23 @@
 }
 
 
+.travel__interface[data-showContent='horde']{
+  .travel__interface__tab__el--horde{
+    .travel__interface__tab__icon{
+      opacity: 1;
+    }
+  }
+}
+
+
 @media (max-width: 997px), (orientation: portrait){
   .travel__interface[data-showContent='hide']{
+    .travel__interface__tab__el--travel{
+      .travel__interface__tab__icon{
+        opacity: 1;
+      }
+    }
+
     .travel__interface__content{
       visibility: hidden;
       pointer-events: none;
@@ -77,10 +124,29 @@
   .travel__interface{
     display: flex;
 
+    &[data-showContent='hide']{
+      .travel__interface__tab__li{
+        .travel__interface__tab__el--horde{
+          background-color: white;
+          color: black;
+        }
+      }
+    }
+
+    &[data-showContent='horde']{
+      .travel__interface__tab__li{
+        .travel__interface__tab__el--horde{
+          background-color: white;
+          color: black;
+        }
+      }
+    }
+
     &[data-showContent='stats']{
       .travel__interface__tab__li{
         .travel__interface__tab__el--stats{
           background-color: white;
+          color: black;
         }
 
       }
@@ -110,6 +176,12 @@
         min-width: calc(100vw / 12);
         text-align: center;
         background-color: transparent;
+        background-image: none;
+        text-indent: 0;
+
+        .travel__interface__tab__icon{
+          display: none;
+        }
 
         &:nth-child(3){
           margin-bottom: 1rem;

@@ -96,7 +96,16 @@ class Parallaxe extends Component {
     this.loader
       .add('landscape_01', 'Dune-01.png')
       .add('landscape_02', 'Mountain-01.png')
-      .add('characterWalking', 'characters/test/Figure-ThreeThird-Walking.json');
+      .add('landmarkVillage', 'Landmark-Village.png')
+      .add('landmarkPort', 'Landmark-Port.png')
+      .add('landmarkCamp', 'Landmark-Camp.png')
+      .add('characterWalking', 'characters/test/Figure-ThreeThird-Walking.json')
+      .add('oroshiAnim', 'characters/Spritesheet-Oroshi.json')
+      .add('sovAnim', 'characters/Spritesheet-Sov.json')
+      .add('caracoleAnim', 'characters/Spritesheet-Caracole.json')
+      .add('ergAnim', 'characters/Spritesheet-Erg.json')
+      .add('coriolisAnim', 'characters/Spritesheet-Coriolis.json')
+      .add('golgothAnim', 'characters/Spritesheet-Golgoth.json');
 
     this.loader.onComplete.add(() => {
       this.initLandscape();
@@ -104,14 +113,49 @@ class Parallaxe extends Component {
       this.initNextLandmark();
       this.resizeCanvas();
       this.setupLoop();
+      this.checkForCasulties();
     });
 
     this.loader.load();
   }
 
 
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    const {walking, horde} = this.props;
+    if(walking && !prevProps.walking){
+      this.horde.children.forEach((member, i) => {
+        member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Walking'];
+        member.play();
+      });
+    }
+    else{
+      if(!walking && !prevProps.walking){
+        this.horde.children.forEach((member, i) => {
+          member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
+          member.stop();
+        });
+      }
+    }
+
+    if(!walking){
+      this.checkForCasulties();
+    }
+  }
+
+
   componentWillUnmount() {
     this.loader.destroy();
+  }
+
+
+  checkForCasulties = () => {
+    let {horde} = this.props;
+
+    for(let i = 0; i < this.horde.children.length; i++){
+      if(horde.members[i].health <= 0){
+        this.horde.children[i].visible = false;
+      }
+    }
   }
 
 
@@ -206,18 +250,22 @@ class Parallaxe extends Component {
 
 
   initNextLandmark = () => {
-    const {horde, nextLocation, distanceTraveled, walkingTime} = this.props;
+    const {horde, nextLocation, distanceTraveled, walkingTime, progressIndex} = this.props;
 
     let remainingDistance = nextLocation.distanceFromStart - distanceTraveled;
     let remainingSteps = remainingDistance / horde.pacing;
 
+    let landmarkTextures = [];
+    landmarkTextures.push(this.loader.resources.landmarkVillage.texture);
+    landmarkTextures.push(this.loader.resources.landmarkPort.texture);
+    landmarkTextures.push(this.loader.resources.landmarkCamp.texture);
+
     this.nextLandmark = new PIXI.Sprite(
-      this.loader.resources.landscape_02.texture,
+      landmarkTextures[progressIndex],
     );
 
     this.nextLandmark.anchor.set(0, 0.2);
     this.nextLandmark.simulateX = 120 + (remainingSteps * this.parallaxeSpeed * walkingTime);
-    console.log(this.nextLandmark.simulateX);
 
 
     this.resizeNextLandmark();
@@ -252,20 +300,28 @@ class Parallaxe extends Component {
 
   loadCharacter = () => {
 
-    this.characterAnimatedTexture = this.loader.resources["characterWalking"].spritesheet;
+    this.characterAnimatedTexture = [];
+    this.characterAnimatedTexture.push(this.loader.resources["golgothAnim"].spritesheet);
+    this.characterAnimatedTexture.push(this.loader.resources["ergAnim"].spritesheet);
+    this.characterAnimatedTexture.push(this.loader.resources["sovAnim"].spritesheet);
+    this.characterAnimatedTexture.push(this.loader.resources["oroshiAnim"].spritesheet);
+    this.characterAnimatedTexture.push(this.loader.resources["caracoleAnim"].spritesheet);
+    this.characterAnimatedTexture.push(this.loader.resources["coriolisAnim"].spritesheet);
+
+    //this.characterAnimatedTexture = this.loader.resources["playerAnim"].spritesheet;
+    //this.characterAnimatedTexture = this.loader.resources["oroshiAnim"].spritesheet;
 
     this.props.horde.members.forEach((member, i) => {
-      if(member.health > 0){
-        let character = new PIXI.AnimatedSprite(this.characterAnimatedTexture.animations["walking"]);
-        character.x = this.hordeMembersPosition[i].x;
-        character.y = this.hordeMembersPosition[i].y;
+      let character = new PIXI.AnimatedSprite(this.characterAnimatedTexture[i].animations['ThreeThird-Walking']);
+      character.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
+      character.x = this.hordeMembersPosition[i].x;
+      character.y = this.hordeMembersPosition[i].y;
 
-        this.horde.addChild(character);
-        this.horde.children.forEach((member) => {
-          member.animationSpeed = 0.1;
-          member.play();
-        });
-      }
+      this.horde.addChild(character);
+      this.horde.children.forEach((member) => {
+        member.animationSpeed = 0.1;
+        member.stop();
+      });
     });
 
     this.parallaxe.stage.addChild(this.horde);

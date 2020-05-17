@@ -1,16 +1,46 @@
 import React, {Component} from 'react';
 import Btn from "../../components/Btn";
-import {Link} from 'react-router-dom';
+import {Link, Redirect} from 'react-router-dom';
 import Campfire from "../../components/Campfire";
+import TutorialPanel from "../../components/tutorialPanel";
 
 class Horde extends Component {
+  constructor() {
+    super();
+    this.state={
+      redirectURL: null,
+    }
+  }
+
+  redirectTo = (url) => {
+    let {redirectURL} = this.state;
+    redirectURL = url;
+    this.setState({redirectURL});
+  }
 
 
   render() {
-    const {horde, redirectTo} = this.props;
+    const {horde, redirectTo, tutorial, validateTutorial} = this.props;
+    const {redirectURL} = this.state;
+
+    const iconBaseURL = `${process.env.PUBLIC_URL}/assets/icons`;
+
+    const campIcon = {
+      backgroundImage: `url(${iconBaseURL}/Icon-Fire.png)`,
+    }
+
+    const resourcesIcon = {
+      backgroundImage: `url(${iconBaseURL}/Icon-Resources.png)`,
+    }
+
+    const hordeIcon = {
+      backgroundImage: `url(${iconBaseURL}/Icon-Horde.png)`,
+    }
 
     return (
       <div className={'page page--managementSection page--horde'}>
+
+        {tutorial.horde[0] ? <TutorialPanel content={tutorial.horde[0]} validateTutorial={() => validateTutorial()}/> : null}
 
         <div className={'managementSection__content'}>
           <div className={'managementSection__illu'}>Section's illu</div>
@@ -22,14 +52,14 @@ class Horde extends Component {
               <li className={'menu__btn__el menu__btn__el--portraitOnly'}>
                 <Btn
                   title={'Santé'}
-                  action={() => redirectTo('/horde/health')}
+                  action={() => this.redirectTo('/stop/horde/campfire')}
                 />
               </li>
 
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Repos'}
-                  action={() => redirectTo('/stop/horde/rest')}
+                  action={() => this.redirectTo('/stop/horde/rest')}
                 />
               </li>
 
@@ -42,37 +72,45 @@ class Horde extends Component {
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Cadence'}
-                  action={() => redirectTo('/stop/horde/pacing')}
                 />
               </li>
             </ul>
           </nav>
 
           <div className={'managementSection__rightPanel'}>
-            <Campfire className={'Test'} horde={horde}/>
+            <Campfire horde={horde}/>
           </div>
 
         </div>
 
         <nav className={'managementSection__navbar'}>
           <ul className={'navbar__link__li'}>
-            <li className={'navbar__link__el'}>
-              <Link className={'navbar__link'} to={'/stop/landmark'}>Lieu</Link>
+            {/*}
+            <li className={`navbar__link__el`}>
+              <Link className={`navbar__link ${tutorial.landmark[0] ? 'navbar__link--tuto' : ''}`} to={'/stop/landmark'}>Lieu</Link>
             </li>
-            <li className={'navbar__link__el'}>
-              <Link className={'navbar__link navbar__link--active'} to={'/stop/horde'}>Horde</Link>
+            {*/}
+            <li className={`navbar__link__el navbar__link__el--active`}>
+              <Link className={`navbar__link navbar__link--active`} to={'/stop/horde'}>Horde</Link>
+              <div className={'navbar__link__illu'} style={hordeIcon}></div>
             </li>
-            <li className={'navbar__link__el'}>
-              <Link className={'navbar__link'}  to={'/stop/resources'}>Matériel</Link>
+            <li className={`navbar__link__el`}>
+              <Link className={`navbar__link ${tutorial.resources[0] ? 'navbar__link--tuto' : ''}`}  to={'/stop/resources'}>Matériel</Link>
+              <div className={'navbar__link__illu'} style={resourcesIcon}></div>
             </li>
-            <li className={'navbar__link__el'}>
-              <Link className={'navbar__link'}  to={'/stop/camp'}>Camp</Link>
+            <li className={`navbar__link__el`}>
+              <Link className={`navbar__link ${tutorial.camp[0] ? 'navbar__link--tuto' : ''}`}  to={'/stop/camp'}>Camp</Link>
+              <div className={'navbar__link__illu'} style={campIcon}></div>
             </li>
+            {/*}
             <li className={'navbar__link__el  navbar__link__el--toOptions'}>
               <Link className={'navbar__link navbar__link--toOptions'}  to={'/options'}>Options</Link>
             </li>
+            {*/}
           </ul>
         </nav>
+
+        {redirectURL ? <Redirect to={redirectURL}/> : null}
 
       </div>
     );

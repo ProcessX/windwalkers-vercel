@@ -4,10 +4,30 @@
       "progressIndex": 0,
       "panelSequence": [
         {
-          "text": "Test de narration fregre grehjuj zdgk euh.\nfrfre."
+          "text": "Dans un monde où le vent souffle en permanence d'est en ouest... \nUn monde où les tempêtes déracinent les plus gros arbres et font s'effondrer les habitations..."
         },
         {
-          "text": "Test de narration 2."
+          "text": "Depuis huit siècles, les habitants de l'Extrême-Ouest envoient des groupes d'explorateurs à la recherche de la source du vent. \nCe sont les Horde du Contrevent."
+        },
+        {
+          "text": "Avant vous, 33 Hordes ont tenté en vain d'atteindre l'Extrême-Amont. \nAucune n'y est arrivée vivante."
+        },
+        {
+          "text": "Vous êtes la 34e Horde du Contrevent. \nLa meilleure de l'Histoire, mais aussi la dernière. \nSi vous échouez, plus jamais une Horde ne sera envoyée vers la source, et le mystère du vent restera pour toujours caché."
+        },
+        {
+          "text": "Après vingt ans de marche, la 34e Horde du Contrevent approche d'un nouveau défi : la flaque de Lapsane. \nCette immense étendue d'eau a par le passé causé la perte de nombreux explorateurs."
+        },
+        {
+          "text": "Mais avant tout, il faut atteindre la flaque. \n Si possible vivant. \nOr aujourd'hui, le vent le lève, et il est menaçant."
+        }
+      ]
+    },
+    {
+      "progressIndex": 1,
+      "panelSequence": [
+        {
+          "text": "Vous parvenez à récupérer quelques ressources avant de partir."
         }
       ]
     }

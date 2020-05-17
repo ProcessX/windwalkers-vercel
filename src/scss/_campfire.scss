@@ -1,8 +1,9 @@
 $campfireElementSize-01: 168px;
+$campfireElementSize-02: 280px;
 
 .campfire{
   display: grid;
-  grid-template-columns: repeat(6, $campfireElementSize-01 / 2);
+  grid-template-columns: repeat(2, $campfireElementSize-01);
   grid-template-rows: repeat(3, $campfireElementSize-01 + 14px);
   grid-gap: 1rem;
   justify-content: center;
@@ -17,10 +18,10 @@ $campfireElementSize-01: 168px;
     max-width: 100%;
     height: 100%;
     max-height: 100%;
-    background-color: blue;
   }
 
   .campfire__illu{
+    display: none;
     grid-column-start: 3;
     grid-column-end: 5;
     grid-row-start: 2;
@@ -28,7 +29,6 @@ $campfireElementSize-01: 168px;
 
   .campfire__character{
 
-    //border: solid 3px white;
     //box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -36,7 +36,9 @@ $campfireElementSize-01: 168px;
 
     &--atenuated{
       .campfire__character__mugshot{
-        background-color: gray;
+        &--alt{
+          opacity: 1;
+        }
       }
 
       .campfire__character__healthbar{
@@ -62,12 +64,12 @@ $campfireElementSize-01: 168px;
       visibility: hidden;
       pointer-events: none;
       position: absolute;
-      left: calc(100% - 1rem);
-      bottom: -1.5rem;
+      left: 1rem;
+      top: calc(100% - 2rem);
       background-color: black;
       padding: 1rem;
       z-index: 200;
-      border: 0.1rem solid white;
+      border: 0.2rem solid white;
       width: 16rem;
 
       .campfire__character__name{
@@ -109,55 +111,273 @@ $campfireElementSize-01: 168px;
     &__mugshot{
       //height: calc(100% - 1.3rem);
       border-color: white;
-      border: 0.1rem solid;
+      border: 0.2rem solid;
       border-bottom: none;
-      background-color: aquamarine;
       pointer-events: none;
       flex: 1;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position-x: center;
+      position: relative;
+      image-rendering: crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: -moz-crisp-edges;
 
+      &--alt{
+        content: '';
+        height: 100%;
+        width: 100%;
+        background-color: black;
+        position: absolute;
+        top: 0;
+        left: 0;
+        opacity: 0;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        image-rendering: crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: -moz-crisp-edges;
+      }
     }
 
     &:nth-child(2n){
       .campfire__character__info{
         left: unset;
-        right: calc(100% - 1rem);
+        right: 1rem;
       }
     }
 
     &:nth-child(1){
-      grid-column-start: 2;
-      grid-column-end: 4;
+      grid-column-start: 1;
       grid-row-start: 1;
     }
 
     &:nth-child(2){
-      grid-column-start: 4;
-      grid-column-end: 6;
+      grid-column-start: 2;
       grid-row-start: 1;
     }
 
     &:nth-child(3){
       grid-column-start: 1;
-      grid-column-end: 3;
       grid-row-start: 2;
     }
 
     &:nth-child(4){
-      grid-column-start: 5;
-      grid-column-end: 7;
+      grid-column-start: 2;
       grid-row-start: 2;
     }
 
     &:nth-child(5){
-      grid-column-start: 2;
-      grid-column-end: 4;
+      grid-column-start: 1;
       grid-row-start: 3;
     }
 
     &:nth-child(6){
-      grid-column-start: 4;
-      grid-column-end: 6;
+      grid-column-start: 2;
       grid-row-start: 3;
+    }
+  }
+}
+
+
+
+@media (min-width: 700px) and (orientation: portrait){
+  .campfire{
+    grid-template-columns: repeat(2, $campfireElementSize-02);
+    grid-template-rows: repeat(3, $campfireElementSize-02 + 14px);
+
+    .campfire__el{
+    }
+
+    .campfire__illu{
+    }
+
+    .campfire__character{
+
+      &--atenuated{
+        .campfire__character__mugshot{
+          &--alt{
+          }
+        }
+
+        .campfire__character__healthbar{
+          &:after{
+          }
+        }
+
+        .healthbar{
+          &__indicator{
+          }
+        }
+      }
+
+      &--highlight{
+        .campfire__character__info{
+        }
+      }
+
+      &__info{
+
+        .campfire__character__name{
+        }
+
+        .campfire__character__symbol{
+
+          &--caracole{
+          }
+
+          &--coriolis{
+          }
+        }
+
+        .campfire__character__purpose{
+        }
+      }
+
+      &__mugshot{
+
+        &--alt{
+        }
+      }
+
+      &:nth-child(2n){
+        .campfire__character__info{
+        }
+      }
+
+      &:nth-child(1){
+      }
+
+      &:nth-child(2){
+      }
+
+      &:nth-child(3){
+      }
+
+      &:nth-child(4){
+      }
+
+      &:nth-child(5){
+      }
+
+      &:nth-child(6){
+      }
+    }
+  }
+}
+
+
+
+@media (min-width: 998px) and (orientation: landscape){
+  .campfire{
+    grid-template-columns: repeat(6, $campfireElementSize-01 / 2);
+    grid-template-rows: repeat(3, $campfireElementSize-01 + 14px);
+
+    .campfire__el{
+    }
+
+    .campfire__illu{
+      grid-column-start: 3;
+      grid-column-end: 5;
+      grid-row-start: 2;
+    }
+
+    .campfire__character{
+
+      &--atenuated{
+        .campfire__character__mugshot{
+          &--alt{
+          }
+        }
+
+        .campfire__character__healthbar{
+          &:after{
+          }
+        }
+
+        .healthbar{
+          &__indicator{
+          }
+        }
+      }
+
+      &--highlight{
+        .campfire__character__info{
+        }
+      }
+
+      &__info{
+        left: calc(100% - 1rem);
+        //bottom: -1.5rem;
+
+        .campfire__character__name{
+        }
+
+        .campfire__character__symbol{
+          top: 0.8rem;
+          right: 1rem;
+
+          &--caracole{
+          }
+
+          &--coriolis{
+          }
+        }
+
+        .campfire__character__purpose{
+        }
+      }
+
+      &__mugshot{
+
+        &--alt{
+        }
+      }
+
+      &:nth-child(2n){
+        .campfire__character__info{
+          right: calc(100% - 1rem);
+        }
+      }
+
+      &:nth-child(1){
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 1;
+      }
+
+      &:nth-child(2){
+        grid-column-start: 4;
+        grid-column-end: 6;
+        grid-row-start: 1;
+      }
+
+      &:nth-child(3){
+        grid-column-start: 1;
+        grid-column-end: 3;
+        grid-row-start: 2;
+      }
+
+      &:nth-child(4){
+        grid-column-start: 5;
+        grid-column-end: 7;
+        grid-row-start: 2;
+      }
+
+      &:nth-child(5){
+        grid-column-start: 2;
+        grid-column-end: 4;
+        grid-row-start: 3;
+      }
+
+      &:nth-child(6){
+        grid-column-start: 4;
+        grid-column-end: 6;
+        grid-row-start: 3;
+      }
     }
   }
 }

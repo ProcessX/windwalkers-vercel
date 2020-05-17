@@ -3,6 +3,7 @@ import TravelInterface from "../components/TravelInterface";
 import TravelScene from "../components/TravelScene";
 
 import {randomEvents} from "../data/randomEvents.json";
+import {Redirect} from "react-router-dom";
 
 const randomEventChance = 0.2;
 
@@ -19,6 +20,8 @@ class Travel extends Component {
       walkingDistance: 0,
       requestingStop: false,
       eventSequence: [],
+      hordeAlive: true,
+      redirectURL: null,
     }
   }
 
@@ -34,14 +37,17 @@ class Travel extends Component {
 
   setupEventSequence = () => {
     const {nextLocation, distanceTraveled} = this.props;
-    let {eventSequence} = this.state;
+    let {eventSequence, walking} = this.state;
 
     if((nextLocation.distanceFromStart - nextLocation.distanceFromPrevious) === distanceTraveled){
       if(nextLocation.eventOnLeaving)
         eventSequence = nextLocation.eventOnLeaving;
     }
+    else{
+      walking = true;
+    }
 
-    this.setState({eventSequence: eventSequence}, this.checkNextEvent);
+    this.setState({walking: walking, eventSequence: eventSequence}, this.checkNextEvent);
   }
 
 
@@ -78,23 +84,28 @@ class Travel extends Component {
   stopWalking = () => {
     let {walking} = this.state;
     walking = false;
-    this.setState({walking: walking}, this.addDistanceTraveled());
-
-    this.checkNextEvent();
+    this.setState({walking: walking}, this.addDistanceTraveled);
   }
 
 
   //Ajoute la distance parcourue lors du tour, puis appelle la fonction chargée de gérer les événements aléatoires.
   addDistanceTraveled = () => {
-    let {walkingDistance} = this.state;
+    console.log(this.state.walking);
+    let {walkingDistance, eventSequence} = this.state;
     //this.props.addDistanceTraveled(walkingDistance, this.checkNextEvent());
-    this.props.takeTurn(walkingDistance, this.checkNextEvent());
+
+    if(!eventSequence[0]){
+      walkingTimer = window.setTimeout(() => this.props.takeTurn(walkingDistance, this.checkNextEvent()), 1000);
+    }
+    else{
+      this.props.takeTurn(walkingDistance, this.checkNextEvent);
+    }
   }
 
 
   //Vérifie la présence d'un événement.
   checkNextEvent = () => {
-    let {requestingStop, eventSequence} = this.state;
+    let {requestingStop, eventSequence, walking} = this.state;
 
     if(!eventSequence[0]){
       if(this.getWalkingDistance() <= 0){
@@ -106,6 +117,7 @@ class Travel extends Component {
           this.quitWalking('/stop/horde');
         }
         else{
+          walking = false;
           this.startWalking();
         }
       }
@@ -117,27 +129,54 @@ class Travel extends Component {
 
 
   applyEvent = () => {
+    console.log('Apply event');
     let {eventSequence} = this.state;
     const {horde, hurtMember} = this.props;
 
 
     if(eventSequence[0].damage){
-      
-      let victimIndex = this.getRandomInt(horde.members.length);
-      hurtMember(victimIndex, eventSequence[0].damage);
+      //let victimIndex = this.getRandomInt(horde.members.length);
+      let victimIndex = this.getVictimIndex();
+      console.log('test');
+      let memberAlive = hurtMember(victimIndex, eventSequence[0].damage);
+      if(!memberAlive){
+        this.checkHordeHealth();
+      }
       let victim = horde.members[victimIndex];
       eventSequence[0].message = eventSequence[0].message.replace(/%victim%/, victim.firstname);
+
     }
 
     this.setState({eventSequence: eventSequence});
   }
 
 
-  removeEvent = () => {
-    let {eventSequence} = this.state;
-    eventSequence.shift();
-    this.setState({eventSequence: eventSequence}, this.checkNextEvent);
+  getVictimIndex = () => {
+    const {horde} = this.props;
+    let victimIndex = this.getRandomInt(horde.members.length);
+    if(horde.members[victimIndex].health <= 0){
+      for(let i = 0; i < (horde.members.length - 1); i++){
+        let newVictimIndex = (victimIndex + i) % horde.members.length;
+        if(horde.members[newVictimIndex].health > 0){
+          victimIndex = newVictimIndex;
+          break;
+        }
+      }
+    }
+    return victimIndex;
+  }
 
+
+  removeEvent = () => {
+    let {eventSequence, redirectURL} = this.state;
+    if(!eventSequence[0].gameover){
+      eventSequence.shift();
+      this.setState({eventSequence: eventSequence}, this.checkNextEvent);
+    }
+    else{
+      redirectURL = '/defeat';
+      this.setState({redirectURL});
+    }
   }
 
 
@@ -176,12 +215,32 @@ class Travel extends Component {
   }
 
 
+  checkHordeHealth = () => {
+    let {hordeAlive} = this.state;
+    const {horde} = this.props;
+    let test = horde.members.find(member => member.health > 0);
+    if(test === undefined){
+      hordeAlive = false;
+      this.setState({hordeAlive}, this.hordeAllDead);
+    }
+  }
+
+
+  hordeAllDead = () => {
+    let {eventSequence} = this.state;
+    let newEvent = {
+      message: "Le dernier Hordier a succombé à la force des éléments. Ici s'arrête le voyage de la 34ème Horde du Contrevement...",
+      gameover: true,
+    }
+    eventSequence[1] = newEvent;
+
+    this.setState(eventSequence);
+  }
+
+
   getRandomEvent = () => {
-    console.log('Get Random Event');
     if(Math.random() >= randomEventChance)
       return randomEvents[this.getRandomInt(randomEvents.length)];
-
-    console.log('No random event');
 
     return null;
   }
@@ -198,11 +257,11 @@ class Travel extends Component {
 
 
   render() {
-    const {eventSequence, walking} = this.state;
-    const {horde, inventary, nextLocation, distanceTraveled} = this.props;
+    const {eventSequence, walking, redirectURL} = this.state;
+    const {horde, inventory, nextLocation, distanceTraveled, progressIndex} = this.props;
 
     return (
-      <div className={'page page--travel'}>
+      <div className={`page page--travel ${progressIndex < 2 ? 'page--travel--noStopAllowed' : ''}`}>
         <TravelScene
           walkingTime={walkingTime}
           horde={horde}
@@ -211,11 +270,17 @@ class Travel extends Component {
           distanceTraveled={distanceTraveled}
           walking={walking}
           removeEvent={() => this.removeEvent()}
+          progressIndex={progressIndex}
         />
         <TravelInterface
+          inventory={inventory}
           horde={horde}
           requestStop={() => this.requestStop()}
+          nextLocation={nextLocation}
+          distanceTraveled={distanceTraveled}
         />
+
+        {redirectURL ? <Redirect to={redirectURL}/> : null}
       </div>
     );
   }

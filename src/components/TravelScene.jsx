@@ -9,10 +9,12 @@ class TravelScene extends Component {
 
 
   render() {
-    const {horde, walkingTime, distanceTraveled, nextLocation, walking, event, removeEvent} = this.props;
+    const {horde, walkingTime, distanceTraveled, nextLocation, walking, event, removeEvent, progressIndex} = this.props;
     let messageClass = 'travel__scene__message--hidden';
     let messageContent = 'Message';
     let messageSpeaker;
+    let speakerMugshotURL = `url(${process.env.PUBLIC_URL}/assets/mugshots/Mugshot-`;
+    let speakerMugshotStyle;
 
     let messageType = 'message';
     if(!walking){
@@ -23,6 +25,10 @@ class TravelScene extends Component {
         if(event.speaker){
           messageType = 'dialog';
           messageSpeaker = event.speaker;
+          speakerMugshotURL += `${event.speaker}.png`;
+          speakerMugshotStyle = {
+            backgroundImage: speakerMugshotURL,
+          }
         }
       }
     }
@@ -38,11 +44,12 @@ class TravelScene extends Component {
           nextLocation={nextLocation}
           horde={horde}
           walking={walking}
+          progressIndex={progressIndex}
         />
 
         <div className={`travel__scene__message ${messageClass}`} data-messagetype={messageType}>
           <div className={'message__speaker'}>
-            <div className={'message__speaker__mugshot'}>{}</div>
+            <div className={'message__speaker__mugshot'} style={speakerMugshotStyle}></div>
             <p className={'message__speaker__name'}>{messageSpeaker}</p>
           </div>
           <p className={'message__content'}>{messageContent}</p>

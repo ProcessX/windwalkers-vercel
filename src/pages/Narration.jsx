@@ -24,7 +24,6 @@ class Narration extends Component {
 
   nextChapter = () => {
     let {panelIndex, currentChapter} = this.state;
-    console.log(currentChapter);
     panelIndex += 1;
     if(panelIndex < currentChapter.panelSequence.length){
       this.setState({panelIndex: panelIndex});
@@ -36,7 +35,6 @@ class Narration extends Component {
 
 
   quitNarration = () => {
-    console.log('Quit Narration');
     const {progressIndex} = this.props;
     let {redirectURL} = this.state;
 
@@ -49,7 +47,6 @@ class Narration extends Component {
 
   displayText = (text) => {
     let splitText = text.split('\n');
-    console.log(splitText);
 
     let paragraphs = splitText.map((paragraph, i) => {
       return <p className={'narration__text'} key={i}>{paragraph}</p>;

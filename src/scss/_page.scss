@@ -5,8 +5,9 @@
 @use 'page/home';
 @use 'page/harvest';
 @use 'page/narration';
-
-
+@use 'page/minigame';
+@use 'page/loot';
+@use 'page/campfireMobile';
 
 .page{
   box-sizing: border-box;
@@ -14,4 +15,6 @@
   width: 100vw;
   max-height: 100vh;
   max-width: 100vw;
+  position: relative;
+  overflow-x: hidden;
 }

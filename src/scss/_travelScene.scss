@@ -32,7 +32,7 @@
 
   .message__speaker{
     display: none;
-    background-color: #AAA2FF;
+    background-color: black;
     border: solid 0.3rem white;
     width: 10rem;
     margin-top: -12.7rem;
@@ -41,6 +41,14 @@
     &__mugshot{
       width: 10rem;
       height: 10rem;
+
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position-x: center;
+      image-rendering: crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: -moz-crisp-edges;
     }
 
     &__name{

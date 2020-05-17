@@ -6,19 +6,35 @@
 
     .healthbar{
       height: 1.3rem;
-      max-width: calc(100% - 0.6rem);
       border-color: black;
       //background-color: #7F7F7F;
     }
 
     &__name{
       margin-bottom: 0.5rem;
+      font-size: 1.3rem;
     }
 
     &__state{
       position: absolute;
       top: 0;
       right: 0;
+
+      height: 1.4rem;
+      max-width: 1.4rem;
+      width: 1.4rem;
+      min-width: 1.4rem;
+      overflow: hidden;
+      text-indent: 100%;
+      filter: invert(1);
+
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+      image-rendering: crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: -moz-crisp-edges;
     }
 
     &:first-child{
@@ -51,6 +67,7 @@
         padding-right: 1rem;
         min-width: 50%;
         text-align: right;
+        font-size: 1rem;
       }
 
       &__state{

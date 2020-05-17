@@ -2,62 +2,390 @@
   "locations": [
     {
       "name": "Le village des abrités",
-      "distanceFromPrevious": 50,
+      "url": "Village",
+      "distanceFromPrevious": 120,
       "eventOnLeaving": [
         {
-          "message": "Vers le village des abrités. %victim%",
-          "damage": 5,
-          "victime": 1
+          "message": "Un jour de contre qui s'annonçait comme les autres..."
         }
       ],
       "eventOnWalking": [
         [
           {
-            "message" : "En marchant 01"
+            "message" : "Attendez, arrêtons-nous... Il faut s'arrêter.",
+            "speaker": "Oroshi"
+          },
+          {
+            "message" : "Qu'est-ce qu'il se passe, Oroshi ? Tu sens quelque chose ?",
+            "speaker": "Sov"
+          },
+          {
+            "message" : "Ah, peut-être que notre aéromaîtresse a senti le pet d'un lièvre dans les fourrés. Ou bien la présence d'un autochrone dans les parages, qui sait ?",
+            "speaker": "Caracole"
+          },
+          {
+            "message" : "C'est le vent. Le vent vient de changer. Laissez-moi me concentrer...",
+            "speaker": "Oroshi"
+          },
+          {
+            "message" : "..."
+          },
+          {
+            "message" : "... Et maintenant, plus rien... Quelque chose ne va pas.",
+            "speaker": "Oroshi"
+          },
+          {
+            "message" : "Tu penses que nous devrions monter le camp ici ? Prendre le temps d'analyser la situation ?",
+            "speaker": "Sov"
+          },
+          {
+            "message" : "SUREMENT PAS !",
+            "speaker": "Golgoth"
+          },
+          {
+            "message" : "Golgoth, regarde Oroshi. Elle est inquiète. Et même si Caracole fait le pitre, on voit bien qu'il sent un danger.",
+            "speaker": "Sov"
+          },
+          {
+            "message" : "ET MOI JE DIS ON REPART ! LA HORDE ELLE STOPPE PAS, JAMAIS !",
+            "speaker": "Golgoth"
+          },
+          {
+            "message" : "Ce que traceur veut, l'univers pourvoit...",
+            "speaker": "Caracole"
           }
         ],
         [
           {
-            "message" : "En marchant 02"
+            "message" : "Une bourrasque fait trébucher %victim%. Le chute lui racle légèrement l'épaule.",
+            "damage": 3,
+            "victime": 1
+          }
+        ],
+        [
+          {
+            "message" : "Le vent change brusquement de direction. Étrange..."
+          }
+        ],
+        [
+          {
+            "message" : "Une rafale projette une volée de grêlon sur %victim%. Un gravier lui ouvre le front.",
+            "damage": 3,
+            "victime": 1
+          },
+          {
+            "message" : "Golgoth, ça suffit ! Il y a un problème. Ne me fais pas croire que tu ne t'en ai pas rendu compte.",
+            "speaker": "Oroshi"
+          },
+          {
+            "message" : "Hum...",
+            "speaker": "Golgoth"
+          },
+          {
+            "message" : "..."
+          },
+          {
+            "message" : "Le rafalant a changé d'odeur. Il nous en radine une bien bonne depuis l'Amont, l'enfoiré.",
+            "speaker": "Golgoth"
+          },
+          {
+            "message" : "Je pense qu'un Furvent arrive.",
+            "speaker": "Oroshi"
+          },
+          {
+            "message" : "Un Furvent ? Comment c'est possible ? Le dernier ne date que d'il y a quelques mois ! Je le sais, c'était juste avant que me rejoigne la Horde !",
+            "speaker": "Coriolis"
+          },
+          {
+            "message" : "Difficile à expliquer à une profane. Sov a déjà retranscrit un événement de ce genre dans son carnet de Contre. Il sera ravi de te faire un résumé.",
+            "speaker": "Oroshi"
+          },
+          {
+            "message" : "En marchant, alors. Dangereux de trainer terrain découvert. Si attaque maint'nant, peux pas protéger tous.",
+            "speaker": "Erg"
+          }
+        ],
+        [
+          {
+            "message": "Le vent forcit et devient de plus en plus difficile à contrer. Dans le ciel, les nuages filent à une vitesse inouïe."
+          },
+          {
+            "message": "Comme tu es jeune, tu n'as pas du voir de nombreux Furvent. Et maintenant que tu es dans la Horde, il va falloir faire front dans la plaine, et pas cachée dans un abris.",
+            "speaker": "Sov"
+          }
+        ],
+        [
+          {
+            "message": "Durant plus d'une minute, la puissance des bourrasques est telle que la Horde fait du surplace. Sans la puissance de Golgoth en tête du groupe pour encaisser, nul n'aurait pu rester debout."
+          },
+          {
+            "message": "On peut vraiment survivre à un Furvent en contrant de face ?",
+            "speaker": "Coriolis"
+          },
+          {
+            "message": "Bien sûr ! Il suffit de l'accueillir avec un petit numéro de jonglage, et il s'en ira satisfait en se tenant le ventre de rire.",
+            "speaker": "Caracole"
+          },
+          {
+            "message": "Ah, j'ai hâte de te voir essayer cette technique, troubadour. Quant à toi, Coriolis, suis plutôt notre exemple : une sangle solide, un point d'ancrage, et beaucoup de chance. C'est l'unique moyen d'y survivre.",
+            "speaker": "Sov"
+          },
+          {
+            "message": "On n'affronte pas un Furvent. On se couche par terre et on prie pour que Blaast ne nous arrache pas la peau du visage.",
+            "speaker": "Sov"
+          }
+        ],
+        [
+          {
+            "message": "Un arbre décharné s'effondre au loin, terrassé par la pression de l'air balayant le monde."
+          }
+        ],
+        [
+          {
+            "message": "Golgoth lit mal l'enchâinement des flux et trébuche. Toute la Horde se tait tandis qu'il remonte sur ses pieds."
+          },
+          {
+            "message": "Cette fois sûr, Furvent vient.",
+            "speaker": "Erg"
+          },
+          {
+            "message": "Merci, macaque. J'crois qu'on avait comprit. Forcez le pas, mes p'tits chialeurs. Si on se fait prendre ici, le Fufur va tous nous envoyer bouler jusqu'à Aberlaas, et après ça fera encore 20 ans de contre pour revenir jusqu'ici.",
+            "speaker": "Golgoth"
+          }
+        ],
+        [
+          {
+            "message": "Erg, qu'est-ce que c'est là bas ? Je crois voir...",
+            "speaker": "Oroshi"
+          },
+          {
+            "message": "Cela, ma très chère fille de l'esprit, s'avère être un sémillant village d'abrités. En pleine panique, si mes yeux ne me trompent pas.",
+            "speaker": "Caracole"
+          },
+          {
+            "message": "De bons yeux en effet, morpion de lingerie...",
+            "speaker": "Oroshi"
+          }
+        ],
+        [
+          {
+            "message": "Au loin, les contours d'un village de précise, mais il devient difficile de garder les paupières ouvertes."
           }
         ]
       ],
       "eventOnArriving": [
         {
-          "message": "Arrivé !"
+          "message": "Keske c'est ce trou ? Ces murs tiennent même pas droit, j'pourrais les tomber avec mes poings.",
+          "speaker": "Golgoth"
+        },
+        {
+          "message": "On ne trouvera pas mieux comme abri avant l'arrivée du Furvent. Et à découvert, nous n'avons aucune chance.",
+          "speaker": "Oroshi"
+        },
+        {
+          "message": "Pt-être bien, mais moi j'suis pas chaud-chaud tu vois, aéomaîtresse.",
+          "speaker": "Golgoth"
+        },
+        {
+          "message": "Allez, faites le tour du patelin au trot, on va prendre ce qu'on peut puis on avisera.",
+          "speaker": "Golgoth"
         }
       ]
     },
     {
-      "name": "Le pharéole",
-      "distanceFromPrevious": 50,
+      "name": "Le port à drakkair",
+      "url": "Pharéole",
+      "distanceFromPrevious": 80,
       "eventOnLeaving": [
         {
-          "message": "Bon départ %victim%",
-          "damage": 5,
-          "victime": 1
+          "message": "La Horde se rassemble devant le mur d'enceinte, incertaine de ce qu'il convient de faire."
+        },
+        {
+          "message": "Impossible, Traceur, rigoureusement impossible. Si nous mettons un pied dehors, les rafales nous déchiqueterons dès la première vague. Lors de la seconde, il ne restera de nous que des petits bouts de chairs éparpillés sur cinq kilomètres en aval.",
+          "speaker": "Oroshi"
+        },
+        {
+          "message": "Et moi j'te dis que ces murs, c'est du crouton. Tu t'appuie dessus, et ils tombent.",
+          "speaker": "Golgoth"
+        },
+        {
+          "message": "Moi préfère mourir plaine. Pas caché derrière crouton.",
+          "speaker": "Erg"
+        },
+        {
+          "message": "Tu vas mourir, macaque, ça c'est une certitude ! Mais ici, certains auront peut-être une chance.",
+          "speaker": "Oroshi"
+        },
+        {
+          "message": "On a qu'à voter ! Ceux qui veulent sortir lèvent la main, et les autres...",
+          "speaker": "Coriolis"
+        },
+        {
+          "message": "PERSONNE TE DEMANDE TON AVIS, CROC !",
+          "speaker": "Golgoth"
+        },
+        {
+          "message": "IL Y A PAS DE VOTE ICI. SI VOUS VOULEZ RESTER PLANQUER SUR VOTRE CUL, D'ACCORD, MAIS VOUS FAITES PLUS PARTIE DE LA HORDE. J'EFFACE VOTRE TATOUAGE SUR LE CHAMP, PUIS JE REPARS !",
+          "speaker": "Golgoth"
+        },
+        {
+          "message": "..."
+        },
+        {
+          "message": "Et toi, troubadour, qu'est-ce que tu penses de tout ça ?",
+          "speaker": "Sov"
+        },
+        {
+          "message": "Curieux tu es, scribounet de mon coeur.",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "Et si cela vous intéresse, sachez qu'il y a un port à drakkair, à quelques lieux d'ici. Avec un bel anneau en bronze pour tous nous y accrocher.",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "... Comment ? Qu'est-ce que tu raconte ?",
+          "speaker": "Oroshi"
+        },
+        {
+          "message": "C'est une de tes visions, Caracole ?",
+          "speaker": "Sov"
+        },
+        {
+          "message": "Tu as une preuve, au moins ?",
+          "speaker": "Oroshi"
+        },
+        {
+          "message": "Ne me posez pas de questions, mortels ! Je ne fais que vous transmettre une vérité. Faites-en ce que bon vous semble.",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "..."
+        },
+        {
+          "message": "Bon, qu'est-ce qu'on décide alors ?",
+          "speaker": "Coriolis"
+        },
+        {
+          "message": "Bon, qu'est-ce qu'on décide alors ? Si Caracole dit qu'il y a un abri là-bas, je suis prête à le suivre.",
+          "speaker": "Coriolis"
+        },
+        {
+          "message": "Pour moi c'est carré, j'me barre d'ici avec ceux qu'ont encore des couilles. Macaque, tu suis ?",
+          "speaker": "Golgoth"
+        },
+        {
+          "message": "Aye",
+          "speaker": "Erg"
+        },
+        {
+          "message": "Oroshi, la Horde va repartir...",
+          "speaker": "Sov"
+        },
+        {
+          "message": "Ça va Sov, ne t'inquiète pas. Je viens. Mais nous allons tous mourir. Je peux te le garantir",
+          "speaker": "Oroshi"
         }
       ],
       "eventOnWalking": [
         [
           {
-            "message" : "En marchant 01"
-          }
-        ],
-        [
-          {
-            "message" : "En marchant 02"
+            "message" : "Le vent devient infernal. Marcher droit devient impossible. La Horde forme un pack, et sert les dents..."
           }
         ]
       ],
       "eventOnArriving": [
         {
-          "message": "Arrivé !"
+          "message": "Regardez, le port à drakkair ! Caracole avait raison !",
+          "speaker": "Coriolis"
+        },
+        {
+          "message": "Comme toujours, mes Hordiers ! Venez, nouons nos ceintures autour de ces anneaux et attendons le spectable.",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "Comme toujours, mes Hordiers ! Venez, nouons nos ceintures autour de ces anneaux et attendons le spectable.",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "La Horde se dépêche d'installer les crochets et de sangler les longes pour affronter le cataclysme."
+        },
+        {
+          "message": "Mais, tout à coup, Caracole se détache du pack et court au sommet du port."
+        },
+        {
+          "message": "Il s'agenouille face au vent déchaîne, ouvre les bras et dit :"
+        },
+        {
+          "message": "Furvent, ceux qui vont mûrir te saluent !",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "... avant de redescendre et de réintégrer à la Horde."
+        },
+        {
+          "message": "Les dents se serrent, et la première vague du Furvent arrive."
+        },
+        {
+          "message": "BLAAST !"
         }
       ]
     },
     {
-      "name": "Village en ruine",
+      "name": "Le Campement",
+      "url": "Camp",
+      "distanceFromPrevious": 50,
+      "eventOnLeaving": [
+        {
+          "message": "De retour sur l'écran de VOYAGE"
+        },
+        {
+          "message": "Ici, vous pourrez surveiller en temps réel la santé de votre Horde."
+        },
+        {
+          "message": "De plus, l'ongle STATS vous permet de visualiser les resources dont vous disposez, ainsi que d'autres détails comme la distance à parcourir."
+        },
+        {
+          "message": "Enfin, notez le bouton STOP en bas de votre écran. Cliquer dessus entraînera l'arrêt de la Horde et vous permettra de retourner chercher de la nourriture en cas de besoin."
+        },
+        {
+          "message": "Gardez toujours un oeil sur vos réserves, car sans nourriture, la santé de la Horde baissera beaucoup plus vite."
+        }
+      ],
+      "eventOnWalking": [],
+      "eventOnArriving": [
+        {
+          "message": "Enfin ! J'ai cru qu'on arriverait jamais.",
+          "speaker": "Coriolis"
+        },
+        {
+          "message": "Quelques heures de sommeil, puis le Goth viendra nous donner de coups de pieds pour nous faire sortir de nos sacs de couchage.",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "Quoi ?! On repart directement ? Sans se reposer...?",
+          "speaker": "Coriolis"
+        },
+        {
+          "message": "Allons, petite brise, renfile donc un sourire sur ce joli visage. Il y a pire dans la vie, même si personne n'a encore trouvé quoi.",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "Vous m'avez tous l'air délavés, mes Hordiers-chéris. Approchez, faites cercles autour de papy Carac', car il s'apprête à vous conter une histoire...",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "Ouvrez votre esprit à cette maxime : le cosmos est mon campement.",
+          "speaker": "Caracole"
+        },
+        {
+          "message": "Bercés par la voix de leur troubadour, les Hordiers s'endorment, avec en tête la marche qui les attend dès demain, et la semaine prochaine, et peut-être jusqu'à la fin des temps..."
+        }
+      ]
+    },
+    {
+      "name": "Le Village en ruine",
+      "url": "Camp",
       "distanceFromPrevious": 50,
       "eventOnLeaving": [
         {

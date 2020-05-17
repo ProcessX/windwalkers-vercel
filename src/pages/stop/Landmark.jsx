@@ -1,13 +1,17 @@
 import React, {Component} from 'react';
 import Btn from "../../components/Btn";
 import {Link} from "react-router-dom";
+import TutorialPanel from "../../components/tutorialPanel";
 
 class Landmark extends Component {
   render() {
-    const {redirectTo} = this.props;
+    const {redirectTo, tutorial, validateTutorial} = this.props;
 
     return (
       <div className={'page page--managementSection'}>
+
+        {tutorial.landmark[0] ? <TutorialPanel content={tutorial.landmark[0]} validateTutorial={() => validateTutorial()}/> : null}
+
         <div className={'managementSection__content'}>
           <div className={'managementSection__illu'}>Section's illu</div>
 
@@ -47,13 +51,13 @@ class Landmark extends Component {
               <Link className={'navbar__link navbar__link--active'} to={'/stop/landmark'}>Lieu</Link>
             </li>
             <li className={'navbar__link__el'}>
-              <Link className={'navbar__link'} to={'/stop/horde'}>Horde</Link>
+              <Link className={`navbar__link ${tutorial.horde[0] ? 'navbar__link--tuto' : ''}`} to={'/stop/horde'}>Horde</Link>
             </li>
             <li className={'navbar__link__el'}>
-              <Link className={'navbar__link'}  to={'/stop/resources'}>Matériel</Link>
+              <Link className={`navbar__link ${tutorial.resources[0] ? 'navbar__link--tuto' : ''}`}  to={'/stop/resources'}>Matériel</Link>
             </li>
             <li className={'navbar__link__el'}>
-              <Link className={'navbar__link'}  to={'/stop/camp'}>Camp</Link>
+              <Link className={`navbar__link ${tutorial.camp[0] ? 'navbar__link--tuto' : ''}`}  to={'/stop/camp'}>Camp</Link>
             </li>
             <li className={'navbar__link__el  navbar__link__el--toOptions'}>
               <Link className={'navbar__link navbar__link--toOptions'}  to={'/options'}>Options</Link>

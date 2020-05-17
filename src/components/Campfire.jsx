@@ -37,13 +37,17 @@ class Campfire extends Component {
       if(i === 5)
         symbolClassSpecial = 'campfire__character__symbol--coriolis';
 
+      let backgroundURL = `url(${process.env.PUBLIC_URL}/assets/mugshots/Mugshot-${member.firstname}`;
+      let backgroundAltURL = backgroundURL + '-alt';
 
 
       let character =
         <li className={'campfire__el campfire__character'} key={i}
             onMouseEnter={() => this.toggleHoverCharacter(i)}
             onMouseLeave={() => this.toggleHoverCharacter(i)}>
-          <div className={'campfire__character__mugshot'}></div>
+          <div className={'campfire__character__mugshot'} style={{backgroundImage: `${backgroundURL}.png`}}>
+            <div className={'campfire__character__mugshot--alt'} style={{backgroundImage: `${backgroundAltURL}.png`}}></div>
+          </div>
           <Healthbar className={'healthbar'} maxHealth={100} health={member.health}/>
           <div className={'campfire__character__info'}>
             <p className={'campfire__character__name'}>{characterName}</p>
@@ -67,32 +71,6 @@ class Campfire extends Component {
     return (
       <ul className={'campfire'}>
         {campfireCharacters}
-        {/*}
-        <li className={'campfire__el campfire__character'} >
-          <div className={'campfire__character__mugshot'}></div>
-          <div className={'healthbar'}></div>
-        </li>
-        <li className={'campfire__el campfire__character'}>
-          <div className={'campfire__character__mugshot'}></div>
-          <div className={'healthbar'}></div>
-        </li>
-        <li className={'campfire__el campfire__character'}>
-          <div className={'campfire__character__mugshot'}></div>
-          <div className={'healthbar'}></div>
-        </li>
-        <li className={'campfire__el campfire__character'}>
-          <div className={'campfire__character__mugshot'}></div>
-          <div className={'healthbar'}></div>
-        </li>
-        <li className={'campfire__el campfire__character'}>
-          <div className={'campfire__character__mugshot'}></div>
-          <div className={'healthbar'}></div>
-        </li>
-        <li className={'campfire__el campfire__character'}>
-          <div className={'campfire__character__mugshot'}></div>
-          <div className={'healthbar'}></div>
-        </li>
-        {*/}
         <div className={'campfire__el campfire__illu'}></div>
       </ul>
 

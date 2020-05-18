@@ -112,7 +112,7 @@ class Rest extends Component {
 
     return (
       <div className={'page page--rest'}>
-        <BtnBack redirectURL={'/stop/horde'}/>
+        <BtnBack redirectURL={'/game/stop/horde'}/>
 
         <ul className={'rest__indicator__li'}>
           <p className={'rest__indicator__el rest__indicator__el--food'}>Vivres : {inventory.food} rations</p>

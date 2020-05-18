@@ -25,7 +25,7 @@ class Minigame extends Component {
 
     return (
       <div className={'page page--minigame'}>
-        <BtnBack redirectURL={'/stop/resources'}/>
+        <BtnBack redirectURL={'/game/stop/resources'}/>
         <h1>Harvesting</h1>
         <p>Voici les règles du jeu :</p>
 
@@ -44,7 +44,7 @@ class Minigame extends Component {
           </li>
         </ul>
 
-        <Btn title={'Commencer'} action={() => this.redirectTo('/minigame/harvest')}/>
+        <Btn title={'Commencer'} action={() => this.redirectTo('/game/minigame/harvest')}/>
 
         {redirectURL ? <Redirect to={redirectURL}/> : null}
       </div>

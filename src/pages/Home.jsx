@@ -22,7 +22,7 @@ class Home extends Component {
             <li className={'menu__btn__el'}>
               <Btn
                 title={'Jouer'}
-                action={() => redirectTo('/narration')}
+                action={() => redirectTo('/game/narration')}
               />
             </li>
 

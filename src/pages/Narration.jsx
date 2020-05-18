@@ -39,7 +39,7 @@ class Narration extends Component {
     let {redirectURL} = this.state;
 
     if(progressIndex === 0 || progressIndex === 1)
-      redirectURL = '/travel/';
+      redirectURL = '/game/travel/';
 
     this.setState({redirectURL: redirectURL});
   }

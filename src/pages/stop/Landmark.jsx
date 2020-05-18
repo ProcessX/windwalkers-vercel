@@ -51,13 +51,13 @@ class Landmark extends Component {
               <Link className={'navbar__link navbar__link--active'} to={'/stop/landmark'}>Lieu</Link>
             </li>
             <li className={'navbar__link__el'}>
-              <Link className={`navbar__link ${tutorial.horde[0] ? 'navbar__link--tuto' : ''}`} to={'/stop/horde'}>Horde</Link>
+              <Link className={`navbar__link ${tutorial.horde[0] ? 'navbar__link--tuto' : ''}`} to={'/game/stop/horde'}>Horde</Link>
             </li>
             <li className={'navbar__link__el'}>
-              <Link className={`navbar__link ${tutorial.resources[0] ? 'navbar__link--tuto' : ''}`}  to={'/stop/resources'}>Matériel</Link>
+              <Link className={`navbar__link ${tutorial.resources[0] ? 'navbar__link--tuto' : ''}`}  to={'/game/stop/resources'}>Matériel</Link>
             </li>
             <li className={'navbar__link__el'}>
-              <Link className={`navbar__link ${tutorial.camp[0] ? 'navbar__link--tuto' : ''}`}  to={'/stop/camp'}>Camp</Link>
+              <Link className={`navbar__link ${tutorial.camp[0] ? 'navbar__link--tuto' : ''}`}  to={'/game/stop/camp'}>Camp</Link>
             </li>
             <li className={'navbar__link__el  navbar__link__el--toOptions'}>
               <Link className={'navbar__link navbar__link--toOptions'}  to={'/options'}>Options</Link>

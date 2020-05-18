@@ -93,7 +93,7 @@
             "speaker": "Oroshi"
           },
           {
-            "message" : "Un Furvent ? Comment c'est possible ? Le dernier ne date que d'il y a quelques mois ! Je le sais, c'était juste avant que me rejoigne la Horde !",
+            "message" : "Un Furvent ? Comment c'est possible ? Le dernier ne date que d'il y a quelques mois ! Je le sais, c'était juste avant que je rejoigne la Horde !",
             "speaker": "Coriolis"
           },
           {
@@ -110,7 +110,7 @@
             "message": "Le vent forcit et devient de plus en plus difficile à contrer. Dans le ciel, les nuages filent à une vitesse inouïe."
           },
           {
-            "message": "Comme tu es jeune, tu n'as pas du voir de nombreux Furvent. Et maintenant que tu es dans la Horde, il va falloir faire front dans la plaine, et pas cachée dans un abris.",
+            "message": "Comme tu es jeune, tu n'as pas dû voir de nombreux Furvents. Et maintenant que tu es dans la Horde, il va falloir faire front dans la plaine, et pas cachée dans un abris.",
             "speaker": "Sov"
           }
         ],
@@ -142,7 +142,7 @@
         ],
         [
           {
-            "message": "Golgoth lit mal l'enchâinement des flux et trébuche. Toute la Horde se tait tandis qu'il remonte sur ses pieds."
+            "message": "Golgoth lit mal l'enchaînement des flux et trébuche. Toute la Horde se tait tandis qu'il remonte sur ses pieds."
           },
           {
             "message": "Cette fois sûr, Furvent vient.",
@@ -169,7 +169,7 @@
         ],
         [
           {
-            "message": "Au loin, les contours d'un village de précise, mais il devient difficile de garder les paupières ouvertes."
+            "message": "Au loin, les contours d'un village de précisent, mais il devient difficile de garder les paupières ouvertes."
           }
         ]
       ],
@@ -205,7 +205,7 @@
           "speaker": "Oroshi"
         },
         {
-          "message": "Et moi j'te dis que ces murs, c'est du crouton. Tu t'appuie dessus, et ils tombent.",
+          "message": "Et moi j'te dis que ces murs, c'est du crouton. Tu t'appuies dessus, et ils tombent.",
           "speaker": "Golgoth"
         },
         {
@@ -275,7 +275,7 @@
           "speaker": "Golgoth"
         },
         {
-          "message": "Aye",
+          "message": "Aye.",
           "speaker": "Erg"
         },
         {
@@ -304,17 +304,13 @@
           "speaker": "Caracole"
         },
         {
-          "message": "Comme toujours, mes Hordiers ! Venez, nouons nos ceintures autour de ces anneaux et attendons le spectable.",
-          "speaker": "Caracole"
-        },
-        {
           "message": "La Horde se dépêche d'installer les crochets et de sangler les longes pour affronter le cataclysme."
         },
         {
           "message": "Mais, tout à coup, Caracole se détache du pack et court au sommet du port."
         },
         {
-          "message": "Il s'agenouille face au vent déchaîne, ouvre les bras et dit :"
+          "message": "Il s'agenouille face au vent déchaîné, ouvre les bras et dit :"
         },
         {
           "message": "Furvent, ceux qui vont mûrir te saluent !",

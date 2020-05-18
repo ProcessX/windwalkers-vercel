@@ -46,7 +46,7 @@ class Loot extends Component {
 
   returnTo = () => {
     let {redirectURL} = this.state;
-    redirectURL = '/stop/resources/';
+    redirectURL = '/game/stop/resources/';
     this.setState({redirectURL});
   }
 

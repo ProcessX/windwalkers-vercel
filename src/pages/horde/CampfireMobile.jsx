@@ -8,7 +8,7 @@ class CampfireMobile extends Component {
 
     return (
       <div className={'page page--mobile page--campfireMobile'}>
-        <BtnBack redirectURL={'/stop/horde'}/>
+        <BtnBack redirectURL={'/game/stop/horde'}/>
 
         <Campfire horde={horde}/>
       </div>

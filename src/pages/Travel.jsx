@@ -119,7 +119,7 @@ class Travel extends Component {
       }
       else{
         if(requestingStop){
-          this.quitWalking('/stop/horde');
+          this.quitWalking('/game/stop/horde');
         }
         else{
           walking = false;
@@ -179,7 +179,7 @@ class Travel extends Component {
       this.setState({eventSequence: eventSequence}, this.checkNextEvent);
     }
     else{
-      redirectURL = '/defeat';
+      redirectURL = '/game/defeat';
       this.setState({redirectURL});
     }
   }
@@ -198,7 +198,7 @@ class Travel extends Component {
   requestStop = () => {
     let {walking, requestingStop, eventSequence} = this.state;
     if(!walking && !eventSequence[0]){
-      this.quitWalking('/stop/horde');
+      this.quitWalking('/game/stop/horde');
     }
     else{
       requestingStop = true;

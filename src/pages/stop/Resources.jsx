@@ -52,14 +52,14 @@ class Resources extends Component {
               <li className={'menu__btn__el menu__btn__el--portraitOnly'}>
                 <Btn
                   title={'Inventaire'}
-                  action={() => this.redirectTo('/stop/resources/inventory/')}
+                  action={() => this.redirectTo('/game/stop/resources/inventory/')}
                 />
               </li>
 
               <li className={'menu__btn__el'}>
                 <Btn
                   title={'Récolter'}
-                  action={() => this.redirectTo('/minigame/')}
+                  action={() => this.redirectTo('/game/minigame/')}
                 />
               </li>
 
@@ -85,15 +85,15 @@ class Resources extends Component {
             </li>
             {*/}
             <li className={'navbar__link__el'}>
-              <Link className={`navbar__link ${tutorial.horde[0] ? 'navbar__link--tuto' : ''}`} to={'/stop/horde'}>Horde</Link>
+              <Link className={`navbar__link ${tutorial.horde[0] ? 'navbar__link--tuto' : ''}`} to={'/game/stop/horde'}>Horde</Link>
               <div className={'navbar__link__illu'} style={hordeIcon}></div>
             </li>
             <li className={'navbar__link__el navbar__link__el--active'}>
-              <Link className={'navbar__link navbar__link--active'}  to={'/stop/resources'}>Matériel</Link>
+              <Link className={'navbar__link navbar__link--active'}  to={'/game/stop/resources'}>Matériel</Link>
               <div className={'navbar__link__illu'} style={resourcesIcon}></div>
             </li>
             <li className={'navbar__link__el'}>
-              <Link className={`navbar__link ${tutorial.camp[0] ? 'navbar__link--tuto' : ''}`}  to={'/stop/camp'}>Camp</Link>
+              <Link className={`navbar__link ${tutorial.camp[0] ? 'navbar__link--tuto' : ''}`}  to={'/game/stop/camp'}>Camp</Link>
               <div className={'navbar__link__illu'} style={campIcon}></div>
             </li>
             {/*}

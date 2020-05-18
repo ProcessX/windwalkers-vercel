@@ -24,6 +24,7 @@ import Harvest from "./pages/minigame/Harvest";
 import Loot from "./pages/Loot";
 import InventoryMobile from "./pages/resources/InventoryMobile";
 import CampfireMobile from "./pages/horde/CampfireMobile";
+import Landing from "./pages/Landing";
 
 
 const maxHealth = 100;
@@ -179,7 +180,7 @@ class App extends Component {
     progressIndex += 1;
     console.log(progressIndex)
     this.setState({progressIndex: progressIndex}, () => {
-      this.redirectTo('/stop/');
+      this.redirectTo('/game/stop/');
       this.addTutorial();
     });
     /*
@@ -202,14 +203,14 @@ class App extends Component {
   accessLandmark = () => {
     let {progressIndex, inventory} = this.state;
     if(progressIndex === 3){
-      this.redirectTo('/victory');
+      this.redirectTo('/game/victory');
     }
     else{
       if(progressIndex > 1){
-        this.redirectTo('/stop/horde/');
+        this.redirectTo('/game/stop/horde/');
       }
       else{
-        this.redirectTo('/narration/');
+        this.redirectTo('/game/narration/');
         inventory.food += 80;
         this.setState({inventory});
       }
@@ -319,7 +320,7 @@ class App extends Component {
 
     this.addToInventory(payout);
 
-    this.setState({minigame: minigame}, () => this.redirectTo('/minigame/loot/'));
+    this.setState({minigame: minigame}, () => this.redirectTo('/game/minigame/loot/'));
   }
 
 
@@ -335,20 +336,24 @@ class App extends Component {
 
           <Switch>
             <Route path={'/'} exact>
+              <Landing/>
+            </Route>
+
+            <Route path={'/game/'} exact>
               <Home
                 redirectTo={(url) => this.redirectTo(url)}
               />
             </Route>
 
-            <Route path={'/options'} exact>
+            <Route path={'/game/options'} exact>
               <Options/>
             </Route>
 
-            <Route path={'/credits'} exact>
+            <Route path={'/game/credits'} exact>
               <Credits/>
             </Route>
 
-            <Route path={'/travel'} exact>
+            <Route path={'/game/travel'} exact>
               <Travel
                 progressIndex={progressIndex}
                 horde={horde}
@@ -364,25 +369,25 @@ class App extends Component {
               />
             </Route>
 
-            <Route path={'/minigame'} exact>
+            <Route path={'/game/minigame'} exact>
               <Minigame/>
             </Route>
 
-            <Route path={'/packing'} exact>
+            <Route path={'/game/packing'} exact>
               <Packing/>
             </Route>
 
-            <Route path={'/narration'} exact>
+            <Route path={'/game/narration'} exact>
               <Narration
                 progressIndex={progressIndex}
               />
             </Route>
 
-            <Route path={'/guide'} exact>
+            <Route path={'/game/guide'} exact>
               <Guide/>
             </Route>
 
-            <Route path={'/stop'} exact>
+            <Route path={'/game/stop'} exact>
               <Stop
                 currentLocation={currentLocation}
                 nextLocation={nextLocation}
@@ -391,19 +396,19 @@ class App extends Component {
               />
             </Route>
 
-            <Route path={'/victory'} exact>
+            <Route path={'/game/victory'} exact>
               <Victory
                 resetGame={() => this.resetGame()}
               />
             </Route>
 
-            <Route path={'/defeat'} exact>
+            <Route path={'/game/defeat'} exact>
               <Defeat
                 resetGame={() => this.resetGame()}
               />
             </Route>
 
-            <Route path={'/minigame/loot'} exact>
+            <Route path={'/game/minigame/loot'} exact>
               <Loot
                 minigame={minigame}
               />
@@ -412,7 +417,7 @@ class App extends Component {
 
 
           <Switch>
-            <Route path={'/stop/horde/rest'} exact>
+            <Route path={'/game/stop/horde/rest'} exact>
               <Rest
                 horde={horde}
                 inventory={inventory}
@@ -424,7 +429,7 @@ class App extends Component {
 
 
           <Switch>
-            <Route path={'/minigame/harvest/'} exact>
+            <Route path={'/game/minigame/harvest/'} exact>
               <Harvest
                 horde={horde}
                 hurtPlayer={(i, damage) => this.hurtMember(i, damage)}
@@ -437,7 +442,7 @@ class App extends Component {
 
 
           <Switch>
-            <Route path={'/stop/landmark'} exact>
+            <Route path={'/game/stop/landmark'} exact>
               <Landmark
                 validateTutorial={() => this.validateTutorial('landmark')}
                 tutorial={tutorial}
@@ -445,7 +450,7 @@ class App extends Component {
               />
             </Route>
 
-            <Route path={'/stop/horde'} exact>
+            <Route path={'/game/stop/horde'} exact>
               <Horde
                 validateTutorial={() => this.validateTutorial('horde')}
                 tutorial={tutorial}
@@ -454,13 +459,13 @@ class App extends Component {
               />
             </Route>
 
-            <Route path={'/stop/horde/campfire'} exact>
+            <Route path={'/game/stop/horde/campfire'} exact>
               <CampfireMobile
                 horde={horde}
               />
             </Route>
 
-            <Route path={'/stop/resources'} exact>
+            <Route path={'/game/stop/resources'} exact>
               <Resources
                 validateTutorial={() => this.validateTutorial('resources')}
                 tutorial={tutorial}
@@ -469,11 +474,11 @@ class App extends Component {
               />
             </Route>
 
-            <Route path={'/stop/resources/inventory'}>
+            <Route path={'/game/stop/resources/inventory'}>
               <InventoryMobile inventory={inventory}/>
             </Route>
 
-            <Route path={'/stop/camp'} exact>
+            <Route path={'/game/stop/camp'} exact>
               <Camp
                 distanceTraveled={distanceTraveled}
                 nextLocation={nextLocation}

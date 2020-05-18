@@ -44,7 +44,12 @@ class Travel extends Component {
         eventSequence = nextLocation.eventOnLeaving;
     }
     else{
-      walking = true;
+      if(nextLocation.eventOnWalking[0]){
+        eventSequence = nextLocation.eventOnWalking[0];
+      }
+      else{
+        walking = true;
+      }
     }
 
     this.setState({walking: walking, eventSequence: eventSequence}, this.checkNextEvent);

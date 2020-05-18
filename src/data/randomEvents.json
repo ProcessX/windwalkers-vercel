@@ -1,11 +1,79 @@
 {
   "randomEvents": [
     {
-      "message": "Un random event",
-      "speaker": "Coriolis"
+      "message": "%victim% se tord le pied dans un trou de lapin. C'est très douloureux.",
+      "damage": 5,
+      "victime": 1
     },
     {
-      "message": "Un autre random event"
+      "message": "Une chute de gravats le long d'une coline blesse %victim% à l'épaule.",
+      "damage": 5,
+      "victime": 1
+    },
+    {
+      "message": "Le vent projete du sable dans les yeux de %victim%.",
+      "damage": 5,
+      "victime": 1
+    },
+    {
+      "message": "En voulant chasser, %victim% se coince les doigts dans son colet. La proie en profite pour s'échapper.",
+      "damage": 3,
+      "victime": 1
+    },
+    {
+      "message": "%victim% fait la conversation.",
+      "damage": 0,
+      "victime": 1
+    },
+    {
+      "message": "%victim% discute de son passé avec le reste de la Horde. Tout le monde écoute avec attention.",
+      "damage": 0,
+      "victime": 1
+    },
+    {
+      "message": "Un groupe d'obliques tente d'attaquer la Horde et de voler leurs richesses. Erg se lance dans le combat, mais par malchance %victim% reçoit un projectile perdu.",
+      "damage": 10,
+      "victime": 1
+    },
+    {
+      "message": "Un trou d'air dans le pack déstabilise la Horde. %victim% tombe et se fait piétier les mollets.",
+      "damage": 5,
+      "victime": 1
+    },
+    {
+      "message": "Le moral de %victim% se dégrade tout à coup. Il faut un moment pour que la motivation revienne.",
+      "damage": 3,
+      "victime": 1
+    },
+    {
+      "message": "Une sangle du sac de %victim% se casse, vous obligeant à vous arrêter afin de la réparer.",
+      "damage": 0,
+      "victime": 1
+    },
+    {
+      "message": "%victim% invente un jeu qui plait beaucoup. Le moral de tout le monde remonte.",
+      "damage": -5,
+      "victime": 1
+    },
+    {
+      "message": "%victim% tente d'apprivoiser une marmotte, mais l'animal ne l'entend pas de cette oreille. Elle sort les griffes et il s'en faut de peu pour que %victim% ne perde pas ses doigts.",
+      "damage": 8,
+      "victime": 1
+    },
+    {
+      "message": "%victim% parle de ceux qui sont partis, les Hordiers disparus dans un Blaast ou une attaque des obliques. Tant de compagnons qu'on ne verra jamais plus.",
+      "damage": 2,
+      "victime": 1
+    },
+    {
+      "message": "%victim% discute du concept du Vif. Quelle est cette mystérieuse force vitale dont parlent les sages ? Personne n'est en mesure de répondre.",
+      "damage": 0,
+      "victime": 1
+    },
+    {
+      "message": "%victim% reçoit une bourrasque en pleine face et la surprise lui fait se mordre la langue.",
+      "damage": 5,
+      "victime": 1
     }
   ]
 }

@@ -22,12 +22,12 @@
     },
     {
       "message": "%victim% fait la conversation.",
-      "damage": 0,
+      "damage": 1,
       "victime": 1
     },
     {
       "message": "%victim% discute de son passé avec le reste de la Horde. Tout le monde écoute avec attention.",
-      "damage": 0,
+      "damage": 1,
       "victime": 1
     },
     {
@@ -47,12 +47,7 @@
     },
     {
       "message": "Une sangle du sac de %victim% se casse, vous obligeant à vous arrêter afin de la réparer.",
-      "damage": 0,
-      "victime": 1
-    },
-    {
-      "message": "%victim% invente un jeu qui plait beaucoup. Le moral de tout le monde remonte.",
-      "damage": -5,
+      "damage": 1,
       "victime": 1
     },
     {
@@ -67,7 +62,7 @@
     },
     {
       "message": "%victim% discute du concept du Vif. Quelle est cette mystérieuse force vitale dont parlent les sages ? Personne n'est en mesure de répondre.",
-      "damage": 0,
+      "damage": 1,
       "victime": 1
     },
     {

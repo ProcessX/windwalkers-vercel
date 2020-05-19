@@ -228,8 +228,8 @@ class Harvest extends Component {
     loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
     loader
       .add('fruitTreeAnim', 'fruitTreeSpritesheet.json')
-      .add('rock01', 'rock.png')
-      .add('grass01', 'grass.png')
+      .add('rock01', 'Rock.png')
+      .add('grass01', 'Grass.png')
       .add('limits', 'limits.png')
       .add('harvestable', 'fruitTree01.png')
       .add('blaast', 'blaast.png')

@@ -18,7 +18,38 @@
 }
 
 .landing__section--intro{
+  margin-top: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position-x: 30%;
+  image-rendering: crisp-edges;
+  image-rendering: -o-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: -moz-crisp-edges;
+
   .landing__content{
+    z-index: 10;
+    position: relative;
+
+    .title--landing{
+      height: 9rem;
+      background-position-x: left;
+      background-size: contain;
+      background-repeat: no-repeat;
+      image-rendering: crisp-edges;
+      image-rendering: -o-crisp-edges;
+      image-rendering: -webkit-crisp-edges;
+      image-rendering: -moz-crisp-edges;
+      overflow: hidden;
+      text-indent: 100%;
+      width: 100%;
+      margin-bottom: 14rem;
+    }
+
+    .content__intro{
+      text-shadow: 0.1rem 0.1rem black, -1px -1px black;
+    }
+
     .btn{
       margin: auto;
       display: block;
@@ -58,8 +89,18 @@
           margin: auto;
           height: 14rem;
           width: 14rem;
-          background-color: #AAA2FF;
+          max-width: 14rem;
+          background-color: #FEEBD2;
           border: solid 0.3rem #BEBEBE;
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position-x: 30%;
+          image-rendering: crisp-edges;
+          image-rendering: -o-crisp-edges;
+          image-rendering: -webkit-crisp-edges;
+          image-rendering: -moz-crisp-edges;
+          overflow: hidden;
+          text-indent: 100%;
         }
 
         .concept__description{
@@ -85,6 +126,16 @@
         height: 8rem;
         width: 14rem;
         margin: auto;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position-x: center;
+        image-rendering: crisp-edges;
+        image-rendering: -o-crisp-edges;
+        image-rendering: -webkit-crisp-edges;
+        image-rendering: -moz-crisp-edges;
+        overflow: hidden;
+        text-indent: 100%;
+        background-color: black;
       }
 
       .artwork__el{
@@ -124,7 +175,7 @@
           }
 
           &:hover{
-            background-color: #EB0000;
+            background-color: #bebebe;
             color: white;
           }
         }
@@ -264,6 +315,7 @@
         grid-row-start: 1;
         grid-column-start: 6;
         grid-column-end: 13;
+        margin-bottom: 4rem;
       }
 
       .content__intro{

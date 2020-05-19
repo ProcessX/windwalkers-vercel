@@ -13,8 +13,6 @@ class TutorialPanel extends Component {
   displayText = () => {
     const {content} = this.props;
 
-    console.log(content);
-
     let splitText = content.text.split('\n');
 
     let paragraphs = splitText.map((paragraph, i) => {

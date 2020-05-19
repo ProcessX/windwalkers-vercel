@@ -95,7 +95,6 @@ class Travel extends Component {
 
   //Ajoute la distance parcourue lors du tour, puis appelle la fonction chargée de gérer les événements aléatoires.
   addDistanceTraveled = () => {
-    console.log(this.state.walking);
     let {walkingDistance, eventSequence} = this.state;
     //this.props.addDistanceTraveled(walkingDistance, this.checkNextEvent());
 
@@ -134,7 +133,6 @@ class Travel extends Component {
 
 
   applyEvent = () => {
-    console.log('Apply event');
     let {eventSequence} = this.state;
     const {horde, hurtMember} = this.props;
 
@@ -142,7 +140,6 @@ class Travel extends Component {
     if(eventSequence[0].damage){
       //let victimIndex = this.getRandomInt(horde.members.length);
       let victimIndex = this.getVictimIndex();
-      console.log('test');
       let memberAlive = hurtMember(victimIndex, eventSequence[0].damage);
       if(!memberAlive){
         this.checkHordeHealth();

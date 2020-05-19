@@ -134,7 +134,7 @@ class App extends Component {
       distanceTraveled: 0,
       progressIndex: 0,
       locations: locations,
-      redirectURL: '/',
+      redirectURL: '/game',
       minigame: {
         success: true,
         payout: null,
@@ -169,7 +169,6 @@ class App extends Component {
   redirectTo = (url) => {
     let {redirectURL} = this.state;
     redirectURL = url;
-    console.log(redirectURL);
 
     this.setState({redirectURL: redirectURL});
   }
@@ -178,7 +177,6 @@ class App extends Component {
   reachLandmark = () => {
     let {progressIndex} = this.state;
     progressIndex += 1;
-    console.log(progressIndex)
     this.setState({progressIndex: progressIndex}, () => {
       this.redirectTo('/game/stop/');
       this.addTutorial();
@@ -240,7 +238,6 @@ class App extends Component {
 
 
   removeScriptedEvent = () => {
-    console.log('remove scripted event');
   }
 
 
@@ -281,11 +278,7 @@ class App extends Component {
     turnNbr += 1;
     distanceTraveled += distance;
 
-    console.log("Walk damage : " + damage);
-    console.log("Food consumed : " + foodConsumed);
-
     let heal = foodConsumed * eatingHeal;
-    console.log("Eating heal : " + heal);
 
     if(heal > damage){
       for(let i = 0; i < horde.members.length; i++){
@@ -311,9 +304,6 @@ class App extends Component {
 
   endHarvesting = (playerStatus, payout) => {
     let {minigame} = this.state;
-
-    console.log(playerStatus);
-    console.log(payout);
 
     minigame.success = !playerStatus;
     minigame.payout = payout;

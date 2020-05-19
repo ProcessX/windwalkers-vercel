@@ -5,7 +5,6 @@ class Inventory extends Component {
 
   displayResources = () => {
     const {inventory} = this.props;
-    console.log(inventory[5]);
 
     let resources = [];
     let item;

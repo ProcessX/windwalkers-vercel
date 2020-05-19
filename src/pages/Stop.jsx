@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import Btn from "../components/Btn";
 
-const baseURL = "../assets/landmarks/";
+const baseURL = process.env.PUBLIC_URL + "/assets/landmarks";
 
 class Stop extends Component {
 

@@ -92,7 +92,7 @@ class Landing extends Component {
               <li className={'artwork__el'}>
                 <div className={'artwork__illu'} style={artworkStyle02}>illu</div>
                 <h3 className={'artwork__title'}>La Horde du Contrevent</h3>
-                <h4 className={'artwork__info'}>(Alain Damasio, 2003)</h4>
+                <h4 className={'artwork__info'}>(Alain Damasio, 2004)</h4>
                 <p className={'artwork__description'}>Roman de SF français au succès titanesque.</p>
                 <Btn title={'Découvrir'} action={() => this.relocateTo('https://lavolte.net/livres/la-horde-du-contrevent/')}/>
               </li>

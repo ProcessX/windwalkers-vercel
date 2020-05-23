@@ -1,0 +1,10 @@
+{
+  "soundEffectRef": [
+    {
+      "id": "playerHit"
+    },
+    {
+      "id": "harvestable"
+    }
+  ]
+}

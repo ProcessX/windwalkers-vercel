@@ -1,0 +1,21 @@
+{
+  "musicRef": [
+    {
+      "id": "travel"
+    },
+    {
+      "id": "harvest"
+    },
+    {
+      "id": "stop"
+    },
+    {
+      "id": "landmark",
+      "ref": [
+        {
+          "id": "village"
+        }
+      ]
+    }
+  ]
+}

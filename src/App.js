@@ -10,10 +10,6 @@ import Narration from "./pages/Narration";
 import Stop from "./pages/Stop";
 import Victory from "./pages/Victory";
 import Defeat from "./pages/Defeat";
-
-import {locations} from "./data/locationList.json";
-import {tutorialSequence} from "./data/tutorial.json";
-
 import Horde from "./pages/stop/Horde";
 import Landmark from "./pages/stop/Landmark";
 import Resources from "./pages/stop/Resources";
@@ -26,6 +22,10 @@ import InventoryMobile from "./pages/resources/InventoryMobile";
 import CampfireMobile from "./pages/horde/CampfireMobile";
 import Landing from "./pages/Landing";
 
+import {locations} from "./data/locationList.json";
+import {tutorialSequence} from "./data/tutorial.json";
+
+import AudioManager from "./js/AudioManager";
 
 const maxHealth = 100;
 const basicPacing = 10;
@@ -71,6 +71,7 @@ const hordeMembers = [
 
 
 
+
 class App extends Component {
 
   constructor() {
@@ -107,16 +108,17 @@ class App extends Component {
         resources: [],
         landmark: [],
         camp: [],
-      }
+      },
+      audioManager: new AudioManager(),
+      musicVolume: 1,
+      soundEffectVolume: 1,
     };
+
   }
 
 
   componentDidMount() {
     this.setupHorde();
-
-    //Test
-    //this.addTutorial();
   }
 
 
@@ -146,7 +148,7 @@ class App extends Component {
         resources: [],
         landmark: [],
         camp: [],
-      }
+      },
     });
   }
 
@@ -181,20 +183,6 @@ class App extends Component {
       this.redirectTo('/game/stop/');
       this.addTutorial();
     });
-    /*
-    if(progressIndex < locations.length) {
-      this.setState({progressIndex: progressIndex}, () => {
-        this.redirectTo('/stop/');
-        this.addTutorial();
-      });
-    }
-     */
-    /*
-    else{
-      this.redirectTo('/victory/');
-    }
-
-     */
   }
 
 
@@ -314,9 +302,36 @@ class App extends Component {
   }
 
 
+  setMusicVolume = (volume) => {
+    let {musicVolume} = this.state;
+    musicVolume = volume;
+    this.setState({musicVolume});
+  }
+
+
+  setSoundEffectVolume = (volume) => {
+    let {soundEffectVolume} = this.state;
+    soundEffectVolume = volume;
+    this.setState({soundEffectVolume});
+  }
+
+
 
   render() {
-    const {horde, inventory, distanceTraveled, redirectURL, progressIndex, locations, minigame, tutorial} = this.state;
+    const {
+      horde,
+      inventory,
+      distanceTraveled,
+      redirectURL,
+      progressIndex,
+      locations,
+      minigame,
+      tutorial,
+      audioManager,
+      musicVolume,
+      soundEffectVolume
+    } = this.state;
+
     const nextLocation = locations[progressIndex];
     const currentLocation = progressIndex > 0 ? locations[progressIndex - 1] : nextLocation;
 
@@ -336,7 +351,13 @@ class App extends Component {
             </Route>
 
             <Route path={'/game/options'} exact>
-              <Options/>
+              <Options
+                audioManager={audioManager}
+                musicVolume={musicVolume}
+                soundEffectVolume={soundEffectVolume}
+                setMusicVolume={(volume) => this.setMusicVolume(volume)}
+                setSoundEffectVolume={(volume) => this.setSoundEffectVolume(volume)}
+              />
             </Route>
 
             <Route path={'/game/credits'} exact>
@@ -345,6 +366,7 @@ class App extends Component {
 
             <Route path={'/game/travel'} exact>
               <Travel
+                audioManager={audioManager}
                 progressIndex={progressIndex}
                 horde={horde}
                 inventory={inventory}
@@ -379,6 +401,7 @@ class App extends Component {
 
             <Route path={'/game/stop'} exact>
               <Stop
+                audioManager={audioManager}
                 currentLocation={currentLocation}
                 nextLocation={nextLocation}
                 accessLandmark={() => this.accessLandmark()}
@@ -388,12 +411,14 @@ class App extends Component {
 
             <Route path={'/game/victory'} exact>
               <Victory
+                audioManager={audioManager}
                 resetGame={() => this.resetGame()}
               />
             </Route>
 
             <Route path={'/game/defeat'} exact>
               <Defeat
+                audioManager={audioManager}
                 resetGame={() => this.resetGame()}
               />
             </Route>
@@ -421,6 +446,7 @@ class App extends Component {
           <Switch>
             <Route path={'/game/minigame/harvest/'} exact>
               <Harvest
+                audioManager={audioManager}
                 horde={horde}
                 hurtPlayer={(i, damage) => this.hurtMember(i, damage)}
                 validateTutorial={() => this.validateTutorial('harvest')}

@@ -437,14 +437,6 @@ class Harvest extends Component {
 
     player.animationSpeed = 0.1;
 
-    /*
-    player = new PIXI.Sprite(
-      loader.resources.player.texture,
-    );
-
-     */
-
-
     player.anchor.set(0.5,1);
     player.hitbox = {width: 1, height: 0.5};
     player.x = 80;
@@ -816,6 +808,10 @@ class Harvest extends Component {
 
 
   killPlayer = () => {
+    const {audioManager} = this.props;
+
+    audioManager.playSoundEffect('playerHit');
+
     player.dead = true;
     player.texture = playerTexture.textures['Hit_0.png'];
 
@@ -903,6 +899,10 @@ class Harvest extends Component {
 
 
   addToPayout = (harvestable) => {
+    const {audioManager} = this.props;
+
+    audioManager.playSoundEffect('harvestable');
+
     let loot = {
       food: harvestable.content.food / harvestable.tikNbr,
     };

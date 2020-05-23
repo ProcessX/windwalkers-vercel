@@ -35,9 +35,6 @@ class TravelScene extends Component {
 
     return (
       <div className={"travel__scene"} style={{width: '100%', height: '50vh'}}>
-        {/*}
-        <div className={'travel__scene__render'}></div>
-        {*/}
         <Parallaxe
           walkingTime={walkingTime}
           distanceTraveled={distanceTraveled}

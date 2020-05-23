@@ -747,6 +747,49 @@
     justify-self: center;
   }
 }
+.option__input__li {
+  list-style: none;
+  padding: 0 1rem;
+  margin: 0;
+}
+.option__input__li .option__input__el .input-range {
+  max-width: 100%;
+  cursor: pointer;
+}
+.option__input__li .option__input__el .input-range__label {
+  display: none;
+}
+.option__input__li .option__input__el .input-range__track {
+  height: 2rem;
+  top: 0;
+  margin: 0;
+  transition: none;
+  border-radius: 0;
+  background-color: black;
+  border: solid 0.3rem white;
+}
+.option__input__li .option__input__el .input-range__track--active {
+  border: none;
+  background-image: url("/assets/interface/optionSlider.png");
+  background-size: auto 25%;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: -webkit-crisp-edges;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+.option__input__li .option__input__el .input-range__slider-container {
+  top: 0;
+  transition: none;
+}
+.option__input__li .option__input__el .input-range__slider-container .input-range__slider {
+  height: 3rem;
+  margin-top: -0.5rem;
+  border-radius: 0;
+  transition: none;
+  background-color: white;
+  box-shadow: -0.3rem 0px 0px 0px black, 0.3rem 0px 0px 0px black;
+}
+
 .page {
   box-sizing: border-box;
   height: 100vh;

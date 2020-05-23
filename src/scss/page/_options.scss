@@ -1,0 +1,59 @@
+.page--options{
+
+}
+
+.option__input__li{
+  list-style: none;
+  padding: 0 1rem;
+  margin: 0;
+
+  .option__input__el{
+
+    .input-range{
+      max-width: 100%;
+      cursor: pointer;
+
+      &__label{
+        display: none;
+      }
+
+      &__track{
+        height: 2rem;
+        top: 0;
+        margin: 0;
+        transition: none;
+        border-radius: 0;
+        //background-color: #7F7F7F;
+        background-color: black;
+        border: solid 0.3rem white;
+
+        &--active{
+          border: none;
+          background-image: url("/assets/interface/optionSlider.png");
+          //background-size: contain;
+          background-size: auto 25%;
+          image-rendering: -moz-crisp-edges;
+          image-rendering: -webkit-crisp-edges;
+          image-rendering: pixelated;
+          image-rendering: crisp-edges;
+        }
+      }
+
+      &__slider-container{
+        top: 0;
+        transition: none;
+
+        .input-range__slider{
+          height: 3rem;
+          margin-top: -0.5rem;
+          border-radius: 0;
+          transition: none;
+          background-color: white;
+          box-shadow:
+                  -0.3rem 0px 0px 0px rgba(0,0,0,1),
+                  0.3rem 0px 0px 0px rgba(0,0,0,1);
+        }
+      }
+    }
+  }
+}

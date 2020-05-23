@@ -28,10 +28,13 @@ class Travel extends Component {
 
   componentDidMount() {
     this.setupEventSequence();
+
+    this.props.audioManager.playMusic('travel');
   }
 
   componentWillUnmount() {
     clearTimeout(walkingTimer);
+    this.props.audioManager.stopMusic();
   }
 
 

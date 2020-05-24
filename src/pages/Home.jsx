@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import Btn from "../components/Btn";
+import HomeScene from "../components/HomeScene";
 
 const illuURL = '../assets/Home-Illu.png';
 
@@ -15,7 +16,11 @@ class Home extends Component {
 
     return (
       <div className={'page page--home'}>
+        {/*}
         <h1 className={'illu home__illu'} style={illu}>Windwalkers</h1>
+        {*/}
+
+        <HomeScene/>
 
         <nav className={'menu menu--fullScreen menu--home'}>
           <ul className={'menu__btn__li'}>

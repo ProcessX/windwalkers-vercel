@@ -1,14 +1,32 @@
 import React, {Component} from 'react';
 import * as PIXI from 'pixi.js'
 
+import {imgData} from '../data/imgData.json';
+
 const simulatedWidth = 320;
+const imgAverageVelocity = 1;
+const imgBurstRate = 100;
+const imgBurstAcceleration = 1.005;
+
+const imgParticleRatio = 5;
+
+const imgVelocityMin = 2;
 
 var canvas;
 var view;
 var loader;
 var img = new PIXI.Graphics();
 
-var imgData = [{x: 0, y: 0, color: 0xf05c00},{x: 1, y: 1, color: 0xf05c00}, {x: 0, y: 1, color: 0xffffff}, {x: 1, y: 0, color: 0xffffff}];
+var imgBurstTimer = 0;
+var imgBurstingPixel = 0;
+var imgDeadPixel = 0;
+
+const imgPixelNbr = imgData.length;
+
+var imgParticles = [];
+
+let animationTimer;
+
 
 class HomeScene extends Component {
 
@@ -27,8 +45,6 @@ class HomeScene extends Component {
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
-    console.log(window.innerWidth);
-
     this.resizeCanvas();
     window.onresize = this.resizeCanvas;
 
@@ -37,9 +53,21 @@ class HomeScene extends Component {
     loader = new PIXI.Loader();
     loader.onComplete.add(() => {
       this.initImg();
+      this.drawImg();
+      //this.initTitleAnimation();
+      view.ticker.start();
     });
     loader.load();
   }
+
+
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    if(prevProps.titleAnimation !== this.props.titleAnimation){
+      this.initTitleAnimation();
+      animationTimer = window.setTimeout(this.props.startGame, 8000);
+    }
+  }
+
 
   resizeCanvas = () => {
     view.height = window.innerHeight;
@@ -51,11 +79,92 @@ class HomeScene extends Component {
 
 
   initImg = () => {
-    imgData.forEach((pixel) => {
+    let testI = 0;
+    let testJ = 0;
+    for(let i = 0; i < imgData.length; i++){
+      if((i % imgParticleRatio === 0)){
+        imgParticles.push(imgData[i])
+      }
+    }
+
+    imgParticles.forEach((pixel, i) => {
+      pixel.velocity = this.getRandomVelocity();
+      pixel.lifetime = 2;
+      pixel.size = Math.random() * 2;
+    });
+
+    console.log(imgParticles);
+  }
+
+
+  drawImg = () => {
+    img.clear();
+
+    for(let i = imgBurstingPixel + 1; i < imgPixelNbr; i++){
+      let pixel = imgData[i];
       img.beginFill(pixel.color);
-      img.drawRect(pixel.x + 100, pixel.y + 50, 1, 1);
+      img.drawRect(pixel.x, pixel.y, 1, 1);
       img.endFill();
-    })
+    }
+
+    for(let j = imgDeadPixel; j < (imgBurstingPixel / imgParticleRatio); j++){
+      let pixel = imgParticles[j];
+      img.beginFill(pixel.color);
+      img.drawRect(pixel.x, pixel.y, pixel.size, pixel.size);
+      img.endFill();
+    }
+  }
+
+
+  imgBurst = () => {
+    let framerate = view.ticker.FPS;
+
+    //imgBurstingPixel = Math.min(Math.floor((imgBurstingPixel + (imgBurstRate / framerate)) * imgBurstAcceleration), imgPixelNbr - 1);
+    //imgBurstingPixel = Math.min(Math.floor(imgBurstingPixel + (imgBurstRate / framerate)), imgPixelNbr - 1);
+    imgBurstingPixel = Math.min(imgBurstingPixel + imgBurstRate, imgPixelNbr - 1);
+    //imgBurstingPixel = Math.min(Math.floor((imgBurstingPixel + imgBurstRate) * imgBurstAcceleration), imgPixelNbr - 1);
+  }
+
+
+  imgMove = () => {
+    let framerate =  1 / view.ticker.FPS;
+
+    for(let i = imgDeadPixel; i <= (imgBurstingPixel / imgParticleRatio); i++){
+      let pixel = imgParticles[i];
+      pixel.x += pixel.velocity.x * imgAverageVelocity;
+      pixel.y += pixel.velocity.y * imgAverageVelocity;
+      pixel.lifetime -= framerate;
+
+      if(pixel.lifetime <= 0){
+        imgDeadPixel += 1;
+      }
+    }
+
+  }
+
+
+  getRandomVelocity = () => {
+    let velocity = {x: -imgVelocityMin, y: 0};
+    velocity.x -= Math.random() * 2;
+    velocity.y = (0.3 - Math.random());
+
+    return velocity;
+  }
+
+  getRandomInt = (max) => {
+    return Math.floor(
+      Math.random() * max
+    );
+  }
+
+
+  initTitleAnimation = () => {
+    view.ticker.add(() => {
+      this.imgBurst();
+      this.imgMove();
+      this.drawImg();
+    });
+    view.ticker.start();
   }
 
 

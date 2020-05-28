@@ -2,6 +2,18 @@ import React, {Component} from 'react';
 import * as PIXI from 'pixi.js'
 
 
+let particleContainer = [];
+let particleRenderer = new PIXI.Graphics();
+const particleMax = 10;
+const particleSizeMax = 1.3;
+const particleNormalSpeed = 2;
+const particleMinSpeed = particleNormalSpeed;
+const particleMaxSpeed = particleMinSpeed * 2;
+const particleColor = 0xffffff;
+
+var hordeReplacing = false;
+const hordeReplaceSpeed = 0.1;
+
 
 class Parallaxe extends Component {
 
@@ -15,7 +27,9 @@ class Parallaxe extends Component {
 
   groundHeight = 60;
 
-   hordeMembersPosition = [
+  hordeMembersPosition;
+
+  hordeMembersPositionNormal = [
     {
       x: 70,
       y: 6,
@@ -40,7 +54,36 @@ class Parallaxe extends Component {
       x: 16,
       y: 8,
     },
-  ]
+  ];
+
+  hordeMembersPosition = this.hordeMembersPositionNormal;
+
+  hordeMembersPositionWindy = [
+    {
+      x: 62,
+      y: 10,
+    },
+    {
+      x: 54,
+      y: 6,
+    },
+    {
+      x: 52,
+      y: 14,
+    },
+    {
+      x: 44,
+      y: 7,
+    },
+    {
+      x: 40,
+      y: 12,
+    },
+    {
+      x: 32,
+      y: 8,
+    },
+  ];
 
   canvasScale = 1;
   groundColor = 0xf05c00;
@@ -64,6 +107,7 @@ class Parallaxe extends Component {
 //let character;
 //Group of characters
   horde = new PIXI.Container();
+  hordeToManipulate = [];
 
 //Character animated texture (4 frames)
   characterAnimatedTexture;
@@ -114,6 +158,7 @@ class Parallaxe extends Component {
       this.resizeCanvas();
       this.setupLoop();
       this.checkForCasulties();
+      this.initParticles();
     });
 
     this.loader.load();
@@ -121,16 +166,20 @@ class Parallaxe extends Component {
 
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {walking, horde} = this.props;
+    const {walking, horde, windStrength} = this.props;
     if(walking && !prevProps.walking){
-      this.horde.children.forEach((member, i) => {
+      console.log('walk');
+      this.hordeToManipulate.forEach((member, i) => {
+        member.texture = null;
         member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Walking'];
         member.play();
+        console.log(member.playing);
       });
     }
     else{
-      if(!walking && !prevProps.walking){
-        this.horde.children.forEach((member, i) => {
+      if(!walking && prevProps.walking){
+        console.log('stop walking');
+        this.hordeToManipulate.forEach((member, i) => {
           member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
           member.stop();
         });
@@ -140,6 +189,15 @@ class Parallaxe extends Component {
     if(!walking){
       this.checkForCasulties();
     }
+
+    if(windStrength !== prevProps.windStrength){
+      this.changeHordePosition();
+      this.hordeToManipulate.forEach((member, i) => {
+        member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Walking'];
+        member.play();
+      });
+    }
+
   }
 
 
@@ -244,9 +302,63 @@ class Parallaxe extends Component {
     this.landscape.scale.set(1, this.canvasScale);
 
     this.parallaxe.stage.addChild(this.landscape);
-
   }
 
+
+
+  initParticles = () => {
+    for(let i = 0; i < particleMax; i++){
+      particleContainer.push({
+        x: Math.random() * this.parallaxeView.width,
+        y: Math.random() * this.parallaxeView.height,
+        size: Math.max(Math.random() * particleSizeMax * this.canvasScale, this.canvasScale),
+        velocity: {
+          x: Math.min(-particleMinSpeed - ((particleMaxSpeed - particleMinSpeed) * Math.random()), -particleMinSpeed),
+          y: (0.5 - Math.random()) / 10,
+        }
+      });
+    }
+
+    this.parallaxe.stage.addChild(particleRenderer);
+    this.parallaxe.ticker.add(this.drawParticles);
+    this.parallaxe.ticker.add((deltaTime) => this.moveParticle(deltaTime));
+  }
+
+
+  drawParticles = () => {
+    particleRenderer.clear();
+
+    particleContainer.forEach((particle) => {
+      particleRenderer.beginFill(particleColor);
+      particleRenderer.drawRect(particle.x, particle.y, particle.size, particle.size);
+      particleRenderer.endFill();
+    });
+  }
+
+
+  moveParticle = (deltaTime) => {
+    const {windStrength} = this.props;
+
+    particleContainer.forEach((particle) => {
+      particle.x += particle.velocity.x * particleNormalSpeed * deltaTime * windStrength;
+      particle.y += particle.velocity.y * particleNormalSpeed * deltaTime * windStrength;
+
+      if(particle.x <= (0 - particle.size)){
+        let particleCoord = this.replaceParticle();
+        particle.x = particleCoord.x;
+        particle.y = particleCoord.y;
+      }
+    });
+  }
+
+
+  replaceParticle = () => {
+    let particleCoord = {
+      x: this.parallaxeView.width,
+      y: Math.random() * this.parallaxeView.height
+    };
+    return particleCoord;
+  }
 
 
   initNextLandmark = () => {
@@ -308,14 +420,12 @@ class Parallaxe extends Component {
     this.characterAnimatedTexture.push(this.loader.resources["caracoleAnim"].spritesheet);
     this.characterAnimatedTexture.push(this.loader.resources["coriolisAnim"].spritesheet);
 
-    //this.characterAnimatedTexture = this.loader.resources["playerAnim"].spritesheet;
-    //this.characterAnimatedTexture = this.loader.resources["oroshiAnim"].spritesheet;
-
     this.props.horde.members.forEach((member, i) => {
       let character = new PIXI.AnimatedSprite(this.characterAnimatedTexture[i].animations['ThreeThird-Walking']);
       character.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
       character.x = this.hordeMembersPosition[i].x;
       character.y = this.hordeMembersPosition[i].y;
+      character.zIndex = (i + 1) % 2;
 
       this.horde.addChild(character);
       this.horde.children.forEach((member) => {
@@ -324,9 +434,19 @@ class Parallaxe extends Component {
       });
     });
 
+    this.hordeToManipulate = this.horde.children.map((member) => {
+      return member;
+    })
+
+    //Trier les enfants d'un container Pixi va modifier leur ordre au rendu ET pour le programme.
+    //On se retrouve donc avec une Horde mélangée, ce qui pose problème pour les changements de texture.
+    //Pour éviter les soucis, on utilise un second tableau Horde pour toutes les manipulations.
+    this.horde.sortableChildren = true;
+
     this.parallaxe.stage.addChild(this.horde);
     this.setHorde();
 
+    this.parallaxe.ticker.add(() => this.replaceHordeLoop());
   }
 
 
@@ -338,6 +458,44 @@ class Parallaxe extends Component {
     this.horde.x = 30 * this.canvasScale;
   }
 
+
+  changeHordePosition = () => {
+    const {windStrength} = this.props;
+    console.log('Change horde position');
+    hordeReplacing = true;
+    if(windStrength === 1){
+      this.hordeMembersPosition = this.hordeMembersPositionNormal;
+    }
+    else{
+      this.hordeMembersPosition = this.hordeMembersPositionWindy;
+    }
+  }
+
+
+  replaceHordeLoop = () => {
+    if(hordeReplacing){
+      let membersReplaced = 0;
+      this.hordeToManipulate.forEach((member, i) => {
+        let remainingDistanceX = this.hordeMembersPosition[i].x - member.x;
+        let remainingDistanceY = this.hordeMembersPosition[i].y - member.y;
+        member.x += Math.sign(remainingDistanceX) * Math.min(hordeReplaceSpeed, Math.abs(remainingDistanceX));
+        member.y += Math.sign(remainingDistanceY) * Math.min(hordeReplaceSpeed, Math.abs(remainingDistanceY));
+        //member.x = this.hordeMembersPosition[i].x;
+        //member.y = this.hordeMembersPosition[i].y;
+        if(member.x === this.hordeMembersPosition[i].x && member.y === this.hordeMembersPosition[i].y && member.playing){
+          membersReplaced += 1;
+          member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
+        }
+      });
+
+      if(membersReplaced === this.horde.children.length) {
+        hordeReplacing = false;
+        this.hordeToManipulate.forEach((member, i) => {
+          member.stop();
+        });
+      }
+    }
+  }
 
 
   render() {

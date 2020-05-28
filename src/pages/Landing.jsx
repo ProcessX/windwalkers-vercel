@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import Btn from "../components/Btn";
 import {Redirect} from "react-router-dom";
+import TransitionModule from "../components/TransitionModule";
 
 
 class Landing extends Component {
@@ -9,17 +10,27 @@ class Landing extends Component {
     super();
     this.state = {
       redirectURL: null,
+      startTransition: false,
     }
   }
 
+  startTransition = () => {
+    let {startTransition} = this.state;
+
+    startTransition = true;
+    this.setState({startTransition});
+  }
+
+
   redirectTo = (url) => {
     let {redirectURL} = this.state;
+
     redirectURL = url;
     this.setState({redirectURL});
   }
 
+
   relocateTo = (url) => {
-    //window.location.href = url;
     window.open(url, '_blank');
   }
 
@@ -50,14 +61,17 @@ class Landing extends Component {
       backgroundImage: `url(${baseURL}Book-Icon.png)`,
     }
 
-    const {redirectURL} = this.state;
+    const {redirectURL, startTransition} = this.state;
     return (
       <div className={'page page--landing'}>
+
+        <TransitionModule startTransition={startTransition} callback={() => this.redirectTo('/game')}/>
+
         <section className={'landing__section landing__section--intro'} style={introStyle}>
           <div className={'landing__content'}>
             <h1 className={'title title--landing'} style={mainTitleStyle}>Windwalkers</h1>
             <p className={'content__intro'}>Inspirée du jeu Oregon Trail et du roman de SF La Horde du Contrevent.</p>
-            <Btn action={() => this.redirectTo('/game/')} title={'Tester la démo'}/>
+            <Btn action={() => this.startTransition()} title={'Tester la démo'}/>
           </div>
         </section>
 

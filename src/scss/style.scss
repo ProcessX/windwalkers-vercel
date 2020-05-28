@@ -15,6 +15,10 @@
 @use 'illu';
 @use 'inventory';
 @use 'homeScene';
+@use 'controller';
+@use 'transitionModule';
+
+
 
 
 
@@ -32,8 +36,6 @@ body{
   background-color: black;
   color: white;
 }
-
-
 
 
 @media (min-width: 480px) and (orientation: portrait){

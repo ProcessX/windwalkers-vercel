@@ -9,7 +9,7 @@ class TravelScene extends Component {
 
 
   render() {
-    const {horde, walkingTime, distanceTraveled, nextLocation, walking, event, removeEvent, progressIndex} = this.props;
+    const {horde, walkingTime, distanceTraveled, nextLocation, walking, event, removeEvent, progressIndex, windStrength} = this.props;
     let messageClass = 'travel__scene__message--hidden';
     let messageContent = 'Message';
     let messageSpeaker;
@@ -36,6 +36,7 @@ class TravelScene extends Component {
     return (
       <div className={"travel__scene"} style={{width: '100%', height: '50vh'}}>
         <Parallaxe
+          windStrength={windStrength}
           walkingTime={walkingTime}
           distanceTraveled={distanceTraveled}
           nextLocation={nextLocation}

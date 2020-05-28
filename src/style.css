@@ -247,8 +247,10 @@
 }
 .page--home .menu--home {
   margin: 2rem 0 3rem 0;
+  z-index: 100;
 }
 .page--home .home__info__li {
+  z-index: 100;
   list-style: none;
   padding: 1rem;
   margin: auto 0 0 0;
@@ -278,11 +280,20 @@
 .harvest__container {
   height: 100vh;
   width: 100vw;
-  max-height: 100vh;
+  max-height: 112vw;
   max-width: 100vw;
   overflow: hidden;
 }
 
+.harvest__controller {
+  text-align: center;
+}
+
+@media (min-width: 480px) {
+  .harvest__container {
+    max-height: 100vw;
+  }
+}
 .page--narration {
   padding: 1rem 1rem 2rem 1rem;
   display: flex;
@@ -798,6 +809,7 @@
   max-width: 100vw;
   position: relative;
   overflow-x: hidden;
+  position: relative;
 }
 
 .navbar__link__li {
@@ -1743,6 +1755,107 @@
   max-width: 100vw;
 }
 
+.controller--directionStick {
+  background-color: white;
+  height: 160px;
+  width: 160px;
+  border-radius: 100%;
+  position: relative;
+}
+.controller--directionStick .directionStick__pointer {
+  border: solid 3px black;
+  width: 60px;
+  height: 60px;
+  max-width: 60px;
+  overflow: hidden;
+  text-indent: 100%;
+  border-radius: 100%;
+  position: absolute;
+  top: 48.5px;
+  left: 48.5px;
+  background-color: white;
+}
+
+@media (min-width: 998px) and (orientation: landscape) {
+  .controller--directionStick {
+    display: none;
+  }
+}
+.transitionModule {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 10000;
+  color: red;
+  height: 100vh;
+  width: 100vw;
+  max-height: 100vh;
+  max-width: 100vw;
+  pointer-events: none;
+}
+.transitionModule .transitionModule__curtain {
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  overflow: hidden;
+  position: relative;
+}
+.transitionModule .transitionModule__curtain .curtain__elem {
+  position: absolute;
+  background-color: black;
+  overflow: hidden;
+  text-indent: 100%;
+  transition-property: top, bottom, left, right;
+  transition-duration: 1.2s;
+  transition-timing-function: linear;
+}
+.transitionModule .transitionModule__curtain .curtain__elem--hor {
+  height: 50%;
+  width: 100%;
+  max-height: 50%;
+  max-width: 100%;
+}
+.transitionModule .transitionModule__curtain .curtain__elem--ver {
+  width: 50%;
+  height: 100%;
+  max-height: 100%;
+  max-width: 50%;
+}
+.transitionModule .transitionModule__curtain .curtain__elem--top {
+  top: -50%;
+  left: 0;
+}
+.transitionModule .transitionModule__curtain .curtain__elem--bottom {
+  bottom: -50%;
+  left: 0;
+}
+.transitionModule .transitionModule__curtain .curtain__elem--left {
+  top: 0;
+  left: -50%;
+}
+.transitionModule .transitionModule__curtain .curtain__elem--right {
+  top: 0;
+  right: -50%;
+}
+.transitionModule .transitionModule__curtain--closing .curtain__elem--top {
+  top: 0;
+  left: 0;
+}
+.transitionModule .transitionModule__curtain--closing .curtain__elem--bottom {
+  bottom: 0;
+  left: 0;
+}
+.transitionModule .transitionModule__curtain--closing .curtain__elem--left {
+  top: 0;
+  left: 0;
+}
+.transitionModule .transitionModule__curtain--closing .curtain__elem--right {
+  top: 0;
+  right: 0;
+}
+
+@keyframes closingCurtain {}
 html {
   font-size: 14px;
 }

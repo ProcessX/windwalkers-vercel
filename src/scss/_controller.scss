@@ -1,0 +1,32 @@
+.controller--directionStick{
+  background-color: white;
+  height: 160px;
+  width: 160px;
+  border-radius: 100%;
+  position: relative;
+
+  .directionStick__pointer{
+    border: solid 3px black;
+    width: 60px;
+    height: 60px;
+    max-width: 60px;
+    overflow: hidden;
+    text-indent: 100%;
+    border-radius: 100%;
+
+    position: absolute;
+    top: 48.5px;
+    left: 48.5px;
+
+    background-color: white;
+  }
+}
+
+
+
+
+@media (min-width: 998px) and (orientation: landscape){
+  .controller--directionStick{
+    display: none;
+  }
+}

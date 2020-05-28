@@ -13,7 +13,8 @@
         [
           {
             "message" : "Attendez, arrêtons-nous... Il faut s'arrêter.",
-            "speaker": "Oroshi"
+            "speaker": "Oroshi",
+            "windStrength": 2
           },
           {
             "message" : "Qu'est-ce qu'il se passe, Oroshi ? Tu sens quelque chose ?",

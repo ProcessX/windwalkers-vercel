@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import * as PIXI from 'pixi.js'
-import {Redirect} from "react-router-dom";
 import TutorialPanel from "../../components/tutorialPanel";
+import DirectionStick from "../../components/DirectionStick";
 
 //Le timer ici se calcule en minutes.
 const harvestingTime = 1;
@@ -23,7 +23,7 @@ const controls = {
   action: [' ', 'spacebar', 'Enter'],
 }
 const playerSpeed = 0.8;
-const windStrength = 2;
+var windStrength = 1;
 const blaastSpeed = 5;
 const lootMessageSpeed = 0.1;
 
@@ -117,6 +117,9 @@ let safezones = [];
 let harvestables = [];
 let fruitTreeTexture;
 
+let decoPlants = [];
+let decoRocks = [];
+
 let harvestableLimit = new PIXI.Graphics();
 harvestableLimit.x = 0;
 harvestableLimit.y = 0;
@@ -130,6 +133,14 @@ let alertMessage;
 let lootMessages = [];
 
 let loader;
+
+
+let particleContainer = [];
+let particleRenderer = new PIXI.Graphics();
+const particleMax = 10;
+const particleNormalSpeed = 1;
+const particleMinSpeed = particleNormalSpeed;
+const particleColor = 0x000000;
 
 
 
@@ -231,15 +242,16 @@ class Harvest extends Component {
       .add('rock01', 'Rock.png')
       .add('grass01', 'Grass.png')
       .add('limits', 'limits.png')
-      .add('harvestable', 'fruitTree01.png')
       .add('blaast', 'blaast.png')
-      .add('playerAnim', 'characters/characterSpritesheet.json')
       .add('oroshiAnim', 'characters/Spritesheet-Oroshi.json')
       .add('sovAnim', 'characters/Spritesheet-Sov.json')
       .add('caracoleAnim', 'characters/Spritesheet-Caracole.json')
       .add('ergAnim', 'characters/Spritesheet-Erg.json')
       .add('coriolisAnim', 'characters/Spritesheet-Coriolis.json')
-      .add('golgothAnim', 'characters/Spritesheet-Golgoth.json');
+      .add('golgothAnim', 'characters/Spritesheet-Golgoth.json')
+      .add('rocks', 'Harvest-Rocks.json')
+      .add('decoPlant', 'Harvest-Deco-Plant.json')
+      .add('decoRock', 'Harvest-Deco-Rock.json');
 
     loader.onComplete.add(() => {
       this.setup();
@@ -254,7 +266,7 @@ class Harvest extends Component {
 
     this.setupControls();
 
-    harvestingTimer = window.setTimeout(() => this.exitMinigame(), harvestingTime * 60000);
+    //harvestingTimer = window.setTimeout(() => this.exitMinigame(), harvestingTime * 60000);
   }
 
 
@@ -274,7 +286,6 @@ class Harvest extends Component {
       height: harvestView.height,
       width: harvestView.width,
     }
-
 
     let previousScaleHeight = harvestView.height / simulatedCanvasSize;
     let previousScaleWidth = harvestView.width / simulatedCanvasSize;
@@ -355,6 +366,9 @@ class Harvest extends Component {
 
     this.resizeCanvas();
     this.resizeSprite();
+
+    this.initParticles();
+    this.setupDeco();
 
     harvest.ticker.start();
     harvest.stage.sortableChildren = true;
@@ -457,10 +471,14 @@ class Harvest extends Component {
   setupObstacles = () => {
     let obstacle;
 
-    levelDesign.obstacles.forEach((position) => {
+    let rockTextures = loader.resources['rocks'];
+
+    levelDesign.obstacles.forEach((position, i) => {
       obstacle = new PIXI.Sprite(
-        loader.resources.rock01.texture,
+        rockTextures.textures[`Harvest-Rocks_${i % 3}.png`],
       );
+
+
       obstacle.coord = position;
       obstacle.anchor.set(0.5,1);
       obstacle.hitbox = {width: 1, height: 0.5};
@@ -544,7 +562,7 @@ class Harvest extends Component {
 
     harvest.stage.addChild(blaast);
     harvest.ticker.add((deltaMS) => {
-      this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
+      //this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
     });
 
   }
@@ -589,6 +607,45 @@ class Harvest extends Component {
   }
 
 
+  setupDeco = () => {
+    let decoPlantTextures = loader.resources['decoPlant'].spritesheet;
+
+    for(let i = 0; i < 10; i++){
+
+      let plant = new PIXI.Sprite(
+        decoPlantTextures.textures[`Harvest-Deco-Plant_${i % 4}.png`],
+      );
+
+      plant.x = Math.random() * (harvestView.width / canvasScale);
+      plant.y = Math.random() * (harvestView.height / canvasScale);
+      plant.zIndex = 2;
+      decoPlants.push(plant);
+    }
+
+    decoPlants.forEach((plant) => {
+      harvest.stage.addChild(plant);
+    })
+
+
+    let decoRockTexture = loader.resources['decoRock'].spritesheet;
+
+    for(let i = 0; i < 10; i++){
+      let rock = new PIXI.Sprite(
+        decoRockTexture.textures[`Harvest-Deco-Rock_${i % 4}.png`],
+      );
+
+      rock.x = Math.random() * (harvestView.width / canvasScale);
+      rock.y = Math.random() * (harvestView.height / canvasScale);
+      rock.zIndex = 2;
+      decoRocks.push(rock);
+    }
+
+    decoRocks.forEach((rock) => {
+      harvest.stage.addChild(rock);
+    })
+  }
+
+
   playerLoop = () => {
     this.movePlayer();
   }
@@ -602,6 +659,8 @@ class Harvest extends Component {
         newPosition.x += playerMovement.x * playerSpeed;
         newPosition.y -= playerMovement.y * playerSpeed;
 
+        if(!player.safe)
+          newPosition.y += (windStrength - 1) * 0.5;
       }
     }
     else{
@@ -760,9 +819,13 @@ class Harvest extends Component {
   blaastLoop = (delta) => {
     const {tutorial} = this.props;
 
-    if(blaast.y >= (harvestView.height + blaast.height)){
+    if(blaast.y >= ((harvestView.height / canvasScale) + blaast.height)){
       blaast.y = 0;
       blaast.blowing = false;
+      windStrength = 1;
+      harvestables.forEach((harvestable) => {
+        harvestable.stop();
+      })
     }
 
     if(blaast.blowing){
@@ -786,6 +849,10 @@ class Harvest extends Component {
       blaast.timer -= delta;
       if(blaast.timer <= 5) {
         alertMessage.visible = true;
+        windStrength = 2;
+        harvestables.forEach((harvestable) => {
+          harvestable.play();
+        })
         if(tutorial.harvest[0])
           this.displayTutorial();
       }
@@ -971,6 +1038,72 @@ class Harvest extends Component {
   }
 
 
+  getMobileInput = (input) => {
+    let previousPlayerMovement = playerMovement;
+    playerMovement = input;
+
+    if((Math.sign(playerMovement.x) !== Math.sign(previousPlayerMovement.x)) || (Math.sign(playerMovement.y) !== Math.sign(previousPlayerMovement.y))){
+      switchPlayerAnimation();
+    }
+  }
+
+
+  initParticles = () => {
+    for(let i = 0; i < particleMax; i++){
+      particleContainer.push({
+        x: Math.random() * (harvestView.width / canvasScale),
+        y: Math.random() * (harvestView.height / canvasScale),
+        size: 1,
+        velocity: {
+          x: (0.5 - Math.random()) / 8,
+          y: 1 + (Math.random() / 2),
+        }
+      });
+    }
+
+    particleRenderer.zIndex = 10000;
+
+    harvest.stage.addChild(particleRenderer);
+    harvest.ticker.add(this.drawParticles);
+    harvest.ticker.add((deltaTime) => this.moveParticle(deltaTime));
+  }
+
+
+  drawParticles = () => {
+    particleRenderer.clear();
+
+    particleContainer.forEach((particle) => {
+      particleRenderer.beginFill(particleColor);
+      particleRenderer.drawRect(particle.x, particle.y, particle.size, particle.size);
+      particleRenderer.endFill();
+    });
+  }
+
+
+  moveParticle = (deltaTime) => {
+    particleContainer.forEach((particle) => {
+      //particle.x += particle.velocity.x * particleNormalSpeed * deltaTime * windStrength;
+      //particle.y += particle.velocity.y * particleNormalSpeed * deltaTime * windStrength;
+
+      particle.x += particle.velocity.x * particleNormalSpeed * deltaTime * windStrength;
+      particle.y += particle.velocity.y * particleNormalSpeed * deltaTime * windStrength;
+
+      if(particle.y >= (harvestView.height / canvasScaleHeight)){
+        let particleCoord = this.replaceParticle();
+        particle.x = particleCoord.x;
+        particle.y = particleCoord.y;
+      }
+    });
+  }
+
+
+  replaceParticle = () => {
+    let particleCoord = {
+      x: Math.random() * (harvestView.width / canvasScale),
+      y: -3
+    };
+    return particleCoord;
+  }
 
 
 
@@ -984,6 +1117,10 @@ class Harvest extends Component {
 
         <div className={'harvest__container'}>
           <canvas className={'harvest__view'}></canvas>
+        </div>
+
+        <div className={'harvest__controller'}>
+          <DirectionStick sendInput={(input) => this.getMobileInput(input)}/>
         </div>
       </div>
     );

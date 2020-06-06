@@ -8,13 +8,15 @@ const imgAverageVelocity = 1;
 const imgBurstRate = 100;
 const imgBurstAcceleration = 1.005;
 
-const imgParticleRatio = 5;
+const imgParticleRatio = 8;
 
 const imgVelocityMin = 2;
 
 var canvas;
+var container;
 var view;
 var loader;
+var offset;
 var img = new PIXI.Graphics();
 
 var imgBurstTimer = 0;
@@ -27,11 +29,25 @@ var imgParticles = [];
 
 let animationTimer;
 
+var viewResolution;
+var newViewResolution;
+
+const titleSize = {
+  height: 56,
+  width: 310,
+}
+
+let particleContainer = [];
+let particleRenderer = new PIXI.Graphics();
+const particleMax = 10;
+const particleColor = 0xFFFFFF;
+
 
 class HomeScene extends Component {
 
   componentDidMount() {
     canvas = document.querySelector('.home__scene__canvas');
+    container = document.querySelector('.home__scene');
 
     let canvasWidth = window.innerWidth;
     let canvasHeight = window.innerHeight - 10;
@@ -45,6 +61,13 @@ class HomeScene extends Component {
 
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
+    view.height = window.innerHeight;
+    view.width = window.innerWidth;
+
+    viewResolution = view.width / simulatedWidth;
+
+    view.renderer.resolution = viewResolution;
+
     this.resizeCanvas();
     window.onresize = this.resizeCanvas;
 
@@ -54,6 +77,7 @@ class HomeScene extends Component {
     loader.onComplete.add(() => {
       this.initImg();
       this.drawImg();
+      this.initParticles();
       //this.initTitleAnimation();
       view.ticker.start();
     });
@@ -70,17 +94,27 @@ class HomeScene extends Component {
 
 
   resizeCanvas = () => {
+
     view.height = window.innerHeight;
     view.width = window.innerWidth;
 
-    let viewResolution = view.width / simulatedWidth;
-    view.renderer.resolution = viewResolution
+    newViewResolution = view.width / simulatedWidth;
+
+    img.scale.y = newViewResolution / viewResolution;
+
+    offset = {
+      x: (simulatedWidth - titleSize.width) / 2,
+      y: ((container.offsetHeight / newViewResolution) - (titleSize.height / img.scale.y)) / 2,
+    }
+
+    img.x = offset.x;
+    img.y = offset.y;
+
+    this.drawImg();
   }
 
 
   initImg = () => {
-    let testI = 0;
-    let testJ = 0;
     for(let i = 0; i < imgData.length; i++){
       if((i % imgParticleRatio === 0)){
         imgParticles.push(imgData[i])
@@ -92,8 +126,6 @@ class HomeScene extends Component {
       pixel.lifetime = 2;
       pixel.size = Math.random() * 2;
     });
-
-    console.log(imgParticles);
   }
 
 
@@ -113,16 +145,14 @@ class HomeScene extends Component {
       img.drawRect(pixel.x, pixel.y, pixel.size, pixel.size);
       img.endFill();
     }
+
   }
 
 
   imgBurst = () => {
     let framerate = view.ticker.FPS;
 
-    //imgBurstingPixel = Math.min(Math.floor((imgBurstingPixel + (imgBurstRate / framerate)) * imgBurstAcceleration), imgPixelNbr - 1);
-    //imgBurstingPixel = Math.min(Math.floor(imgBurstingPixel + (imgBurstRate / framerate)), imgPixelNbr - 1);
     imgBurstingPixel = Math.min(imgBurstingPixel + imgBurstRate, imgPixelNbr - 1);
-    //imgBurstingPixel = Math.min(Math.floor((imgBurstingPixel + imgBurstRate) * imgBurstAcceleration), imgPixelNbr - 1);
   }
 
 
@@ -165,6 +195,59 @@ class HomeScene extends Component {
       this.drawImg();
     });
     view.ticker.start();
+  }
+
+
+  initParticles = () => {
+    for(let i = 0; i < particleMax; i++){
+      particleContainer.push({
+        x: Math.random() * simulatedWidth,
+        y: Math.random() * simulatedWidth,
+        size: 1,
+        velocity: this.getRandomVelocity()
+      });
+    }
+
+    particleRenderer.zIndex = 10000;
+
+    view.stage.addChild(particleRenderer);
+    view.ticker.add(this.drawParticles);
+    view.ticker.add((deltaTime) => this.moveParticle(deltaTime));
+  }
+
+
+  drawParticles = () => {
+    particleRenderer.clear();
+
+    particleContainer.forEach((particle) => {
+      particleRenderer.beginFill(particleColor);
+      particleRenderer.drawRect(particle.x, particle.y, particle.size, particle.size);
+      particleRenderer.endFill();
+    });
+  }
+
+
+  moveParticle = (deltaTime) => {
+    particleContainer.forEach((particle) => {
+
+      particle.x += particle.velocity.x * deltaTime;
+      particle.y += particle.velocity.y * deltaTime;
+
+      if(particle.x < (0 - particle.size)){
+        let particleCoord = this.replaceParticle();
+        particle.x = particleCoord.x;
+        particle.y = particleCoord.y;
+      }
+    });
+  }
+
+
+  replaceParticle = () => {
+    let particleCoord = {
+      x: simulatedWidth,
+      y: Math.random() * simulatedWidth,
+    };
+    return particleCoord;
   }
 
 

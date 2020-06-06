@@ -3,6 +3,7 @@ import {Link, Redirect} from 'react-router-dom';
 
 import {chapters} from '../data/narration';
 import Btn from "../components/Btn";
+import TransitionModule from "../components/TransitionModule";
 
 class Narration extends Component {
 
@@ -17,6 +18,7 @@ class Narration extends Component {
       redirectURL: null,
       currentChapter: currentChapter,
       panelIndex: 0,
+      startTransition: false,
     }
 
   }
@@ -29,7 +31,8 @@ class Narration extends Component {
       this.setState({panelIndex: panelIndex});
     }
     else{
-      this.quitNarration();
+      this.startTransition();
+      //this.quitNarration();
     }
   }
 
@@ -56,14 +59,24 @@ class Narration extends Component {
   }
 
 
+  startTransition = () => {
+    let {startTransition} = this.state;
+
+    startTransition = true;
+    this.setState({startTransition});
+  }
+
+
   render() {
-    const {redirectURL, currentChapter, panelIndex} = this.state;
+    const {redirectURL, currentChapter, panelIndex, startTransition} = this.state;
     const panel = currentChapter.panelSequence[panelIndex];
 
     const text = this.displayText(panel.text);
 
     return (
       <div className={'page page--narration'}>
+        <TransitionModule startTransition={startTransition} callback={() => this.quitNarration()}/>
+
         <div className={'narration__illu'}></div>
         {text}
         <Btn action={() => this.nextChapter()} title={'Suivant'}/>

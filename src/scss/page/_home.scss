@@ -45,6 +45,12 @@
 
           &:last-child{
             margin-right: 0;
+            order: 3;
+          }
+
+
+          &:first-child{
+            order: 2;
           }
         }
       }

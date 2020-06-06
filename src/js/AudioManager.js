@@ -7,7 +7,7 @@ import {soundEffectRef} from "../data/soundEffectRef.json";
 class AudioManager {
 
   constructor() {
-    this.value = null
+    this.volume = 1;
     this.music = null;
     this.musicList = [];
     this.soundEffectList = [];
@@ -49,20 +49,21 @@ class AudioManager {
 
   playMusic = (id) => {
     if(this.music)
-      this.music.stop();
+      this.music.music.stop();
 
     let newMusic = this.musicList.find((elem) => {
       if(elem.id === id)
         return elem.music;
     });
 
-    this.music = newMusic.music;
-    this.music.play();
+    this.music = newMusic;
+    this.music.music.volume(this.volume);
+    this.music.music.play();
   }
 
 
   stopMusic = () => {
-    this.music.stop();
+    this.music.music.stop();
   }
 
 
@@ -72,6 +73,14 @@ class AudioManager {
         this.soundEffectList[i].soundEffect.play();
         break;
       }
+    }
+  }
+
+
+  setVolume = (volume) => {
+    this.volume = volume;
+    if(this.music){
+      this.music.music.volume(volume);
     }
   }
 }

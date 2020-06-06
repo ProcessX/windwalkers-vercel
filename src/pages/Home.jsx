@@ -15,9 +15,16 @@ class Home extends Component {
     }
   }
 
+
+  componentDidMount() {
+    this.props.playMusic('home');
+  }
+
+
   redirectTo = (url) => {
     let {redirectURL} = this.state;
     redirectURL = url;
+    console.log(this.props.history);
     this.setState({redirectURL});
   }
 
@@ -43,14 +50,13 @@ class Home extends Component {
 
     return (
       <div className={'page page--home'}>
-        {/*}
-        <h1 className={'illu home__illu'} style={illu}>Windwalkers</h1>
-        {*/}
 
         <HomeScene
           titleAnimation={titleAnimation}
           startGame={() => this.redirectTo('/game/narration/')}
         />
+
+        <h1 className={'home__title illu'}>Windwalkers</h1>
 
         <nav className={'menu menu--fullScreen menu--home'}>
           <ul className={'menu__btn__li'}>
@@ -64,13 +70,14 @@ class Home extends Component {
             <li className={'menu__btn__el'}>
               <Btn
                 title={'Options'}
+                action={() => this.redirectTo('/game/options')}
               />
             </li>
 
             <li className={'menu__btn__el'}>
               <Btn
-                className={'test'}
                 title={'Crédits'}
+                action={() => this.redirectTo('/game/credits')}
               />
             </li>
           </ul>

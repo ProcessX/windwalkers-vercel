@@ -303,8 +303,9 @@ class App extends Component {
 
 
   setMusicVolume = (volume) => {
-    let {musicVolume} = this.state;
+    let {musicVolume, audioManager} = this.state;
     musicVolume = volume;
+    audioManager.setVolume(volume);
     this.setState({musicVolume});
   }
 
@@ -313,6 +314,22 @@ class App extends Component {
     let {soundEffectVolume} = this.state;
     soundEffectVolume = volume;
     this.setState({soundEffectVolume});
+  }
+
+
+  playMusic = (id) => {
+    let {audioManager} = this.state;
+    console.log(id);
+    console.log(audioManager.music);
+
+    if(!audioManager.music){
+      audioManager.playMusic(id);
+    }
+    else{
+      if(audioManager.music.id !== id){
+        audioManager.playMusic(id);
+      }
+    }
   }
 
 
@@ -346,12 +363,14 @@ class App extends Component {
 
             <Route path={'/game/'} exact>
               <Home
+                playMusic={(id) => this.playMusic(id)}
                 redirectTo={(url) => this.redirectTo(url)}
               />
             </Route>
 
             <Route path={'/game/options'} exact>
               <Options
+                progressIndex={progressIndex}
                 audioManager={audioManager}
                 musicVolume={musicVolume}
                 soundEffectVolume={soundEffectVolume}

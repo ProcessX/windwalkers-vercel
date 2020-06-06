@@ -1,0 +1,52 @@
+.page--credits{
+  .credits__section{
+    max-width: 1400px;
+    padding: 0 1rem;
+    margin: auto;
+
+    p{
+      line-height: 1.4em;
+    }
+  }
+}
+
+.source__li{
+  list-style: none;
+  padding-left: 5rem;
+
+  .source__el{
+    margin-bottom: 1.3rem;
+
+    &:hover{
+      color: white;
+    }
+
+    .source__link{
+      color: #AAA2FF;
+      text-decoration: none;
+      position: relative;
+
+      &:before{
+        content: "";
+        height: 1rem;
+        min-height: 1rem;
+        width: 1rem;
+        min-width: 1rem;
+        background-color: black;
+        border: solid 2px #AAA2FF;
+        position: absolute;
+        left: -2rem;
+        box-shadow: 4px 4px #AAA2FF;
+      }
+
+      &:hover{
+        color: white;
+
+        &:before{
+          border-color: white;
+          box-shadow: 4px 4px white;
+        }
+      }
+    }
+  }
+}

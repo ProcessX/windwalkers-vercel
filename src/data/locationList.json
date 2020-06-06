@@ -60,7 +60,8 @@
           {
             "message" : "Une bourrasque fait trébucher %victim%. Le chute lui racle légèrement l'épaule.",
             "damage": 3,
-            "victime": 1
+            "victime": 1,
+            "stormwind": "incoming"
           }
         ],
         [

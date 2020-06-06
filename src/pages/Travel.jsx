@@ -23,6 +23,8 @@ class Travel extends Component {
       hordeAlive: true,
       redirectURL: null,
       windStrength: 1,
+      stormwind: false,
+      startTransition: false,
     }
   }
 
@@ -137,7 +139,7 @@ class Travel extends Component {
 
 
   applyEvent = () => {
-    let {eventSequence, windStrength} = this.state;
+    let {eventSequence, windStrength, stormwind} = this.state;
     const {horde, hurtMember} = this.props;
 
 
@@ -153,11 +155,14 @@ class Travel extends Component {
 
     if(eventSequence[0].windStrength){
       windStrength = eventSequence[0].windStrength;
-      console.log("Le vent se lève");
+    }
+
+    if(eventSequence[0].stormwind){
+      stormwind = eventSequence[0].stormwind;
     }
 
 
-    this.setState({eventSequence: eventSequence, windStrength});
+    this.setState({eventSequence: eventSequence, windStrength, stormwind});
   }
 
 
@@ -267,13 +272,14 @@ class Travel extends Component {
 
 
   render() {
-    const {eventSequence, walking, redirectURL, windStrength} = this.state;
+    const {eventSequence, walking, redirectURL, windStrength, stormwind} = this.state;
     const {horde, inventory, nextLocation, distanceTraveled, progressIndex} = this.props;
 
     return (
       <div className={`page page--travel ${progressIndex < 2 ? 'page--travel--noStopAllowed' : ''}`}>
         <TravelScene
           windStrength={windStrength}
+          stormwind={stormwind}
           walkingTime={walkingTime}
           horde={horde}
           event={eventSequence[0]}

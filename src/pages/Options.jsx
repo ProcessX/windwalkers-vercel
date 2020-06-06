@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 
 import InputRange from "react-input-range";
 import 'react-input-range/lib/css/index.css';
+import BtnBack from "../components/BtnBack";
 
 const volumeMax = 100;
 
@@ -19,11 +20,12 @@ class Options extends Component {
 
 
   render() {
-    const {audioManager, musicVolume, soundEffectVolume} = this.props;
+    const {progressIndex, audioManager, musicVolume, soundEffectVolume} = this.props;
+    const backURL = progressIndex > 0 ? '/game/stop/horde/' : '/game/';
 
     return (
       <div className={'page page--options'}>
-        <h1>Options</h1>
+        <BtnBack redirectURL={backURL}/>
         <ul className={'option__input__li'}>
           <li className={'option__input__el'}>
             <p className={'option__input__title'}>Musique</p>

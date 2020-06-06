@@ -151,6 +151,8 @@ class Parallaxe extends Component {
       .add('coriolisAnim', 'characters/Spritesheet-Coriolis.json')
       .add('golgothAnim', 'characters/Spritesheet-Golgoth.json');
 
+    //add('golgothAnim', 'characters/Spritesheet-Golgoth.json')
+
     this.loader.onComplete.add(() => {
       this.initLandscape();
       this.loadCharacter();
@@ -166,12 +168,17 @@ class Parallaxe extends Component {
 
 
   componentDidUpdate(prevProps, prevState, snapshot) {
-    const {walking, horde, windStrength} = this.props;
+    const {walking, horde, windStrength, stormwind} = this.props;
     if(walking && !prevProps.walking){
       console.log('walk');
       this.hordeToManipulate.forEach((member, i) => {
         member.texture = null;
-        member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Walking'];
+        if(windStrength > 1){
+          member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Hunched-Walking'];
+        }
+        else{
+          member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Walking'];
+        }
         member.play();
         console.log(member.playing);
       });
@@ -180,7 +187,12 @@ class Parallaxe extends Component {
       if(!walking && prevProps.walking){
         console.log('stop walking');
         this.hordeToManipulate.forEach((member, i) => {
-          member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
+          if(windStrength > 1){
+            member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Hunched-Still_0.png'];
+          }
+          else{
+            member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
+          }
           member.stop();
         });
       }
@@ -196,6 +208,12 @@ class Parallaxe extends Component {
         member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Walking'];
         member.play();
       });
+    }
+
+    if(stormwind !== prevProps.stormwind){
+      if(stormwind === "incoming"){
+        console.log('Storm incoming');
+      }
     }
 
   }
@@ -473,6 +491,7 @@ class Parallaxe extends Component {
 
 
   replaceHordeLoop = () => {
+    const {windStrength} = this.props;
     if(hordeReplacing){
       let membersReplaced = 0;
       this.hordeToManipulate.forEach((member, i) => {
@@ -480,11 +499,12 @@ class Parallaxe extends Component {
         let remainingDistanceY = this.hordeMembersPosition[i].y - member.y;
         member.x += Math.sign(remainingDistanceX) * Math.min(hordeReplaceSpeed, Math.abs(remainingDistanceX));
         member.y += Math.sign(remainingDistanceY) * Math.min(hordeReplaceSpeed, Math.abs(remainingDistanceY));
-        //member.x = this.hordeMembersPosition[i].x;
-        //member.y = this.hordeMembersPosition[i].y;
         if(member.x === this.hordeMembersPosition[i].x && member.y === this.hordeMembersPosition[i].y && member.playing){
           membersReplaced += 1;
-          member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
+          if(windStrength > 1)
+            member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Hunched-Still_0.png'];
+          else
+            member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Still_0.png'];
         }
       });
 
@@ -496,6 +516,8 @@ class Parallaxe extends Component {
       }
     }
   }
+
+
 
 
   render() {

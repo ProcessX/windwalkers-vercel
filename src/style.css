@@ -270,6 +270,10 @@
   }
   .page--home .menu--home .menu__btn__li .menu__btn__el:last-child {
     margin-right: 0;
+    order: 3;
+  }
+  .page--home .menu--home .menu__btn__li .menu__btn__el:first-child {
+    order: 2;
   }
   .page--home .home__info__li {
     display: flex;
@@ -762,6 +766,14 @@
   list-style: none;
   padding: 0 1rem;
   margin: 0;
+  max-width: 998px;
+  margin: auto;
+}
+.option__input__li .option__input__el {
+  margin-bottom: 3.9rem;
+}
+.option__input__li .option__input__el .option__input__title {
+  font-size: 1.69rem;
 }
 .option__input__li .option__input__el .input-range {
   max-width: 100%;
@@ -799,6 +811,72 @@
   transition: none;
   background-color: white;
   box-shadow: -0.3rem 0px 0px 0px black, 0.3rem 0px 0px 0px black;
+}
+
+@media (min-width: 998px) {
+  .option__input__li .option__input__el {
+    display: flex;
+    justify-items: center;
+  }
+  .option__input__li .option__input__el .option__input__title {
+    margin: 0.5rem 1rem 0 0;
+    width: 33%;
+    min-width: 33%;
+    text-align: right;
+  }
+}
+@media (min-width: 1260px) {
+  .option__input__li {
+    max-width: 1260px;
+  }
+}
+@media (min-width: 1400px) {
+  .option__input__li {
+    max-width: 1400px;
+  }
+}
+.page--credits .credits__section {
+  max-width: 1400px;
+  padding: 0 1rem;
+  margin: auto;
+}
+.page--credits .credits__section p {
+  line-height: 1.4em;
+}
+
+.source__li {
+  list-style: none;
+  padding-left: 5rem;
+}
+.source__li .source__el {
+  margin-bottom: 1.3rem;
+}
+.source__li .source__el:hover {
+  color: white;
+}
+.source__li .source__el .source__link {
+  color: #AAA2FF;
+  text-decoration: none;
+  position: relative;
+}
+.source__li .source__el .source__link:before {
+  content: "";
+  height: 1rem;
+  min-height: 1rem;
+  width: 1rem;
+  min-width: 1rem;
+  background-color: black;
+  border: solid 2px #AAA2FF;
+  position: absolute;
+  left: -2rem;
+  box-shadow: 4px 4px #AAA2FF;
+}
+.source__li .source__el .source__link:hover {
+  color: white;
+}
+.source__li .source__el .source__link:hover:before {
+  border-color: white;
+  box-shadow: 4px 4px white;
 }
 
 .page {
@@ -1743,6 +1821,7 @@
   max-width: 100vw;
   color: black;
   position: relative;
+  display: none;
 }
 
 .home__scene__canvas {
@@ -1755,6 +1834,27 @@
   max-width: 100vw;
 }
 
+.home__title {
+  background-image: url("/assets/Home-Illu.png");
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50vh;
+  width: 100vw;
+  max-width: 100vw;
+  overflow: hidden;
+  text-indent: 100%;
+}
+
+@media (min-width: 998px) {
+  .home__scene {
+    display: block;
+  }
+
+  .home__title {
+    display: none;
+  }
+}
 .controller--directionStick {
   background-color: white;
   height: 160px;

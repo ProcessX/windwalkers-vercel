@@ -1,6 +1,9 @@
 {
   "musicRef": [
     {
+      "id": "home"
+    },
+    {
       "id": "travel"
     },
     {

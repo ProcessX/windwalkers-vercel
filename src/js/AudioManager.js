@@ -17,7 +17,8 @@ class AudioManager {
       this.musicList.push({
         id: id,
         music: new Howl({
-          src: [`/assets/music/music-${id}.mp3`]
+          src: [`/assets/music/music-${id}.mp3`],
+          loop: true,
         })
       });
     }
@@ -39,7 +40,8 @@ class AudioManager {
       this.soundEffectList.push({
         id: id,
         soundEffect: new Howl({
-          src: [`/assets/soundEffect/soundEffect-${id}.wav`]
+          src: [`/assets/soundEffect/soundEffect-${id}.wav`],
+          loop: false
         })
       });
     }
@@ -82,6 +84,11 @@ class AudioManager {
     if(this.music){
       this.music.music.volume(volume);
     }
+  }
+
+
+  fadeOutMusic = (timelapse) => {
+    this.music.music.fade(this.volume, 0, timelapse);
   }
 }
 

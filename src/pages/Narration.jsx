@@ -5,6 +5,10 @@ import {chapters} from '../data/narration';
 import Btn from "../components/Btn";
 import TransitionModule from "../components/TransitionModule";
 
+
+const illuRef = ['Intro', null, 'Stormwind'];
+
+
 class Narration extends Component {
 
   constructor(props) {
@@ -32,7 +36,6 @@ class Narration extends Component {
     }
     else{
       this.startTransition();
-      //this.quitNarration();
     }
   }
 
@@ -64,20 +67,32 @@ class Narration extends Component {
 
     startTransition = true;
     this.setState({startTransition});
+
+    this.props.fadeOutMusic(1000);
   }
 
 
   render() {
     const {redirectURL, currentChapter, panelIndex, startTransition} = this.state;
+    const {progressIndex} = this.props;
     const panel = currentChapter.panelSequence[panelIndex];
 
     const text = this.displayText(panel.text);
+
+    let illuStyle;
+
+    if(illuRef[progressIndex]){
+      let illuURL = `/assets/narration/${illuRef[progressIndex]}-Illu.png`;
+      illuStyle = {
+        backgroundImage: `url(${illuURL})`,
+      }
+    }
 
     return (
       <div className={'page page--narration'}>
         <TransitionModule startTransition={startTransition} callback={() => this.quitNarration()}/>
 
-        <div className={'narration__illu'}></div>
+        <div className={'narration__illu illu'} style={illuStyle}></div>
         {text}
         <Btn action={() => this.nextChapter()} title={'Suivant'}/>
         {redirectURL ? <Redirect to={redirectURL}/> : null}

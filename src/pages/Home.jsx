@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import Btn from "../components/Btn";
 import HomeScene from "../components/HomeScene";
 import {Redirect} from "react-router-dom";
+import * as PIXI from "pixi.js";
 
 const illuURL = '../assets/Home-Illu.png';
 

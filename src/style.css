@@ -307,11 +307,13 @@
 .page--narration .narration__illu {
   width: 100%;
   max-width: 1260px;
-  height: 10rem;
+  height: 14rem;
+  min-height: 14rem;
   margin-bottom: 3rem;
   background-size: contain;
-  height: 100%;
   background-position: center;
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 .page--narration .narration__text {
   width: 100%;

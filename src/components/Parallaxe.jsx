@@ -128,42 +128,19 @@ class Parallaxe extends Component {
       width: this.parallaxeView.width,
     });
 
-    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
-
     window.onresize = this.resizeCanvas;
 
     this.parallaxe.stage.addChild(this.ground);
 
-    this.loader = new PIXI.Loader();
+    this.loader = PIXI.Loader.shared;
 
-    this.loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
-    this.loader
-      .add('landscape_01', 'Dune-01.png')
-      .add('landscape_02', 'Mountain-01.png')
-      .add('landmarkVillage', 'Landmark-Village.png')
-      .add('landmarkPort', 'Landmark-Port.png')
-      .add('landmarkCamp', 'Landmark-Camp.png')
-      .add('characterWalking', 'characters/test/Figure-ThreeThird-Walking.json')
-      .add('oroshiAnim', 'characters/Spritesheet-Oroshi.json')
-      .add('sovAnim', 'characters/Spritesheet-Sov.json')
-      .add('caracoleAnim', 'characters/Spritesheet-Caracole.json')
-      .add('ergAnim', 'characters/Spritesheet-Erg.json')
-      .add('coriolisAnim', 'characters/Spritesheet-Coriolis.json')
-      .add('golgothAnim', 'characters/Spritesheet-Golgoth.json');
-
-    //add('golgothAnim', 'characters/Spritesheet-Golgoth.json')
-
-    this.loader.onComplete.add(() => {
-      this.initLandscape();
-      this.loadCharacter();
-      this.initNextLandmark();
-      this.resizeCanvas();
-      this.setupLoop();
-      this.checkForCasulties();
-      this.initParticles();
-    });
-
-    this.loader.load();
+    this.initLandscape();
+    this.loadCharacter();
+    this.initNextLandmark();
+    this.resizeCanvas();
+    this.setupLoop();
+    this.checkForCasulties();
+    this.initParticles();
   }
 
 

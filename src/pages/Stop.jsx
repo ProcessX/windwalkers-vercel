@@ -5,6 +5,12 @@ const baseURL = process.env.PUBLIC_URL + "/assets/landmarks";
 
 class Stop extends Component {
 
+  componentDidMount() {
+    let {currentLocation} = this.props;
+    console.log(currentLocation.url.toLowerCase());
+    this.props.playMusic(`landmark-${currentLocation.url.toLowerCase()}`);
+  }
+
   render() {
     const {nextLocation, accessLandmark, currentLocation} = this.props;
     const illu = {

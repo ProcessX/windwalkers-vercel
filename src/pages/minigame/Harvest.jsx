@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import * as PIXI from 'pixi.js'
 import TutorialPanel from "../../components/tutorialPanel";
 import DirectionStick from "../../components/DirectionStick";
+import TransitionModule from "../../components/TransitionModule";
 
 //Le timer ici se calcule en minutes.
 const harvestingTime = 1;
@@ -207,6 +208,7 @@ class Harvest extends Component {
       redirectURL: null,
       tutorialBlaast: [],
       characterIndex: 3,
+      startTransition: false,
     };
   }
 
@@ -232,32 +234,8 @@ class Harvest extends Component {
       width: harvestView.width,
     });
 
-    //Change le resizing mode, afin de garder l'apparence des sprites en pixel art.
-    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
-    loader = new PIXI.Loader();
-    loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
-    loader
-      .add('fruitTreeAnim', 'fruitTreeSpritesheet.json')
-      .add('rock01', 'Rock.png')
-      .add('grass01', 'Grass.png')
-      .add('limits', 'limits.png')
-      .add('blaast', 'blaast.png')
-      .add('oroshiAnim', 'characters/Spritesheet-Oroshi.json')
-      .add('sovAnim', 'characters/Spritesheet-Sov.json')
-      .add('caracoleAnim', 'characters/Spritesheet-Caracole.json')
-      .add('ergAnim', 'characters/Spritesheet-Erg.json')
-      .add('coriolisAnim', 'characters/Spritesheet-Coriolis.json')
-      .add('golgothAnim', 'characters/Spritesheet-Golgoth.json')
-      .add('rocks', 'Harvest-Rocks.json')
-      .add('decoPlant', 'Harvest-Deco-Plant.json')
-      .add('decoRock', 'Harvest-Deco-Rock.json');
-
-    loader.onComplete.add(() => {
-      this.setup();
-    });
-
-    loader.load();
+    loader = PIXI.Loader.shared;
 
     window.onresize = () => {
       this.resizeCanvas();
@@ -266,7 +244,9 @@ class Harvest extends Component {
 
     this.setupControls();
 
-    //harvestingTimer = window.setTimeout(() => this.exitMinigame(), harvestingTime * 60000);
+    this.props.playMusic('harvest');
+
+    harvestingTimer = window.setTimeout(() => this.startTransition(), harvestingTime * 60000);
   }
 
 
@@ -277,6 +257,7 @@ class Harvest extends Component {
 
   exitMinigame = () => {
     this.props.endHarvesting(player.dead, payout);
+    //this.startTransition();
   }
 
 
@@ -562,7 +543,7 @@ class Harvest extends Component {
 
     harvest.stage.addChild(blaast);
     harvest.ticker.add((deltaMS) => {
-      //this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
+      this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
     });
 
   }
@@ -817,7 +798,7 @@ class Harvest extends Component {
 
 
   blaastLoop = (delta) => {
-    const {tutorial} = this.props;
+    const {tutorial, audioManager} = this.props;
 
     if(blaast.y >= ((harvestView.height / canvasScale) + blaast.height)){
       blaast.y = 0;
@@ -860,6 +841,8 @@ class Harvest extends Component {
         blaast.blowing = true;
         blaast.timer = blaast.delay;
         alertMessage.visible = false;
+        audioManager.playSoundEffect('wave');
+        console.log('BLAAST !');
       }
     }
   }
@@ -907,7 +890,7 @@ class Harvest extends Component {
 
   backToStillTexture = () => {
     player.texture = playerTexture.textures['Face-Still_0.png'];
-    harvestingTimer = window.setTimeout(this.exitMinigame, 2500);
+    harvestingTimer = window.setTimeout(this.startTransition, 2000);
   }
 
 
@@ -1106,13 +1089,25 @@ class Harvest extends Component {
   }
 
 
+  startTransition = () => {
+    let {startTransition} = this.state;
+
+    startTransition = true;
+    this.setState({startTransition});
+
+    this.props.fadeOutMusic(1000);
+  }
+
+
 
   render() {
-    const {redirectURL, tutorialBlaast} = this.state;
+    const {redirectURL, tutorialBlaast, startTransition} = this.state;
     const {tutorial, validateTutorial} = this.props;
 
     return (
       <div className={'page page--harvest'}>
+        <TransitionModule startTransition={startTransition} callback={() => this.exitMinigame()}/>
+
         {tutorialBlaast[0] ? <TutorialPanel content={tutorialBlaast[0]} validateTutorial={() => this.validateTutorial()}/> : null}
 
         <div className={'harvest__container'}>

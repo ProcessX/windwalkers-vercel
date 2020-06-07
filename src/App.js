@@ -22,6 +22,8 @@ import InventoryMobile from "./pages/resources/InventoryMobile";
 import CampfireMobile from "./pages/horde/CampfireMobile";
 import Landing from "./pages/Landing";
 
+import * as PIXI from 'pixi.js';
+
 import {locations} from "./data/locationList.json";
 import {tutorialSequence} from "./data/tutorial.json";
 
@@ -119,6 +121,41 @@ class App extends Component {
 
   componentDidMount() {
     this.setupHorde();
+
+    this.loadTextures();
+  }
+
+
+  loadTextures = () => {
+    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
+
+    let loader = PIXI.Loader.shared;
+    //console.log(loader.resources);
+
+    loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
+    loader
+      .add('landscape_01', 'Dune-01.png')
+      .add('landscape_02', 'Mountain-01.png')
+      .add('landmarkVillage', 'Landmark-Village.png')
+      .add('landmarkPort', 'Landmark-Port.png')
+      .add('landmarkCamp', 'Landmark-Camp.png')
+      .add('characterWalking', 'characters/test/Figure-ThreeThird-Walking.json')
+      .add('oroshiAnim', 'characters/Spritesheet-Oroshi.json')
+      .add('sovAnim', 'characters/Spritesheet-Sov.json')
+      .add('caracoleAnim', 'characters/Spritesheet-Caracole.json')
+      .add('ergAnim', 'characters/Spritesheet-Erg.json')
+      .add('coriolisAnim', 'characters/Spritesheet-Coriolis.json')
+      .add('golgothAnim', 'characters/Spritesheet-Golgoth.json')
+      .add('fruitTreeAnim', 'fruitTreeSpritesheet.json')
+      .add('rock01', 'Rock.png')
+      .add('grass01', 'Grass.png')
+      .add('limits', 'limits.png')
+      .add('blaast', 'blaast.png')
+      .add('rocks', 'Harvest-Rocks.json')
+      .add('decoPlant', 'Harvest-Deco-Plant.json')
+      .add('decoRock', 'Harvest-Deco-Rock.json');
+
+    loader.load();
   }
 
 
@@ -333,6 +370,12 @@ class App extends Component {
   }
 
 
+  fadeOutMusic = (timelapse) => {
+    let {audioManager} = this.state;
+    audioManager.fadeOutMusic(timelapse);
+  }
+
+
 
   render() {
     const {
@@ -385,7 +428,8 @@ class App extends Component {
 
             <Route path={'/game/travel'} exact>
               <Travel
-                audioManager={audioManager}
+                playMusic={(id) => this.playMusic(id)}
+                fadeOutMusic={(timelapse) => this.fadeOutMusic(timelapse)}
                 progressIndex={progressIndex}
                 horde={horde}
                 inventory={inventory}
@@ -410,6 +454,7 @@ class App extends Component {
 
             <Route path={'/game/narration'} exact>
               <Narration
+                fadeOutMusic={(timelapse) => this.fadeOutMusic(timelapse)}
                 progressIndex={progressIndex}
               />
             </Route>
@@ -420,7 +465,7 @@ class App extends Component {
 
             <Route path={'/game/stop'} exact>
               <Stop
-                audioManager={audioManager}
+                playMusic={(id) => this.playMusic(id)}
                 currentLocation={currentLocation}
                 nextLocation={nextLocation}
                 accessLandmark={() => this.accessLandmark()}
@@ -465,6 +510,8 @@ class App extends Component {
           <Switch>
             <Route path={'/game/minigame/harvest/'} exact>
               <Harvest
+                playMusic={(id) => this.playMusic(id)}
+                fadeOutMusic={(timelapse) => this.fadeOutMusic(timelapse)}
                 audioManager={audioManager}
                 horde={horde}
                 hurtPlayer={(i, damage) => this.hurtMember(i, damage)}

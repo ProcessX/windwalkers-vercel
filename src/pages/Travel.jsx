@@ -4,6 +4,7 @@ import TravelScene from "../components/TravelScene";
 
 import {randomEvents} from "../data/randomEvents.json";
 import {Redirect} from "react-router-dom";
+import TransitionModule from "../components/TransitionModule";
 
 const randomEventChance = 0.2;
 
@@ -26,18 +27,18 @@ class Travel extends Component {
       stormwind: false,
       startTransition: false,
     }
+
   }
 
 
   componentDidMount() {
     this.setupEventSequence();
 
-    this.props.audioManager.playMusic('travel');
+    this.props.playMusic('travel');
   }
 
   componentWillUnmount() {
     clearTimeout(walkingTimer);
-    this.props.audioManager.stopMusic();
   }
 
 
@@ -119,12 +120,14 @@ class Travel extends Component {
 
     if(!eventSequence[0]){
       if(this.getWalkingDistance() <= 0){
-        this.props.reachLandmark();
+        //this.props.reachLandmark();
         //this.quitWalking('/stop/');
+        this.startTransition();
       }
       else{
         if(requestingStop){
-          this.quitWalking('/game/stop/horde');
+          //this.quitWalking('/game/stop/horde');
+          this.startTransition();
         }
         else{
           walking = false;
@@ -208,7 +211,8 @@ class Travel extends Component {
   requestStop = () => {
     let {walking, requestingStop, eventSequence} = this.state;
     if(!walking && !eventSequence[0]){
-      this.quitWalking('/game/stop/horde');
+      //this.quitWalking('/game/stop/horde');
+      this.startTransition();
     }
     else{
       requestingStop = true;
@@ -218,8 +222,20 @@ class Travel extends Component {
 
 
   //Redirige la navigation vers une autre page.
-  quitWalking = (url) => {
-    this.props.redirectTo(url);
+  quitWalking = () => {
+    //this.props.redirectTo(url);
+    let {redirectURL} = this.state;
+
+    let remainingDistance = this.getRemainingDistance();
+    if(remainingDistance <= 0){
+      this.props.reachLandmark();
+      redirectURL = 'game/stop/'
+    }
+    else{
+      redirectURL = '/game/stop/horde';
+    }
+
+    this.setState({redirectURL});
   }
 
 
@@ -268,15 +284,25 @@ class Travel extends Component {
   }
 
 
+  startTransition = () => {
+    let {startTransition} = this.state;
+
+    startTransition = true;
+    this.setState({startTransition});
+
+    this.props.fadeOutMusic(1000);
+  }
 
 
 
   render() {
-    const {eventSequence, walking, redirectURL, windStrength, stormwind} = this.state;
+    const {eventSequence, walking, redirectURL, windStrength, stormwind, startTransition} = this.state;
     const {horde, inventory, nextLocation, distanceTraveled, progressIndex} = this.props;
 
     return (
       <div className={`page page--travel ${progressIndex < 2 ? 'page--travel--noStopAllowed' : ''}`}>
+        <TransitionModule startTransition={startTransition} callback={() => this.quitWalking()}/>
+
         <TravelScene
           windStrength={windStrength}
           stormwind={stormwind}

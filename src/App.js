@@ -356,8 +356,6 @@ class App extends Component {
 
   playMusic = (id) => {
     let {audioManager} = this.state;
-    console.log(id);
-    console.log(audioManager.music);
 
     if(!audioManager.music){
       audioManager.playMusic(id);

@@ -48,7 +48,7 @@ class TravelScene extends Component {
 
         <div className={`travel__scene__message ${messageClass}`} data-messagetype={messageType}>
           <div className={'message__speaker'}>
-            <div className={'message__speaker__mugshot'} style={speakerMugshotStyle}></div>
+            <div className={'message__speaker__mugshot pixelArt'} style={speakerMugshotStyle}></div>
             <p className={'message__speaker__name'}>{messageSpeaker}</p>
           </div>
           <p className={'message__content'}>{messageContent}</p>

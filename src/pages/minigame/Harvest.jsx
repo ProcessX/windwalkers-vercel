@@ -217,6 +217,8 @@ class Harvest extends Component {
     let {characterIndex} = this.state;
     const {horde} = this.props;
 
+    loader = PIXI.Loader.shared;
+
     for (let i = 1; i < (horde.members.length - 1); i++){
       if(horde.members[characterIndex].health < horde.members[i].health){
         characterIndex = i;
@@ -234,19 +236,17 @@ class Harvest extends Component {
       width: harvestView.width,
     });
 
-
-    loader = PIXI.Loader.shared;
-
     window.onresize = () => {
       this.resizeCanvas();
       this.resizeSprite();
     };
 
     this.setupControls();
+    this.setup();
 
     this.props.playMusic('harvest');
 
-    harvestingTimer = window.setTimeout(() => this.startTransition(), harvestingTime * 60000);
+    //harvestingTimer = window.setTimeout(() => this.startTransition(), harvestingTime * 60000);
   }
 
 
@@ -543,7 +543,7 @@ class Harvest extends Component {
 
     harvest.stage.addChild(blaast);
     harvest.ticker.add((deltaMS) => {
-      this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
+      //this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
     });
 
   }

@@ -55,11 +55,11 @@ class TravelInterface extends Component {
 
         <ul className={`travel__interface__tab__li`}>
           <li className={`travel__interface__tab__el travel__interface__tab__el--travel travel__interface__tab__el--mobileOnly`}
-              onClick={() => this.showContentSubsection('hide')}>Travel<div className={'travel__interface__tab__icon'} style={travelIcon}></div></li>
+              onClick={() => this.showContentSubsection('hide')}>Travel<div className={'travel__interface__tab__icon pixelArt'} style={travelIcon}></div></li>
           <li className={`travel__interface__tab__el travel__interface__tab__el--horde`}
-              onClick={() => this.showContentSubsection('horde')}>Horde<div className={'travel__interface__tab__icon'} style={hordeIcon}></div></li>
+              onClick={() => this.showContentSubsection('horde')}>Horde<div className={'travel__interface__tab__icon pixelArt'} style={hordeIcon}></div></li>
           <li className={`travel__interface__tab__el travel__interface__tab__el--stats`}
-              onClick={() => this.showContentSubsection('stats')}>Stats<div className={'travel__interface__tab__icon'} style={statsIcon}></div></li>
+              onClick={() => this.showContentSubsection('stats')}>Stats<div className={'travel__interface__tab__icon pixelArt'} style={statsIcon}></div></li>
           <Btn
             title={'Stop'}
             action={() => requestStop()}

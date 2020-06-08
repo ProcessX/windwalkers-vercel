@@ -51,11 +51,8 @@ class DirectionStick extends Component {
 
 
   resetStick = () => {
-    let interactiveAreaData = this.interactiveArea.getBoundingClientRect();
-    let interactiveAreaCenter = {
-      x: interactiveAreaData.left + (interactiveAreaData.width / 2),
-      y: interactiveAreaData.top + (interactiveAreaData.height / 2),
-    }
+    let interactiveAreaData = this.interactiveArea.getBoundingClientRect()
+
 
     let directionPointerPinPoint = {
       x: (interactiveAreaData.width / 2) - (this.directionPointerData.width / 2),
@@ -78,8 +75,8 @@ class DirectionStick extends Component {
 
   render() {
     return (
-      <div className={'controller controller--directionStick'} onTouchStart={(event => this.moveStick(event))} onTouchMove={(event => this.moveStick(event))} onTouchEnd={() => this.resetStick()}>
-        <div className={'directionStick__pointer'}>Pointer</div>
+      <div className={'controller controller--directionStick pixelArt'} onTouchStart={(event => this.moveStick(event))} onTouchMove={(event => this.moveStick(event))} onTouchEnd={() => this.resetStick()}>
+        <div className={'directionStick__pointer pixelArt'}>Pointer</div>
       </div>
     );
   }

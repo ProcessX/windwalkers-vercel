@@ -19,7 +19,7 @@ class TravelHordeMember extends Component {
       <div className={'travel__horde__member'}>
         <p className={'travel__horde__member__name'}>{name}</p>
         <Healthbar maxHealth={100} health={health}/>
-        <div className={'travel__horde__member__state'} style={stateStyle}>State</div>
+        <div className={'travel__horde__member__state pixelArt'} style={stateStyle}>State</div>
       </div>
     );
   }

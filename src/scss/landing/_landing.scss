@@ -22,10 +22,6 @@
   background-size: cover;
   background-repeat: no-repeat;
   background-position-x: 30%;
-  image-rendering: crisp-edges;
-  image-rendering: -o-crisp-edges;
-  image-rendering: -webkit-crisp-edges;
-  image-rendering: -moz-crisp-edges;
 
   .landing__content{
     z-index: 10;
@@ -36,10 +32,6 @@
       background-position-x: left;
       background-size: contain;
       background-repeat: no-repeat;
-      image-rendering: crisp-edges;
-      image-rendering: -o-crisp-edges;
-      image-rendering: -webkit-crisp-edges;
-      image-rendering: -moz-crisp-edges;
       overflow: hidden;
       text-indent: 100%;
       width: 100%;
@@ -95,10 +87,6 @@
           background-size: cover;
           background-repeat: no-repeat;
           background-position-x: 30%;
-          image-rendering: crisp-edges;
-          image-rendering: -o-crisp-edges;
-          image-rendering: -webkit-crisp-edges;
-          image-rendering: -moz-crisp-edges;
           overflow: hidden;
           text-indent: 100%;
         }
@@ -129,10 +117,6 @@
         background-size: contain;
         background-repeat: no-repeat;
         background-position-x: center;
-        image-rendering: crisp-edges;
-        image-rendering: -o-crisp-edges;
-        image-rendering: -webkit-crisp-edges;
-        image-rendering: -moz-crisp-edges;
         overflow: hidden;
         text-indent: 100%;
         background-color: black;
@@ -452,6 +436,97 @@
         grid-column-start: 1;
         grid-column-end: 13;
         justify-self: center;
+      }
+    }
+  }
+}
+
+
+@media (min-width: 1260px) {
+  .landing__section{
+    font-size: 24px;
+    .landing__content{
+    }
+  }
+
+  .landing__section--intro{
+    .landing__content{
+
+      .title--landing{
+      }
+
+      .content__intro{
+      }
+
+      .btn{
+      }
+    }
+  }
+
+  .landing__section--narration{
+    .landing__content{
+
+      &:before{
+      }
+
+      .title--landing--section{
+      }
+
+      .concept__li{
+
+        .concept__el{
+
+          .concept__illu{
+          }
+        }
+      }
+    }
+  }
+
+  .landing__section--context{
+    .landing__content{
+      .title--landing--section{
+      }
+
+      .context{
+      }
+
+      .artwork__li{
+
+        .artwork__el{
+
+          &:last-child{
+          }
+
+          .artwork__info{
+          }
+
+          .btn{
+
+            &:after{
+            }
+
+            &:before{
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .landing__section--callToAction{
+    &:before{
+    }
+
+    &:after{
+    }
+
+    .landing__content{
+
+      .title--landing--section{
+      }
+
+      .btn{
       }
     }
   }

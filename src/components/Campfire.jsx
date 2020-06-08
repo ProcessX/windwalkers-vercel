@@ -45,8 +45,8 @@ class Campfire extends Component {
         <li className={'campfire__el campfire__character'} key={i}
             onMouseEnter={() => this.toggleHoverCharacter(i)}
             onMouseLeave={() => this.toggleHoverCharacter(i)}>
-          <div className={'campfire__character__mugshot'} style={{backgroundImage: `${backgroundURL}.png`}}>
-            <div className={'campfire__character__mugshot--alt'} style={{backgroundImage: `${backgroundAltURL}.png`}}></div>
+          <div className={'campfire__character__mugshot pixelArt'} style={{backgroundImage: `${backgroundURL}.png`}}>
+            <div className={'campfire__character__mugshot--alt pixelArt'} style={{backgroundImage: `${backgroundAltURL}.png`}}></div>
           </div>
           <Healthbar className={'healthbar'} maxHealth={100} health={member.health}/>
           <div className={'campfire__character__info'}>

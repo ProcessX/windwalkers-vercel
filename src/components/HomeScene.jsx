@@ -6,7 +6,6 @@ import {imgData} from '../data/imgData.json';
 const simulatedWidth = 320;
 const imgAverageVelocity = 1;
 const imgBurstRate = 100;
-const imgBurstAcceleration = 1.005;
 
 const imgParticleRatio = 8;
 
@@ -19,7 +18,6 @@ var loader;
 var offset;
 var img = new PIXI.Graphics();
 
-var imgBurstTimer = 0;
 var imgBurstingPixel = 0;
 var imgDeadPixel = 0;
 

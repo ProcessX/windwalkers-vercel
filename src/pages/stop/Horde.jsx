@@ -92,15 +92,15 @@ class Horde extends Component {
             {*/}
             <li className={`navbar__link__el navbar__link__el--active`}>
               <Link className={`navbar__link navbar__link--active`} to={'/game/stop/horde'}>Horde</Link>
-              <div className={'navbar__link__illu'} style={hordeIcon}></div>
+              <div className={'navbar__link__illu pixelArt'} style={hordeIcon}></div>
             </li>
             <li className={`navbar__link__el`}>
               <Link className={`navbar__link ${tutorial.resources[0] ? 'navbar__link--tuto' : ''}`}  to={'/game/stop/resources'}>Matériel</Link>
-              <div className={'navbar__link__illu'} style={resourcesIcon}></div>
+              <div className={'navbar__link__illu pixelArt'} style={resourcesIcon}></div>
             </li>
             <li className={`navbar__link__el`}>
               <Link className={`navbar__link ${tutorial.camp[0] ? 'navbar__link--tuto' : ''}`}  to={'/game/stop/camp'}>Camp</Link>
-              <div className={'navbar__link__illu'} style={campIcon}></div>
+              <div className={'navbar__link__illu pixelArt'} style={campIcon}></div>
             </li>
             {/*}
             <li className={'navbar__link__el  navbar__link__el--toOptions'}>

@@ -9,7 +9,7 @@ class Inventory extends Component {
     let resources = [];
     let item;
 
-    item = <li className={'resource__el'} style={{backgroundImage: `url(${process.env.PUBLIC_URL}/assets/items/item-food.png)`}}>
+    item = <li className={'resource__el pixelArt'} style={{backgroundImage: `url(${process.env.PUBLIC_URL}/assets/items/item-food.png)`}}>
       <p className={'resource__counter'}>{inventory.food}</p>
     </li>;
     resources.push(item);

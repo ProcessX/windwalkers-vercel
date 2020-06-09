@@ -72,8 +72,6 @@ const hordeMembers = [
 ];
 
 
-
-
 class App extends Component {
 
   constructor() {

@@ -21,7 +21,7 @@ class Stop extends Component {
 
     return (
       <div className={'page page--stop'}>
-        <div className={'illu stop__illu'} style={illu}></div>
+        <div className={'illu stop__illu pixelArt'} style={illu}></div>
         <h2 className={'stop__landmarkName'}>{currentLocation.name}</h2>
         <Btn title={'Continuer'} action={() => accessLandmark()}/>
       </div>

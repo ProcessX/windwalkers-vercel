@@ -48,8 +48,7 @@
   z-index: -2;
 }
 .btn--oldSchool--back {
-  margin-left: 0.6rem;
-  margin-bottom: 1.6rem;
+  margin: 1.6rem;
   display: inline-block;
   height: 1em;
   width: 1em;
@@ -1253,7 +1252,7 @@
 }
 .rest__settings .rest__indicator {
   font-size: 2rem;
-  margin: 3rem auto;
+  margin: 2rem auto;
   color: #AAA2FF;
   position: relative;
   display: inline-block;

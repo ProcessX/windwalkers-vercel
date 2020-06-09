@@ -1,0 +1,194 @@
+Index: src/scss/page/_narration.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.page--narration{\r\n  padding: 1rem 1rem 2rem 1rem;\r\n  display: flex;\r\n  flex-direction: column;\r\n  align-items: center;\r\n\r\n  .narration__illu{\r\n    width: 100%;\r\n    max-width: 1260px;\r\n    height: 14rem;\r\n    min-height: 14rem;\r\n    margin-bottom: 3rem;\r\n    background-size: contain;\r\n    background-position: center;\r\n\r\n    background-repeat: no-repeat;\r\n    background-size: contain;\r\n  }\r\n\r\n  .narration__text{\r\n    width: 100%;\r\n    max-width: 1260px;\r\n    text-align: left;\r\n    margin-top: 0;\r\n    margin-bottom: 1em;\r\n\r\n    &:last-of-type{\r\n      margin-bottom: auto;\r\n    }\r\n  }\r\n\r\n  .btn{\r\n    margin-top: 3rem;\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/scss/page/_narration.scss	(revision 2d8456542df8e8323f2ee440330a06d368c8123f)
++++ src/scss/page/_narration.scss	(date 1591626378617)
+@@ -23,6 +23,7 @@
+     text-align: left;
+     margin-top: 0;
+     margin-bottom: 1em;
++    line-height: 1.2em;
+ 
+     &:last-of-type{
+       margin-bottom: auto;
+Index: src/scss/_page.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@use 'page/managementSection';\r\n@use 'page/rest';\r\n@use 'page/travel';\r\n@use 'page/stop';\r\n@use 'page/home';\r\n@use 'page/harvest';\r\n@use 'page/narration';\r\n@use 'page/minigame';\r\n@use 'page/loot';\r\n@use 'page/campfireMobile';\r\n@use 'landing/landing';\r\n@use 'page/options';\r\n@use 'page/credits';\r\n\r\n.page{\r\n  box-sizing: border-box;\r\n  height: 100vh;\r\n  width: 100vw;\r\n  max-height: 100vh;\r\n  max-width: 100vw;\r\n  position: relative;\r\n  overflow-x: hidden;\r\n  position: relative;\r\n\r\n\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/scss/_page.scss	(revision 2d8456542df8e8323f2ee440330a06d368c8123f)
++++ src/scss/_page.scss	(date 1591621565892)
+@@ -7,7 +7,6 @@
+ @use 'page/narration';
+ @use 'page/minigame';
+ @use 'page/loot';
+-@use 'page/campfireMobile';
+ @use 'landing/landing';
+ @use 'page/options';
+ @use 'page/credits';
+Index: src/scss/_travelnterface.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.page--travel--noStopAllowed{\r\n  .travel__interface{\r\n    .btn{\r\n      display: none;\r\n    }\r\n  }\r\n}\r\n\r\n.travel__interface{\r\n  position: relative;\r\n  z-index: 10;\r\n\r\n  &__content{\r\n    background-color: white;\r\n    color: black;\r\n    height: 100vh;\r\n    max-height: calc(100vh - 6rem);\r\n    width: 100vw;\r\n    position: absolute;\r\n    bottom: 100%;\r\n    left: 0;\r\n    z-index: 500;\r\n\r\n    &__sub{\r\n      height: 100%;\r\n      width: 100%;\r\n      padding: 1rem;\r\n      box-sizing: border-box;\r\n      &--stats{\r\n        visibility: hidden;\r\n      }\r\n    }\r\n  }\r\n\r\n  &__tab__li{\r\n    list-style: none;\r\n    padding: 1rem;\r\n    margin: 0;\r\n    background-color: black;\r\n    display: flex;\r\n    justify-content: space-around;\r\n    position: relative;\r\n    z-index: 10;\r\n\r\n    .travel__interface__tab__el{\r\n      cursor: pointer;\r\n      width: 4rem;\r\n      height: 4rem;\r\n      overflow: hidden;\r\n      position: relative;\r\n      text-indent: 100%;\r\n\r\n      .travel__interface__tab__icon{\r\n        content: '';\r\n        background-color: black;\r\n        height: 100%;\r\n        width: 100%;\r\n        position: absolute;\r\n        background-size: contain;\r\n        background-repeat: no-repeat;\r\n        background-position-x: center;\r\n        top: 0;\r\n        left: 0;\r\n        opacity: 0.5;\r\n      }\r\n    }\r\n\r\n    .btn{\r\n      position: absolute;\r\n      bottom: calc(100% + 2rem);\r\n      left: 0;\r\n      right: 0;\r\n      margin: auto;\r\n    }\r\n  }\r\n}\r\n\r\n\r\n\r\n.travel__interface[data-showContent='stats']{\r\n  .travel__interface__tab__el--stats{\r\n    .travel__interface__tab__icon{\r\n      opacity: 1;\r\n    }\r\n  }\r\n  .travel__interface__content{\r\n    &__sub--stats{\r\n      visibility: visible;\r\n    }\r\n  }\r\n}\r\n\r\n\r\n.travel__interface[data-showContent='horde']{\r\n  .travel__interface__tab__el--horde{\r\n    .travel__interface__tab__icon{\r\n      opacity: 1;\r\n    }\r\n  }\r\n}\r\n\r\n\r\n@media (max-width: 997px), (orientation: portrait){\r\n  .travel__interface[data-showContent='hide']{\r\n    .travel__interface__tab__el--travel{\r\n      .travel__interface__tab__icon{\r\n        opacity: 1;\r\n      }\r\n    }\r\n\r\n    .travel__interface__content{\r\n      visibility: hidden;\r\n      pointer-events: none;\r\n    }\r\n  }\r\n}\r\n\r\n\r\n@media (orientation: landscape) and (min-width: 998px){\r\n  .travel__interface{\r\n    display: flex;\r\n\r\n    &[data-showContent='hide']{\r\n      .travel__interface__tab__li{\r\n        .travel__interface__tab__el--horde{\r\n          background-color: white;\r\n          color: black;\r\n        }\r\n      }\r\n    }\r\n\r\n    &[data-showContent='horde']{\r\n      .travel__interface__tab__li{\r\n        .travel__interface__tab__el--horde{\r\n          background-color: white;\r\n          color: black;\r\n        }\r\n      }\r\n    }\r\n\r\n    &[data-showContent='stats']{\r\n      .travel__interface__tab__li{\r\n        .travel__interface__tab__el--stats{\r\n          background-color: white;\r\n          color: black;\r\n        }\r\n\r\n      }\r\n    }\r\n\r\n\r\n    &__content{\r\n      position: relative;\r\n      bottom: 0;\r\n      height: auto;\r\n      max-height: none;\r\n    }\r\n\r\n    &__tab__li{\r\n\r\n      flex-direction: column;\r\n      padding: 0 0 1rem 0;\r\n      align-items: center;\r\n      justify-content: start;\r\n      background-color: #7F7F7F;\r\n\r\n      .travel__interface__tab__el{\r\n        overflow: auto;\r\n        padding: 1rem 2rem;\r\n        height: auto;\r\n        width: auto;\r\n        min-width: calc(100vw / 12);\r\n        text-align: center;\r\n        background-color: transparent;\r\n        background-image: none;\r\n        text-indent: 0;\r\n\r\n        .travel__interface__tab__icon{\r\n          display: none;\r\n        }\r\n\r\n        &:nth-child(3){\r\n          margin-bottom: 1rem;\r\n        }\r\n\r\n        &--mobileOnly{\r\n          display: none;\r\n        }\r\n\r\n        &--active{\r\n          background-color: white;\r\n        }\r\n      }\r\n\r\n      .btn{\r\n        position: relative;\r\n        bottom: 0;\r\n        margin-top: auto;\r\n        max-width: calc(100% - 3.4rem);\r\n        width: 100%;\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/scss/_travelnterface.scss	(revision 2d8456542df8e8323f2ee440330a06d368c8123f)
++++ src/scss/_travelnterface.scss	(date 1591626729084)
+@@ -1,8 +1,11 @@
+ .page--travel--noStopAllowed{
+   .travel__interface{
++    /*
+     .btn{
+       display: none;
+     }
++
++     */
+   }
+ }
+ 
+@@ -68,9 +71,8 @@
+     .btn{
+       position: absolute;
+       bottom: calc(100% + 2rem);
+-      left: 0;
+-      right: 0;
+       margin: auto;
++      transform-origin: center;
+     }
+   }
+ }
+Index: src/scss/style.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>@use 'btn';\r\n@use 'page';\r\n@use 'navbar';\r\n@use 'menu';\r\n@use 'title';\r\n@use 'campfire';\r\n@use 'restSettings';\r\n@use 'healthbar';\r\n@use 'travelScene';\r\n@use 'travelnterface';\r\n@use 'travelHorde';\r\n@use 'travelStats';\r\n@use 'parallaxe';\r\n@use 'tutorial';\r\n@use 'pixelArt';\r\n@use 'inventory';\r\n@use 'homeScene';\r\n@use 'controller';\r\n@use 'transitionModule';\r\n\r\n\r\nhtml{\r\n  font-size: 14px;\r\n}\r\n\r\n\r\nbody{\r\n  margin: 0;\r\n  padding: 0;\r\n\r\n  font-family: 'Press Start 2P', cursive;\r\n\r\n  background-color: black;\r\n  color: white;\r\n}\r\n\r\n\r\n@media (min-width: 480px) and (orientation: portrait){\r\n  html{\r\n    font-size: 20px;\r\n\r\n  }\r\n}\r\n@media (min-width: 998px) and (orientation: portrait){\r\n  html{\r\n    font-size: 28px;\r\n  }\r\n}\r\n\r\n@media (min-width: 998px) and (orientation: landscape){\r\n  html{\r\n    font-size: 20px;\r\n  }\r\n}\r\n\r\n@media (min-width: 1260px) and (orientation: landscape){\r\n  html{\r\n    font-size: 24px;\r\n  }\r\n}\r\n\r\n@media (min-width: 1400px) and (orientation: landscape){\r\n  html{\r\n    font-size: 28px;\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/scss/style.scss	(revision 2d8456542df8e8323f2ee440330a06d368c8123f)
++++ src/scss/style.scss	(date 1591626731907)
+@@ -19,6 +19,7 @@
+ @use 'transitionModule';
+ 
+ 
++
+ html{
+   font-size: 14px;
+ }
+Index: src/scss/_btn.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>$oldSchoolBorderThickness: 0.3rem;\r\n\r\n.btn{\r\n  cursor: pointer;\r\n  font-family: \"Press Start 2P\", cursive;\r\n\r\n  &:hover{\r\n    cursor: pointer;\r\n  }\r\n}\r\n\r\n.btn--oldSchool{\r\n  font-size: 1rem;\r\n  line-height: 1em;\r\n  padding: 0.8em;\r\n\r\n  background-color: black;\r\n  color: white;\r\n\r\n  border: none;\r\n  border-top: solid $oldSchoolBorderThickness white;\r\n  border-bottom: solid $oldSchoolBorderThickness white;\r\n  position: relative;\r\n\r\n\r\n  &:hover{\r\n    background-color: #7F7F7F;\r\n  }\r\n\r\n  &:before{\r\n    background-color: inherit;\r\n\r\n    content: '';\r\n    position: absolute;\r\n    top: 0;\r\n    left: -$oldSchoolBorderThickness;\r\n    box-sizing: border-box;\r\n    width: calc(100% + (2 * #{$oldSchoolBorderThickness}));\r\n    height: 100%;\r\n\r\n    border: none;\r\n    border-top: solid $oldSchoolBorderThickness white;\r\n    border-bottom: solid $oldSchoolBorderThickness white;\r\n\r\n    z-index: -1;\r\n  }\r\n\r\n\r\n  &:after{\r\n    background-color: inherit;\r\n\r\n    content: '';\r\n    position: absolute;\r\n    top: $oldSchoolBorderThickness;\r\n    left: -(2 * $oldSchoolBorderThickness);\r\n    width: calc(100% + (2 * #{$oldSchoolBorderThickness}));\r\n\r\n    height: calc(100% - (2 * #{$oldSchoolBorderThickness}));\r\n\r\n    border: none;\r\n    border-left: solid $oldSchoolBorderThickness white;\r\n    border-right: solid $oldSchoolBorderThickness white;\r\n\r\n    z-index: -2;\r\n  }\r\n\r\n\r\n  &--back{\r\n    margin-left: 0.6rem;\r\n    margin-bottom: 1.6rem;\r\n    display: inline-block;\r\n    height: 1em;\r\n    width: 1em;\r\n    font-size: 1.4rem;\r\n    padding: (2 * $oldSchoolBorderThickness) $oldSchoolBorderThickness;\r\n  }\r\n\r\n\r\n  &--unavailable{\r\n    color: #7F7F7F;\r\n    border-color: #7F7F7F;\r\n    pointer-events: none;\r\n    &:after{\r\n      border-color: #7F7F7F;\r\n    }\r\n    &:before{\r\n      border-color: #7F7F7F;\r\n    }\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/scss/_btn.scss	(revision 2d8456542df8e8323f2ee440330a06d368c8123f)
++++ src/scss/_btn.scss	(date 1591621434713)
+@@ -66,8 +66,7 @@
+ 
+ 
+   &--back{
+-    margin-left: 0.6rem;
+-    margin-bottom: 1.6rem;
++    margin: 1.6rem;
+     display: inline-block;
+     height: 1em;
+     width: 1em;
+Index: src/scss/_travelScene.scss
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>.travel__scene{\r\n  position: relative;\r\n  display: flex;\r\n  justify-content: center;\r\n  align-items: center;\r\n\r\n  &__render{\r\n    width: 100%;\r\n    height: 100%;\r\n    position: absolute;\r\n    left: 0;\r\n    top: 0;\r\n    z-index: 0;\r\n    background-color: orange;\r\n  }\r\n}\r\n\r\n\r\n.travel__scene__message{\r\n  border: solid 0.3rem white;\r\n  z-index: 10;\r\n  background-color: black;\r\n  box-sizing: border-box;\r\n  padding: 1rem;\r\n  position: relative;\r\n  width: 100%;\r\n  margin: 0 1rem;\r\n\r\n  &--hidden{\r\n    visibility: hidden;\r\n  }\r\n\r\n  .message__speaker{\r\n    display: none;\r\n    background-color: black;\r\n    border: solid 0.3rem white;\r\n    width: 10rem;\r\n    margin-top: -12.7rem;\r\n    margin-bottom: 2rem;\r\n\r\n    &__mugshot{\r\n      width: 10rem;\r\n      height: 10rem;\r\n\r\n      background-size: contain;\r\n      background-repeat: no-repeat;\r\n      background-position-x: center;\r\n    }\r\n\r\n    &__name{\r\n      margin: 0;\r\n      padding: 0.5rem;\r\n      text-align: center;\r\n      background-color: #7F7F7F;\r\n      border-top: solid 0.3rem white;\r\n    }\r\n  }\r\n\r\n  .message__content{\r\n    box-sizing: border-box;\r\n    text-align: center;\r\n    width: 100%;\r\n    margin-bottom: 2rem;\r\n    margin-top: 0;\r\n  }\r\n\r\n  .btn{\r\n    display: block;\r\n    margin: auto;\r\n  }\r\n}\r\n\r\n\r\n.travel__scene__message[data-messagetype='dialog']{\r\n\r\n  .message__speaker{\r\n    display: block;\r\n  }\r\n}\r\n\r\n\r\n@media (max-width: 997px){\r\n  .travel__scene__message[data-messagetype='dialog']{\r\n\r\n    .message__content{\r\n    }\r\n\r\n    .message__speaker{\r\n      left: 4.3rem;\r\n      bottom: 100%;\r\n\r\n      &__mugshot{\r\n      }\r\n\r\n      &__name{\r\n\r\n      }\r\n    }\r\n  }\r\n}\r\n\r\n\r\n@media (min-width: 998px){\r\n\r\n  .travel__scene{\r\n    font-size: 0.7692rem;\r\n\r\n    .travel__scene__message{\r\n      min-width: calc(100% - (100% / 3));\r\n      max-width: calc(100% - (100% / 6));;\r\n      .message__speaker{\r\n        position: absolute;\r\n        top: -1.3rem;\r\n        left: -1.3rem;\r\n        margin: 0;\r\n        width: 8rem;\r\n\r\n        &__mugshot{\r\n          width: 8rem;\r\n          height: 8rem;\r\n        }\r\n\r\n        &__name{\r\n\r\n        }\r\n      }\r\n\r\n      .btn{\r\n        font-size: 0.7692rem;\r\n      }\r\n    }\r\n  }\r\n\r\n\r\n\r\n  .travel__scene__message[data-messagetype='dialog']{\r\n    .message__content{\r\n      padding-left: 7.7rem;\r\n      text-align: left;\r\n    }\r\n  }\r\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/scss/_travelScene.scss	(revision 2d8456542df8e8323f2ee440330a06d368c8123f)
++++ src/scss/_travelScene.scss	(date 1591624967784)
+@@ -58,10 +58,11 @@
+ 
+   .message__content{
+     box-sizing: border-box;
+-    text-align: center;
+     width: 100%;
+     margin-bottom: 2rem;
+     margin-top: 0;
++    line-height: 1.2em;
++    text-align: left;
+   }
+ 
+   .btn{
+@@ -107,7 +108,7 @@
+ 
+     .travel__scene__message{
+       min-width: calc(100% - (100% / 3));
+-      max-width: calc(100% - (100% / 6));;
++      max-width: calc(100% - (100% / 6));
+       .message__speaker{
+         position: absolute;
+         top: -1.3rem;
+@@ -125,6 +126,10 @@
+         }
+       }
+ 
++      .message__content{
++        text-align: center;
++      }
++
+       .btn{
+         font-size: 0.7692rem;
+       }
+Index: src/components/HomeScene.jsx
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>import React, {Component} from 'react';\r\nimport * as PIXI from 'pixi.js'\r\n\r\nimport {imgData} from '../data/imgData.json';\r\n\r\nconst simulatedWidth = 320;\r\nconst imgAverageVelocity = 1;\r\nconst imgBurstRate = 100;\r\n\r\nconst imgParticleRatio = 8;\r\n\r\nconst imgVelocityMin = 2;\r\n\r\nvar canvas;\r\nvar container;\r\nvar view;\r\nvar loader;\r\nvar offset;\r\nvar img = new PIXI.Graphics();\r\n\r\nvar imgBurstingPixel = 0;\r\nvar imgDeadPixel = 0;\r\n\r\nconst imgPixelNbr = imgData.length;\r\n\r\nvar imgParticles = [];\r\n\r\nlet animationTimer;\r\n\r\nvar viewResolution;\r\nvar newViewResolution;\r\n\r\nconst titleSize = {\r\n  height: 56,\r\n  width: 310,\r\n}\r\n\r\nlet particleContainer = [];\r\nlet particleRenderer = new PIXI.Graphics();\r\nconst particleMax = 10;\r\nconst particleColor = 0xFFFFFF;\r\n\r\n\r\nclass HomeScene extends Component {\r\n\r\n  componentDidMount() {\r\n    canvas = document.querySelector('.home__scene__canvas');\r\n    container = document.querySelector('.home__scene');\r\n\r\n    let canvasWidth = window.innerWidth;\r\n    let canvasHeight = window.innerHeight - 10;\r\n    console.log(canvasWidth);\r\n\r\n    view = new PIXI.Application({\r\n      view: canvas,\r\n      height: canvasHeight,\r\n      width: canvasWidth,\r\n    });\r\n\r\n    PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;\r\n\r\n    view.height = window.innerHeight;\r\n    view.width = window.innerWidth;\r\n\r\n    viewResolution = view.width / simulatedWidth;\r\n\r\n    view.renderer.resolution = viewResolution;\r\n\r\n    this.resizeCanvas();\r\n    window.onresize = this.resizeCanvas;\r\n\r\n    view.stage.addChild(img);\r\n\r\n    loader = new PIXI.Loader();\r\n    loader.onComplete.add(() => {\r\n      this.initImg();\r\n      this.drawImg();\r\n      this.initParticles();\r\n      //this.initTitleAnimation();\r\n      view.ticker.start();\r\n    });\r\n    loader.load();\r\n  }\r\n\r\n\r\n  componentDidUpdate(prevProps, prevState, snapshot) {\r\n    if(prevProps.titleAnimation !== this.props.titleAnimation){\r\n      this.initTitleAnimation();\r\n      animationTimer = window.setTimeout(this.props.startGame, 8000);\r\n    }\r\n  }\r\n\r\n\r\n  resizeCanvas = () => {\r\n\r\n    view.height = window.innerHeight;\r\n    view.width = window.innerWidth;\r\n\r\n    newViewResolution = view.width / simulatedWidth;\r\n\r\n    img.scale.y = newViewResolution / viewResolution;\r\n\r\n    offset = {\r\n      x: (simulatedWidth - titleSize.width) / 2,\r\n      y: ((container.offsetHeight / newViewResolution) - (titleSize.height / img.scale.y)) / 2,\r\n    }\r\n\r\n    img.x = offset.x;\r\n    img.y = offset.y;\r\n\r\n    this.drawImg();\r\n  }\r\n\r\n\r\n  initImg = () => {\r\n    for(let i = 0; i < imgData.length; i++){\r\n      if((i % imgParticleRatio === 0)){\r\n        imgParticles.push(imgData[i])\r\n      }\r\n    }\r\n\r\n    imgParticles.forEach((pixel, i) => {\r\n      pixel.velocity = this.getRandomVelocity();\r\n      pixel.lifetime = 2;\r\n      pixel.size = Math.random() * 2;\r\n    });\r\n  }\r\n\r\n\r\n  drawImg = () => {\r\n    img.clear();\r\n\r\n    for(let i = imgBurstingPixel + 1; i < imgPixelNbr; i++){\r\n      let pixel = imgData[i];\r\n      img.beginFill(pixel.color);\r\n      img.drawRect(pixel.x, pixel.y, 1, 1);\r\n      img.endFill();\r\n    }\r\n\r\n    for(let j = imgDeadPixel; j < (imgBurstingPixel / imgParticleRatio); j++){\r\n      let pixel = imgParticles[j];\r\n      img.beginFill(pixel.color);\r\n      img.drawRect(pixel.x, pixel.y, pixel.size, pixel.size);\r\n      img.endFill();\r\n    }\r\n\r\n  }\r\n\r\n\r\n  imgBurst = () => {\r\n    let framerate = view.ticker.FPS;\r\n\r\n    imgBurstingPixel = Math.min(imgBurstingPixel + imgBurstRate, imgPixelNbr - 1);\r\n  }\r\n\r\n\r\n  imgMove = () => {\r\n    let framerate =  1 / view.ticker.FPS;\r\n\r\n    for(let i = imgDeadPixel; i <= (imgBurstingPixel / imgParticleRatio); i++){\r\n      let pixel = imgParticles[i];\r\n      pixel.x += pixel.velocity.x * imgAverageVelocity;\r\n      pixel.y += pixel.velocity.y * imgAverageVelocity;\r\n      pixel.lifetime -= framerate;\r\n\r\n      if(pixel.lifetime <= 0){\r\n        imgDeadPixel += 1;\r\n      }\r\n    }\r\n\r\n  }\r\n\r\n\r\n  getRandomVelocity = () => {\r\n    let velocity = {x: -imgVelocityMin, y: 0};\r\n    velocity.x -= Math.random() * 2;\r\n    velocity.y = (0.3 - Math.random());\r\n\r\n    return velocity;\r\n  }\r\n\r\n  getRandomInt = (max) => {\r\n    return Math.floor(\r\n      Math.random() * max\r\n    );\r\n  }\r\n\r\n\r\n  initTitleAnimation = () => {\r\n    view.ticker.add(() => {\r\n      this.imgBurst();\r\n      this.imgMove();\r\n      this.drawImg();\r\n    });\r\n    view.ticker.start();\r\n  }\r\n\r\n\r\n  initParticles = () => {\r\n    for(let i = 0; i < particleMax; i++){\r\n      particleContainer.push({\r\n        x: Math.random() * simulatedWidth,\r\n        y: Math.random() * simulatedWidth,\r\n        size: 1,\r\n        velocity: this.getRandomVelocity()\r\n      });\r\n    }\r\n\r\n    particleRenderer.zIndex = 10000;\r\n\r\n    view.stage.addChild(particleRenderer);\r\n    view.ticker.add(this.drawParticles);\r\n    view.ticker.add((deltaTime) => this.moveParticle(deltaTime));\r\n  }\r\n\r\n\r\n  drawParticles = () => {\r\n    particleRenderer.clear();\r\n\r\n    particleContainer.forEach((particle) => {\r\n      particleRenderer.beginFill(particleColor);\r\n      particleRenderer.drawRect(particle.x, particle.y, particle.size, particle.size);\r\n      particleRenderer.endFill();\r\n    });\r\n  }\r\n\r\n\r\n  moveParticle = (deltaTime) => {\r\n    particleContainer.forEach((particle) => {\r\n\r\n      particle.x += particle.velocity.x * deltaTime;\r\n      particle.y += particle.velocity.y * deltaTime;\r\n\r\n      if(particle.x < (0 - particle.size)){\r\n        let particleCoord = this.replaceParticle();\r\n        particle.x = particleCoord.x;\r\n        particle.y = particleCoord.y;\r\n      }\r\n    });\r\n  }\r\n\r\n\r\n  replaceParticle = () => {\r\n    let particleCoord = {\r\n      x: simulatedWidth,\r\n      y: Math.random() * simulatedWidth,\r\n    };\r\n    return particleCoord;\r\n  }\r\n\r\n\r\n  render() {\r\n    return (\r\n      <div className={'home__scene'}>\r\n        <canvas className={'home__scene__canvas'}></canvas>\r\n      </div>\r\n    );\r\n  }\r\n}\r\n\r\nexport default HomeScene;
+===================================================================
+--- src/components/HomeScene.jsx	(revision 2d8456542df8e8323f2ee440330a06d368c8123f)
++++ src/components/HomeScene.jsx	(date 1591620822315)
+@@ -179,12 +179,6 @@
+     return velocity;
+   }
+ 
+-  getRandomInt = (max) => {
+-    return Math.floor(
+-      Math.random() * max
+-    );
+-  }
+-
+ 
+   initTitleAnimation = () => {
+     view.ticker.add(() => {
+@@ -198,6 +192,7 @@
+ 
+   initParticles = () => {
+     for(let i = 0; i < particleMax; i++){
++
+       particleContainer.push({
+         x: Math.random() * simulatedWidth,
+         y: Math.random() * simulatedWidth,
+@@ -206,6 +201,8 @@
+       });
+     }
+ 
++    console.log(particleContainer);
++
+     particleRenderer.zIndex = 10000;
+ 
+     view.stage.addChild(particleRenderer);
+@@ -228,8 +225,10 @@
+   moveParticle = (deltaTime) => {
+     particleContainer.forEach((particle) => {
+ 
+-      particle.x += particle.velocity.x * deltaTime;
+-      particle.y += particle.velocity.y * deltaTime;
++      //particle.x += particle.velocity.x * deltaTime;
++      //particle.y += particle.velocity.y * deltaTime;
++      particle.x += particle.velocity.x;
++      particle.y += particle.velocity.y;
+ 
+       if(particle.x < (0 - particle.size)){
+         let particleCoord = this.replaceParticle();

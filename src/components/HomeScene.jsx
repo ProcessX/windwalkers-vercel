@@ -179,12 +179,6 @@ class HomeScene extends Component {
     return velocity;
   }
 
-  getRandomInt = (max) => {
-    return Math.floor(
-      Math.random() * max
-    );
-  }
-
 
   initTitleAnimation = () => {
     view.ticker.add(() => {
@@ -192,7 +186,6 @@ class HomeScene extends Component {
       this.imgMove();
       this.drawImg();
     });
-    view.ticker.start();
   }
 
 

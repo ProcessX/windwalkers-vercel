@@ -30,7 +30,42 @@
 }
 
 
-@media (min-width: 998px){
+.page--home--hideNav{
+
+  .menu--home{
+    animation-name: menuTransition;
+    animation-duration: 2s;
+    animation-timing-function: steps(5,end);
+    animation-fill-mode: forwards;
+    -webkit-animation-name: menuTransition;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: steps(5,end);
+    -webkit-animation-fill-mode: forwards;
+
+    .menu__btn__li{
+      .menu__btn__el{
+        pointer-events: none;
+      }
+    }
+  }
+
+  .home__info__li{
+    animation-name: menuTransition;
+    animation-duration: 2s;
+    animation-timing-function: steps(5,end);
+    animation-fill-mode: forwards;
+    -webkit-animation-name: menuTransition;
+    -webkit-animation-duration: 2s;
+    -webkit-animation-timing-function: steps(5,end);
+    -webkit-animation-fill-mode: forwards;
+  }
+}
+
+
+
+
+
+@media (min-width: 998px) and (orientation: landscape){
   .page--home{
     .menu--home{
       .menu__btn__li{
@@ -63,5 +98,15 @@
       .home__info__el{
       }
     }
+  }
+}
+
+
+@keyframes menuTransition {
+  from{
+    opacity: 1;
+  }
+  to{
+    opacity: 0;
   }
 }

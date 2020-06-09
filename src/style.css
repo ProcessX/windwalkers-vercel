@@ -259,7 +259,41 @@
   color: #7F7F7F;
 }
 
-@media (min-width: 998px) {
+.page--home--hideNav .home__illu {
+  animation-name: menuTransition;
+  animation-duration: 2s;
+  animation-timing-function: steps(5, end);
+  animation-fill-mode: forwards;
+  -webkit-animation-name: menuTransition;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: steps(5, end);
+  -webkit-animation-fill-mode: forwards;
+}
+.page--home--hideNav .menu--home {
+  animation-name: menuTransition;
+  animation-duration: 2s;
+  animation-timing-function: steps(5, end);
+  animation-fill-mode: forwards;
+  -webkit-animation-name: menuTransition;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: steps(5, end);
+  -webkit-animation-fill-mode: forwards;
+}
+.page--home--hideNav .menu--home .menu__btn__li .menu__btn__el {
+  pointer-events: none;
+}
+.page--home--hideNav .home__info__li {
+  animation-name: menuTransition;
+  animation-duration: 2s;
+  animation-timing-function: steps(5, end);
+  animation-fill-mode: forwards;
+  -webkit-animation-name: menuTransition;
+  -webkit-animation-duration: 2s;
+  -webkit-animation-timing-function: steps(5, end);
+  -webkit-animation-fill-mode: forwards;
+}
+
+@media (min-width: 998px) and (orientation: landscape) {
   .page--home .menu--home .menu__btn__li {
     display: flex;
     justify-content: center;
@@ -280,6 +314,14 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
+  }
+}
+@keyframes menuTransition {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 .harvest__container {
@@ -331,7 +373,6 @@
 }
 
 .page--minigame {
-  padding: 1rem;
   padding-bottom: 2rem;
   display: flex;
   flex-direction: column;
@@ -340,7 +381,7 @@
 .page--minigame .minigame__rule__li {
   list-style: none;
   margin: 0;
-  padding: 0;
+  padding: 0 1rem;
   max-width: 1400px;
   margin: 2rem auto 2rem auto;
 }
@@ -356,10 +397,6 @@
 }
 .page--minigame .minigame__rule__li .minigame__rule__el .minigame__rule {
   margin: 0;
-}
-.page--minigame .btn {
-  margin-top: auto;
-  margin-bottom: 2rem;
 }
 .page--minigame .btn--oldSchool--back {
   align-self: flex-start;
@@ -1818,7 +1855,7 @@
   text-indent: 100%;
 }
 
-@media (min-width: 998px) {
+@media (min-width: 998px) and (orientation: landscape) {
   .home__scene {
     display: block;
   }

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Link, Redirect} from "react-router-dom";
 import Btn from "../../components/Btn";
 import BtnBack from "../../components/BtnBack";
+import TransitionModule from "../../components/TransitionModule";
 
 class Minigame extends Component {
 
@@ -9,6 +10,7 @@ class Minigame extends Component {
     super();
     this.state = {
       redirectURL: null,
+      startTransition: false,
     }
   }
 
@@ -19,12 +21,21 @@ class Minigame extends Component {
     this.setState({redirectURL});
   }
 
+  startTransition = () => {
+    let {startTransition} = this.state;
+
+    startTransition = true;
+    this.setState({startTransition});
+  }
+
 
   render() {
-    const {redirectURL} = this.state;
+    const {redirectURL, startTransition} = this.state;
 
     return (
       <div className={'page page--minigame'}>
+        <TransitionModule startTransition={startTransition} callback={() => this.redirectTo('/game/minigame/harvest')}/>
+
         <BtnBack redirectURL={'/game/stop/resources'}/>
         <h1>Harvesting</h1>
         <p>Voici les règles du jeu :</p>
@@ -44,7 +55,7 @@ class Minigame extends Component {
           </li>
         </ul>
 
-        <Btn title={'Commencer'} action={() => this.redirectTo('/game/minigame/harvest')}/>
+        <Btn title={'Commencer'} action={() => this.startTransition()}/>
 
         {redirectURL ? <Redirect to={redirectURL}/> : null}
       </div>

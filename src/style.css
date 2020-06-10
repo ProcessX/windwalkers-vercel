@@ -997,6 +997,10 @@
   box-shadow: 4px 4px white;
 }
 
+.page--defeat .narration__illu {
+  background-image: url("/assets/landmarks/Defeat-Illu.png");
+}
+
 .page {
   box-sizing: border-box;
   height: 100vh;

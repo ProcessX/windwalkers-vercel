@@ -213,6 +213,8 @@ class Parallaxe extends Component {
   componentWillUnmount() {
     this.loader.destroy();
     this.parallaxe.ticker.destroy();
+    particleContainer = [];
+    this.parallaxe.destroy();
   }
 
 

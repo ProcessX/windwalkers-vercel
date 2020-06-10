@@ -90,6 +90,11 @@ class HomeScene extends Component {
     }
   }
 
+  componentWillUnmount() {
+    particleContainer = [];
+    view.destroy();
+  }
+
 
   resizeCanvas = () => {
 

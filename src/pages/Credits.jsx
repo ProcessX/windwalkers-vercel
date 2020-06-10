@@ -15,6 +15,26 @@ class Credits extends Component {
         <section className={'credits__section'}>
           <h2>Sources</h2>
           <h3>Musiques et bruitages</h3>
+          <ul className={'source__li'}>
+            <li className={'source__el'}>
+              <a href={'https://freemusicarchive.org/music/Komiku/Poupis_incredible_adventures_'} target={"_blank"} className={'source__link'}>Komiku - The Moment of Truth</a>
+            </li>
+            <li className={'source__el'}>
+              <a href={'https://freemusicarchive.org/music/Komiku/Poupis_incredible_adventures_'} target={"_blank"} className={'source__link'}>Komiku - The Challenge</a>
+            </li>
+            <li className={'source__el'}>
+              <a href={'https://freemusicarchive.org/music/Komiku/Poupis_incredible_adventures_'} target={"_blank"} className={'source__link'}>Komiku - The Zone</a>
+            </li>
+            <li className={'source__el'}>
+              <a href={'https://freemusicarchive.org/music/Komiku/Poupis_incredible_adventures_'} target={"_blank"} className={'source__link'}>Komiku - Mr Angst Theme</a>
+            </li>
+            <li className={'source__el'}>
+              <a href={'https://freemusicarchive.org/music/Komiku/Poupis_incredible_adventures_'} target={"_blank"} className={'source__link'}>Komiku - Resolution</a>
+            </li>
+            <li className={'source__el'}>
+              <a href={'https://freemusicarchive.org/music/Komiku/Poupis_incredible_adventures_'} target={"_blank"} className={'source__link'}>Komiku - This is Happening</a>
+            </li>
+          </ul>
           <h3>Technologie</h3>
           <ul className={'source__li'}>
             <li className={'source__el'}>

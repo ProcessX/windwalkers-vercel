@@ -7,7 +7,7 @@ class Defeat extends Component {
 
     return (
       <div className={'page page--defeat page--narration'}>
-        <div className={'narration__illu'}></div>
+        <div className={'narration__illu pixelArt'}></div>
         <p className={'narration__text'}>Votre Horde entière a été décimée. L'aventure s'arrête ici pour vous.</p>
         <p className={'narration__text'}>Merci toutefois d'avoir jouer. N'hésitez pas à retenter votre chance.</p>
 

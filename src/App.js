@@ -324,6 +324,7 @@ class App extends Component {
 
 
   endHarvesting = (playerStatus, payout) => {
+    console.log('End Harvesting - App');
     let {minigame} = this.state;
 
     minigame.success = !playerStatus;
@@ -331,7 +332,8 @@ class App extends Component {
 
     this.addToInventory(payout);
 
-    this.setState({minigame: minigame}, () => this.redirectTo('/game/minigame/loot/'));
+    //this.setState({minigame: minigame}, () => this.redirectTo('/game/minigame/loot/'));
+    this.setState({minigame: minigame});
   }
 
 

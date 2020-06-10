@@ -3,13 +3,13 @@ import * as PIXI from 'pixi.js'
 import TutorialPanel from "../../components/tutorialPanel";
 import DirectionStick from "../../components/DirectionStick";
 import TransitionModule from "../../components/TransitionModule";
+import {Redirect} from "react-router-dom";
 
 //Le timer ici se calcule en minutes.
 const harvestingTime = 1;
 let harvestingTimer;
 
 const damageIfDead = 15;
-
 
 let harvestView;
 let harvestContainer;
@@ -239,19 +239,43 @@ class Harvest extends Component {
 
     this.props.playMusic('harvest');
 
-    harvestingTimer = window.setTimeout(() => this.startTransition(), harvestingTime * 6000);
+    harvestingTimer = window.setTimeout(() => this.startTransition(), harvestingTime * 60000);
   }
 
 
   componentWillUnmount() {
+    this.clearAll();
+  }
+
+
+  clearAll = () => {
     loader.destroy();
     harvest.destroy();
+
+    obstacles = [];
+    safezones = [];
+    harvestables = [];
+    decoPlants = [];
+    lootMessages = [];
+    particleContainer = [];
+
+    inputUp.unsubscribe();
+    inputDown.unsubscribe();
+    inputLeft.unsubscribe();
+    inputRight.unsubscribe();
+
+    clearTimeout(harvestingTimer);
   }
 
 
   exitMinigame = () => {
     this.props.endHarvesting(player.dead, payout);
     //this.startTransition();
+    console.log('End Harvesting - App');
+
+    let {redirectURL} = this.state;
+    redirectURL = '/game/minigame/loot';
+    this.setState({redirectURL})
   }
 
 
@@ -777,7 +801,7 @@ class Harvest extends Component {
   blaastLoop = (delta) => {
     const {tutorial, audioManager} = this.props;
 
-    if(blaast.y >= ((harvestView.height / canvasScale) + blaast.height)){
+    if(blaast.y > ((harvestView.height / canvasScale) + blaast.height)){
       blaast.y = 0;
       blaast.blowing = false;
       windStrength = 1;
@@ -790,13 +814,14 @@ class Harvest extends Component {
       blaast.y += blaastSpeed;
       if(!player.safe){
         let playerY = walkingArea.toGlobal(player.position).y;
-        if(playerY < blaast.y && playerY >= blaast.y - 30){
+        if(playerY < blaast.y && playerY >= blaast.y - 24){
           if(!player.blownAway && !player.dead){
             player.blownAway = true;
           }
         }
         else{
           if(player.blownAway){
+            console.log('Player DEAAAAD !');
             player.blownAway = false;
             this.killPlayer();
           }
@@ -815,8 +840,9 @@ class Harvest extends Component {
           this.displayTutorial();
       }
       if(blaast.timer <= 0){
+
         blaast.blowing = true;
-        blaast.timer = blaast.delay;
+        blaast.timer = blaast.delay + this.getRandomInt(5);
         alertMessage.visible = false;
         audioManager.playSoundEffect('wave');
         console.log('BLAAST !');
@@ -923,6 +949,13 @@ class Harvest extends Component {
     //`hit` will be either `true` or `false`
     return hit;
   };
+
+
+  getRandomInt = (max) => {
+    return Math.floor(
+      Math.random() * max
+    );
+  }
 
 
   addToPayout = (harvestable) => {
@@ -1075,6 +1108,10 @@ class Harvest extends Component {
     this.props.fadeOutMusic(1000);
   }
 
+  redirectURL = (url) => {
+
+  }
+
 
 
   render() {
@@ -1094,6 +1131,8 @@ class Harvest extends Component {
         <div className={'harvest__controller'}>
           <DirectionStick sendInput={(input) => this.getMobileInput(input)}/>
         </div>
+
+        {redirectURL ? <Redirect to={redirectURL}/> : null}
       </div>
     );
   }

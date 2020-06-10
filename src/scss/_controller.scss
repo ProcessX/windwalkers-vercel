@@ -1,7 +1,17 @@
+.harvest__controller{
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
 .controller--directionStick{
+  position: absolute;
+  bottom: 2rem;
+  right: 2rem;
   height: 120px;
   width: 120px;
-  position: relative;
   background-image: url("/assets/interface/mobileController-Base.png");
   background-repeat: no-repeat;
   background-size: contain;

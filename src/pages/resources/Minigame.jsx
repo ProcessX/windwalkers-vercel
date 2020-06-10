@@ -42,15 +42,19 @@ class Minigame extends Component {
 
         <ul className={'minigame__rule__li'}>
           <li className={'minigame__rule__el'}>
-            <div className={'minigame__rule__illu'}>Illu</div>
-            <p className={'minigame__rule'}>Déplacez-vous avec les touches ZQSD ou avec les flèches directionnelles.</p>
+            <div className={'minigame__rule__illu minigame__rule__illu--keys pixelArt'}></div>
+            <p className={'minigame__rule'}>Déplacez-vous avec les touches ZQSD ou avec les flèches directionnelles...</p>
           </li>
           <li className={'minigame__rule__el'}>
-            <div className={'minigame__rule__illu'}>Illu</div>
+            <div className={'minigame__rule__illu minigame__rule__illu--stick pixelArt'}></div>
+            <p className={'minigame__rule'}>... ou avec le stick de direction sur écran tactile.</p>
+          </li>
+          <li className={'minigame__rule__el'}>
+            <div className={'minigame__rule__illu minigame__rule__illu--tree pixelArt'}></div>
             <p className={'minigame__rule'}>Approchez des arbustes pour récolter de la nourriture.</p>
           </li>
           <li className={'minigame__rule__el'}>
-            <div className={'minigame__rule__illu'}>Illu</div>
+            <div className={'minigame__rule__illu minigame__rule__illu--blaast pixelArt'}></div>
             <p className={'minigame__rule'}>Lorsque l'alerte "BLAAST" apparaît, cachez-vous derrière un rocher.</p>
           </li>
         </ul>

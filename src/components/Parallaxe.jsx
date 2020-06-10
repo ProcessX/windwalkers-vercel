@@ -185,6 +185,20 @@ class Parallaxe extends Component {
         member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Walking'];
         member.play();
       });
+
+      if(windStrength > 1){
+        console.log('VENT !');
+        particleContainer.forEach((particle) => {
+          particle.velocity.x *= 3;
+          particle.velocity.x /= 3;
+        });
+      }
+      else{
+        particleContainer.forEach((particle) => {
+          particle.velocity.x /= 3;
+          particle.velocity.x /= 3;
+        });
+      }
     }
 
     if(stormwind !== prevProps.stormwind){
@@ -198,6 +212,7 @@ class Parallaxe extends Component {
 
   componentWillUnmount() {
     this.loader.destroy();
+    this.parallaxe.ticker.destroy();
   }
 
 

@@ -119,7 +119,6 @@ let harvestables = [];
 let fruitTreeTexture;
 
 let decoPlants = [];
-let decoRocks = [];
 
 let harvestableLimit = new PIXI.Graphics();
 harvestableLimit.x = 0;
@@ -140,7 +139,6 @@ let particleContainer = [];
 let particleRenderer = new PIXI.Graphics();
 const particleMax = 10;
 const particleNormalSpeed = 1;
-const particleMinSpeed = particleNormalSpeed;
 const particleColor = 0x000000;
 
 
@@ -195,11 +193,6 @@ function keyboard(values) {
 
 
 
-
-
-
-
-
 class Harvest extends Component {
 
   constructor() {
@@ -246,12 +239,13 @@ class Harvest extends Component {
 
     this.props.playMusic('harvest');
 
-    //harvestingTimer = window.setTimeout(() => this.startTransition(), harvestingTime * 60000);
+    harvestingTimer = window.setTimeout(() => this.startTransition(), harvestingTime * 6000);
   }
 
 
   componentWillUnmount() {
     loader.destroy();
+    harvest.destroy();
   }
 
 
@@ -529,7 +523,7 @@ class Harvest extends Component {
 
 
   setupBlaast = () => {
-    blaast = new PIXI.Sprite(
+    blaast = new PIXI.TilingSprite(
       loader.resources.blaast.texture,
     );
 
@@ -539,11 +533,12 @@ class Harvest extends Component {
     blaast.hitbox = 2;
     blaast.delay = 10;
     blaast.timer = 10;
+    blaast.tileScale.x = 2;
 
 
     harvest.stage.addChild(blaast);
     harvest.ticker.add((deltaMS) => {
-      //this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
+      this.blaastLoop((deltaMS/1000) * (harvest.ticker.FPS/2));
     });
 
   }
@@ -605,24 +600,6 @@ class Harvest extends Component {
 
     decoPlants.forEach((plant) => {
       harvest.stage.addChild(plant);
-    })
-
-
-    let decoRockTexture = loader.resources['decoRock'].spritesheet;
-
-    for(let i = 0; i < 10; i++){
-      let rock = new PIXI.Sprite(
-        decoRockTexture.textures[`Harvest-Deco-Rock_${i % 4}.png`],
-      );
-
-      rock.x = Math.random() * (harvestView.width / canvasScale);
-      rock.y = Math.random() * (harvestView.height / canvasScale);
-      rock.zIndex = 2;
-      decoRocks.push(rock);
-    }
-
-    decoRocks.forEach((rock) => {
-      harvest.stage.addChild(rock);
     })
   }
 

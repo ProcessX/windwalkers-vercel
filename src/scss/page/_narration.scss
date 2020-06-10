@@ -32,4 +32,40 @@
   .btn{
     margin-top: 3rem;
   }
+
+  &--white{
+    background-color: white;
+    z-index: 5;
+
+    .narration__text{
+      color: black;
+    }
+
+    .btn{
+      background-color: white;
+      color: black;
+      border-color: black;
+      &:after{
+        background-color: white;
+        border-color: black;
+      }
+      &:before{
+        background-color: white;
+        border-color: black;
+      }
+
+      &:hover{
+        background-color: #BEBEBE;
+        color: white;
+
+        &:after{
+          background-color: #BEBEBE;
+        }
+        &:before{
+          background-color: #BEBEBE;
+        }
+      }
+
+    }
+  }
 }

@@ -13,7 +13,6 @@ class Landmark extends Component {
         {tutorial.landmark[0] ? <TutorialPanel content={tutorial.landmark[0]} validateTutorial={() => validateTutorial()}/> : null}
 
         <div className={'managementSection__content'}>
-          <div className={'managementSection__illu'}>Section's illu</div>
 
           <h2 className={'title title--size1 title--center managementSection__title'}>Lieu</h2>
 

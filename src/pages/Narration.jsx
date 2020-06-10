@@ -46,6 +46,9 @@ class Narration extends Component {
 
     if(progressIndex === 0 || progressIndex === 1)
       redirectURL = '/game/travel/';
+    else{
+      redirectURL = '/game/stop/horde';
+    }
 
     this.setState({redirectURL: redirectURL});
   }
@@ -64,11 +67,17 @@ class Narration extends Component {
 
   startTransition = () => {
     let {startTransition} = this.state;
+    let{progressIndex} = this.props;
 
     startTransition = true;
     this.setState({startTransition});
 
-    this.props.fadeOutMusic(1000);
+    if(progressIndex === 2){
+      this.props.crossFadeMusic('stop', 1000);
+    }
+    else{
+      this.props.fadeOutMusic(1000);
+    }
   }
 
 
@@ -88,11 +97,13 @@ class Narration extends Component {
       }
     }
 
+    let pageStyle = progressIndex === 2 ? 'page--narration--white' : '';
+
     return (
-      <div className={'page page--narration'}>
+      <div className={`page page--narration ${pageStyle}`}>
         <TransitionModule startTransition={startTransition} callback={() => this.quitNarration()}/>
 
-        <div className={'narration__illu illu'} style={illuStyle}></div>
+        <div className={'narration__illu illu pixelArt'} style={illuStyle}></div>
         {text}
         <Btn action={() => this.nextChapter()} title={'Suivant'}/>
         {redirectURL ? <Redirect to={redirectURL}/> : null}

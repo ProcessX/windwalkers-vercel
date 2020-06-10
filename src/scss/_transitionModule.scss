@@ -91,12 +91,15 @@
   }
 }
 
-@keyframes closingCurtain {
-  from{
 
-  }
+.page--transition--white{
+  .transitionModule {
 
-  to{
+    .transitionModule__curtain {
 
+      .curtain__elem {
+        background-color: white;
+      }
+    }
   }
 }

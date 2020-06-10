@@ -3,6 +3,7 @@
   flex-direction: column;
   align-items: center;
   padding: 1rem 1rem 2rem 1rem;
+  z-index: 1;
 
   .stop__illu{
     margin-bottom: auto;
@@ -23,6 +24,46 @@
   }
 
   .btn{
+  }
+}
+
+
+.page--stop--white{
+  background-color: white;
+
+  .stop__illu{
+  }
+
+  .stop__landmarkName{
+    background-color: black;
+    color: white;
+  }
+
+  .btn{
+    background-color: white;
+    color: black;
+    border-color: black;
+    &:after{
+      background-color: white;
+      border-color: black;
+    }
+    &:before{
+      background-color: white;
+      border-color: black;
+    }
+
+    &:hover{
+      background-color: #BEBEBE;
+      color: white;
+
+      &:after{
+        background-color: #BEBEBE;
+      }
+      &:before{
+        background-color: #BEBEBE;
+      }
+    }
+
   }
 }
 

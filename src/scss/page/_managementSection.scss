@@ -41,6 +41,17 @@
 
   .managementSection__rightPanel{
     display: none;
+
+    .camp__illu{
+      height: 100%;
+      width: 100%;
+      min-height: 100%;
+      min-width: 100%;
+      background-image: url("/assets/Fire-Illu.png");
+      background-position: center;
+      background-repeat: no-repeat;
+      background-size: contain;
+    }
   }
 }
 

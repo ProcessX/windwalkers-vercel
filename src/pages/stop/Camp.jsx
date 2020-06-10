@@ -44,7 +44,6 @@ class Camp extends Component {
         {tutorial.camp[0] ? <TutorialPanel content={tutorial.camp[0]} validateTutorial={() => validateTutorial()}/> : null}
 
         <div className={'managementSection__content'}>
-          <div className={'managementSection__illu'}>Section's illu</div>
 
           <h2 className={'title title--size1 title--center managementSection__title'}>Camp</h2>
 
@@ -73,7 +72,7 @@ class Camp extends Component {
           </nav>
 
           <div className={'managementSection__rightPanel'}>
-            <div className={'camp__illu'}>Camp Illu</div>
+            <div className={'camp__illu pixelArt'}></div>
           </div>
 
         </div>
@@ -97,11 +96,9 @@ class Camp extends Component {
               <Link className={'navbar__link navbar__link--active'}  to={'/game/stop/camp'}>Camp</Link>
               <div className={'navbar__link__illu pixelArt'} style={campIcon}></div>
             </li>
-            {/*}
             <li className={'navbar__link__el  navbar__link__el--toOptions'}>
-              <Link className={'navbar__link navbar__link--toOptions'}  to={'/options'}>Options</Link>
+              <Link className={'navbar__link navbar__link--toOptions pixelArt'}  to={'/game/options'}>Options</Link>
             </li>
-            {*/}
           </ul>
         </nav>
 

@@ -43,7 +43,6 @@ class Horde extends Component {
         {tutorial.horde[0] ? <TutorialPanel content={tutorial.horde[0]} validateTutorial={() => validateTutorial()}/> : null}
 
         <div className={'managementSection__content'}>
-          <div className={'managementSection__illu'}>Section's illu</div>
 
           <h2 className={'title title--size1 title--center managementSection__title'}>Horde</h2>
 
@@ -102,11 +101,9 @@ class Horde extends Component {
               <Link className={`navbar__link ${tutorial.camp[0] ? 'navbar__link--tuto' : ''}`}  to={'/game/stop/camp'}>Camp</Link>
               <div className={'navbar__link__illu pixelArt'} style={campIcon}></div>
             </li>
-            {/*}
             <li className={'navbar__link__el  navbar__link__el--toOptions'}>
-              <Link className={'navbar__link navbar__link--toOptions'}  to={'/options'}>Options</Link>
+              <Link className={'navbar__link navbar__link--toOptions pixelArt'}  to={'/game/options'}>Options</Link>
             </li>
-            {*/}
           </ul>
         </nav>
 

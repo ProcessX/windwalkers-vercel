@@ -12,15 +12,17 @@ class Stop extends Component {
   }
 
   render() {
-    const {nextLocation, accessLandmark, currentLocation} = this.props;
+    const {nextLocation, accessLandmark, currentLocation, progressIndex} = this.props;
     const illu = {
       backgroundImage: `url(${baseURL}/${currentLocation.url}-Illu.png)`,
       backgroundRepeat: 'no-repeat',
       backgroundPosition: 'center',
     };
 
+    let pageStyle = progressIndex === 2 ? 'page--stop--white' : '';
+
     return (
-      <div className={'page page--stop'}>
+      <div className={`page page--stop ${pageStyle}`}>
         <div className={'illu stop__illu pixelArt'} style={illu}></div>
         <h2 className={'stop__landmarkName'}>{currentLocation.name}</h2>
         <Btn title={'Continuer'} action={() => accessLandmark()}/>

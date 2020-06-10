@@ -88,7 +88,23 @@ class AudioManager {
 
 
   fadeOutMusic = (timelapse) => {
-    this.music.music.fade(this.volume, 0, timelapse);
+    if(this.music.music){
+      this.music.music.fade(this.volume, 0, timelapse);
+    }
+  }
+
+
+  crossFadeMusic = (id, timelapse) => {
+    if(this.music.music){
+      console.log(id);
+      this.music.music.fade(this.volume, 0, timelapse);
+      setTimeout(() => {
+        this.playMusic(id);
+      }, 1000)
+    }
+    else{
+      this.playMusic(id);
+    }
   }
 }
 

@@ -299,8 +299,10 @@ class Travel extends Component {
     const {eventSequence, walking, redirectURL, windStrength, stormwind, startTransition} = this.state;
     const {horde, inventory, nextLocation, distanceTraveled, progressIndex} = this.props;
 
+    let pageClass = stormwind ? 'page--transition--white' : '';
+
     return (
-      <div className={`page page--travel ${progressIndex < 2 ? 'page--travel--noStopAllowed' : ''}`}>
+      <div className={`page page--travel ${pageClass} ${progressIndex < 2 ? 'page--travel--noStopAllowed' : ''}`}>
         <TransitionModule startTransition={startTransition} callback={() => this.quitWalking()}/>
 
         <TravelScene

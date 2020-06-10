@@ -13,8 +13,7 @@
         [
           {
             "message" : "Attendez, arrêtons-nous... Il faut s'arrêter.",
-            "speaker": "Oroshi",
-            "windStrength": 2
+            "speaker": "Oroshi"
           },
           {
             "message" : "Qu'est-ce qu'il se passe, Oroshi ? Tu sens quelque chose ?",
@@ -60,8 +59,7 @@
           {
             "message" : "Une bourrasque fait trébucher %victim%. Le chute lui racle légèrement l'épaule.",
             "damage": 3,
-            "victime": 1,
-            "stormwind": "incoming"
+            "victime": 1
           }
         ],
         [
@@ -109,7 +107,8 @@
         ],
         [
           {
-            "message": "Le vent forcit et devient de plus en plus difficile à contrer. Dans le ciel, les nuages filent à une vitesse inouïe."
+            "message": "Le vent forcit et devient de plus en plus difficile à contrer. Dans le ciel, les nuages filent à une vitesse inouïe.",
+            "windStrength": 2
           },
           {
             "message": "Comme tu es jeune, tu n'as pas dû voir de nombreux Furvents. Et maintenant que tu es dans la Horde, il va falloir faire front dans la plaine, et pas cachée dans un abris.",
@@ -196,11 +195,12 @@
     },
     {
       "name": "Le port à drakkair",
-      "url": "Pharéole",
+      "url": "Port",
       "distanceFromPrevious": 80,
       "eventOnLeaving": [
         {
-          "message": "La Horde se rassemble devant le mur d'enceinte, incertaine de ce qu'il convient de faire."
+          "message": "La Horde se rassemble devant le mur d'enceinte, incertaine de ce qu'il convient de faire.",
+          "windStrength": 2
         },
         {
           "message": "Impossible, Traceur, rigoureusement impossible. Si nous mettons un pied dehors, les rafales nous déchiqueterons dès la première vague. Lors de la seconde, il ne restera de nous que des petits bouts de chairs éparpillés sur cinq kilomètres en aval.",
@@ -322,7 +322,8 @@
           "message": "... avant de redescendre et de réintégrer à la Horde."
         },
         {
-          "message": "Les dents se serrent, et la première vague du Furvent arrive."
+          "message": "Les dents se serrent, et la première vague du Furvent arrive.",
+          "stormwind": "incoming"
         },
         {
           "message": "BLAAST !"

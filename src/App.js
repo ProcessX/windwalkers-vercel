@@ -227,7 +227,7 @@ class App extends Component {
       this.redirectTo('/game/victory');
     }
     else{
-      if(progressIndex > 1){
+      if(progressIndex > 2){
         this.redirectTo('/game/stop/horde/');
       }
       else{
@@ -272,10 +272,8 @@ class App extends Component {
     if(horde.members[i].health === 0){
       return false;
     }
-
-    return true;
-
     this.setState({horde: horde});
+    return true;
   }
 
 
@@ -372,6 +370,12 @@ class App extends Component {
   }
 
 
+  crossFadeMusic = (id, timelapse) => {
+    let {audioManager} = this.state;
+    audioManager.crossFadeMusic(id, timelapse);
+  }
+
+
 
   render() {
     const {
@@ -450,6 +454,7 @@ class App extends Component {
 
             <Route path={'/game/narration'} exact>
               <Narration
+                crossFadeMusic={(id, timelapse) => this.crossFadeMusic(id, timelapse)}
                 fadeOutMusic={(timelapse) => this.fadeOutMusic(timelapse)}
                 progressIndex={progressIndex}
               />
@@ -461,6 +466,7 @@ class App extends Component {
 
             <Route path={'/game/stop'} exact>
               <Stop
+                progressIndex={progressIndex}
                 playMusic={(id) => this.playMusic(id)}
                 currentLocation={currentLocation}
                 nextLocation={nextLocation}

@@ -270,8 +270,6 @@ class Harvest extends Component {
 
   exitMinigame = () => {
     this.props.endHarvesting(player.dead, payout);
-    //this.startTransition();
-    console.log('End Harvesting - App');
 
     let {redirectURL} = this.state;
     redirectURL = '/game/minigame/loot';
@@ -821,7 +819,6 @@ class Harvest extends Component {
         }
         else{
           if(player.blownAway){
-            console.log('Player DEAAAAD !');
             player.blownAway = false;
             this.killPlayer();
           }
@@ -845,7 +842,6 @@ class Harvest extends Component {
         blaast.timer = blaast.delay + this.getRandomInt(5);
         alertMessage.visible = false;
         audioManager.playSoundEffect('wave');
-        console.log('BLAAST !');
       }
     }
   }

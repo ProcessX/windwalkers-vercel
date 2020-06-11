@@ -51,7 +51,7 @@
       "victime": 1
     },
     {
-      "message": "%victim% tente d'apprivoiser une marmotte, mais l'animal ne l'entend pas de cette oreille. Elle sort les griffes et il s'en faut de peu pour que %victim% ne perde pas ses doigts.",
+      "message": "%victim% tente d'apprivoiser une marmotte, mais l'animal ne l'entend pas de cette oreille. Elle sort les griffes et il s'en faut de peu pour que la bête ne lui arrache un doigt.",
       "damage": 8,
       "victime": 1
     },

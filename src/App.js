@@ -128,7 +128,6 @@ class App extends Component {
     PIXI.settings.SCALE_MODE = PIXI.SCALE_MODES.NEAREST;
 
     let loader = PIXI.Loader.shared;
-    //console.log(loader.resources);
 
     loader.baseUrl = process.env.PUBLIC_URL + '/assets/';
     loader
@@ -290,6 +289,7 @@ class App extends Component {
     let {horde, inventory, turnNbr, distanceTraveled} = this.state;
 
     let damage = (distance * walkingDamage) * (horde.pacing / basicPacing);
+    //let damage = 0;
 
     let foodConsumed = Math.min(horde.foodConsumption, inventory.food);
     if(distance > 0)
@@ -324,7 +324,6 @@ class App extends Component {
 
 
   endHarvesting = (playerStatus, payout) => {
-    console.log('End Harvesting - App');
     let {minigame} = this.state;
 
     minigame.success = !playerStatus;
@@ -378,7 +377,6 @@ class App extends Component {
   }
 
   createAudioContext = () => {
-    console.log('create audio context');
     this.playMusic('home');
   }
 

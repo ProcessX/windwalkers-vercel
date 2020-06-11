@@ -22,7 +22,6 @@ class Home extends Component {
   redirectTo = (url) => {
     let {redirectURL} = this.state;
     redirectURL = url;
-    console.log(this.props.history);
     this.setState({redirectURL});
   }
 
@@ -50,7 +49,7 @@ class Home extends Component {
           startGame={() => this.redirectTo('/game/narration/')}
         />
 
-        <h1 className={'home__title illu'}>Windwalkers</h1>
+        <h1 className={'home__title illu pixelArt'}>Windwalkers</h1>
 
         <nav className={'menu menu--fullScreen menu--home'}>
           <ul className={'menu__btn__li'}>

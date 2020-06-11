@@ -5,7 +5,7 @@ import {imgData} from '../data/imgData.json';
 
 const simulatedWidth = 320;
 const imgAverageVelocity = 1;
-const imgBurstRate = 100;
+const imgBurstRate = 50;
 
 const imgParticleRatio = 8;
 
@@ -31,7 +31,7 @@ var viewResolution;
 var newViewResolution;
 
 const titleSize = {
-  height: 56,
+  height: 82,
   width: 310,
 }
 
@@ -49,7 +49,6 @@ class HomeScene extends Component {
 
     let canvasWidth = window.innerWidth;
     let canvasHeight = window.innerHeight - 10;
-    console.log(canvasWidth);
 
     view = new PIXI.Application({
       view: canvas,

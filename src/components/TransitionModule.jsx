@@ -25,7 +25,6 @@ class TransitionModule extends Component {
 
 
   endTransition = () => {
-    console.log('End Transition');
     this.transitionTimer = window.setTimeout(() => this.props.callback(), 500);
   }
 

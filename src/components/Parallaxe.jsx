@@ -147,7 +147,6 @@ class Parallaxe extends Component {
   componentDidUpdate(prevProps, prevState, snapshot) {
     const {walking, horde, windStrength, stormwind} = this.props;
     if(walking && !prevProps.walking){
-      console.log('walk');
       this.hordeToManipulate.forEach((member, i) => {
         member.texture = null;
         if(windStrength > 1){
@@ -157,12 +156,10 @@ class Parallaxe extends Component {
           member.textures = this.characterAnimatedTexture[i].animations['ThreeThird-Walking'];
         }
         member.play();
-        console.log(member.playing);
       });
     }
     else{
       if(!walking && prevProps.walking){
-        console.log('stop walking');
         this.hordeToManipulate.forEach((member, i) => {
           if(windStrength > 1){
             member.texture = this.characterAnimatedTexture[i].textures['ThreeThird-Hunched-Still_0.png'];
@@ -187,7 +184,6 @@ class Parallaxe extends Component {
       });
 
       if(windStrength > 1){
-        console.log('VENT !');
         particleContainer.forEach((particle) => {
           particle.velocity.x *= 3;
           particle.velocity.x /= 3;
@@ -203,7 +199,6 @@ class Parallaxe extends Component {
 
     if(stormwind !== prevProps.stormwind){
       if(stormwind === "incoming"){
-        console.log('Storm incoming');
       }
     }
 
@@ -472,7 +467,6 @@ class Parallaxe extends Component {
 
   changeHordePosition = () => {
     const {windStrength} = this.props;
-    console.log('Change horde position');
     hordeReplacing = true;
     if(windStrength === 1){
       this.hordeMembersPosition = this.hordeMembersPositionNormal;

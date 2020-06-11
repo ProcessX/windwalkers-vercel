@@ -1,4 +1,4 @@
-import {Howl, Howler} from 'howler';
+import {Howl} from 'howler';
 
 import {musicRef} from "../data/musicRef.json";
 import {soundEffectRef} from "../data/soundEffectRef.json";
@@ -19,6 +19,7 @@ class AudioManager {
         music: new Howl({
           src: [`/assets/music/music-${id}.mp3`],
           loop: true,
+          html5: true,
         })
       });
     }
@@ -30,7 +31,9 @@ class AudioManager {
       this.musicList.push({
         id: `landmark-${id}`,
         music: new Howl({
-          src: [`/assets/music/music-landmark-${id}.mp3`]
+          src: [`/assets/music/music-landmark-${id}.mp3`],
+          loop: true,
+          html5: true,
         })
       });
     }
@@ -41,7 +44,8 @@ class AudioManager {
         id: id,
         soundEffect: new Howl({
           src: [`/assets/soundEffect/soundEffect-${id}.wav`],
-          loop: false
+          loop: false,
+          html5: true,
         })
       });
     }

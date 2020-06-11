@@ -377,6 +377,10 @@ class App extends Component {
     audioManager.crossFadeMusic(id, timelapse);
   }
 
+  createAudioContext = () => {
+    console.log('create audio context');
+    this.playMusic('home');
+  }
 
 
   render() {
@@ -403,7 +407,11 @@ class App extends Component {
 
           <Switch>
             <Route path={'/'} exact>
-              <Landing/>
+              <Landing
+                createAudioContext={() => this.createAudioContext()}
+                audioManager={audioManager}
+                playMusic={(id) => this.playMusic(id)}
+              />
             </Route>
 
             <Route path={'/game/'} exact>

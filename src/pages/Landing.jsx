@@ -71,7 +71,7 @@ class Landing extends Component {
           <div className={'landing__content'}>
             <h1 className={'title title--landing pixelArt'} style={mainTitleStyle}>Windwalkers</h1>
             <p className={'content__intro'}>Inspirée du jeu Oregon Trail et du roman de SF La Horde du Contrevent.</p>
-            <Btn action={() => this.startTransition()} title={'Tester la démo'}/>
+            <Btn onClick={() => this.props.playMusic('home')} action={() => this.startTransition()} title={'Tester la démo'}/>
           </div>
         </section>
 

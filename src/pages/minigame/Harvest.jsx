@@ -451,7 +451,7 @@ class Harvest extends Component {
     player.animationSpeed = 0.1;
 
     player.anchor.set(0.5,1);
-    player.hitbox = {width: 1, height: 0.5};
+    player.hitbox = {width: 0.6, height: 0.5};
     player.x = 80;
     player.y = 80;
     player.zIndex = 30;
